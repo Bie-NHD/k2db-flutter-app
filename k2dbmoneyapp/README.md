@@ -1,16 +1,20 @@
-# k2dbmoneyapp
-
-A mobile application on Android platform Use to payment and transaction in convenience stores
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# K2DB Money App
+- A mobile application on Android platform. Use to payment and transaction in convenience stores.
+- The product of student scientific research in 2023 of University of Transport and Communications campus in HCMC.
+# Installation
+# Technologies used
+- **Framework**: Flutter
+- **Language**: Dart
+- **Database**: Firebase
+- **IDE**: Android Studio
+# Acknowledgments
+# List of features
+# Members
+- **Mentor** - *Ms*. Thi Thu Huong Nguyen
+- **Leader** - *Mr*. Gia Kiet Hoang
+- **Member** - *Ms*. Huong Duyen Nguyen
+- **Member** - *Mr*. Che Bang Vo
+- **Member** - *Mr*. Quoc Khanh Pham
+- **Collaborator** - *Mr*. Thanh Luan Nguyen
+# Support
+For support, email k2db.nckhsv@gmail.com or phone number **0784265174**.
