@@ -9,6 +9,7 @@
 - **IDE**: Android Studio
 # Acknowledgments
 # List of features
+- Tính năng xem lịch sử giao dịch
 # Members
 - **Mentor** - *Ms*. Thi Thu Huong Nguyen
 - **Leader** - *Mr*. Gia Kiet Hoang
