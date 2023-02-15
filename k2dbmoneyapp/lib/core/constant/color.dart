@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorK2DB {
+class ColorsApp {
   static const Color black = Color(0xFF000000);
   static const Color orange = Color(0xFFFF9900);
   static const Color grey = Color(0xFFB7B3B2);
