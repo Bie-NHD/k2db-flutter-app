@@ -15,7 +15,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: routes,
       title: 'K2DB Money',
-      theme: ThemeData(),
+      theme: ThemeData(
+        primaryColor: Colors.deepOrange,
+      ),
       home: const HomeScreen(),
     );
   }
