@@ -14,6 +14,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ColorsApp.green,
+        centerTitle: true,
         title: const Text(
           'K2DB Money',
           style: TextStyle(color: ColorsApp.white),
