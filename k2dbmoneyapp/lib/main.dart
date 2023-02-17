@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/routes.dart';
-import 'package:k2dbmoneyapp/screens/home_screen.dart';
+import 'package:k2dbmoneyapp/views/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
