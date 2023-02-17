@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
       routes: routes,
       title: 'K2DB Money',
       theme: ThemeData(
-        primaryColor: Colors.deepOrange,
+        fontFamily: "Nunito",
       ),
       home: MainPage(),
     );

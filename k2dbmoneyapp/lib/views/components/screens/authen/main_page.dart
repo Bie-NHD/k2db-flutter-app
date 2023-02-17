@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_string.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../../core/constant/dimension.dart';
@@ -29,7 +30,8 @@ class _MainPageState extends State<MainPage> {
                 FontAwesomeIcons.house,
                 size: kIconSize,
               ),
-              title: const Text("Home"),
+              title: Text("Home",
+                  style: TextStyles.defaultStyle.colorPrimaryText.semiBold),
               selectedColor: ColorsApp.primaryColor,
               unselectedColor: ColorsApp.tertiaryColors,
             ),
@@ -39,7 +41,8 @@ class _MainPageState extends State<MainPage> {
                 FontAwesomeIcons.gift,
                 size: kIconSize,
               ),
-              title: const Text("Promotion"),
+              title: Text("Promotion",
+                  style: TextStyles.defaultStyle.colorPrimaryText.semiBold),
               selectedColor: ColorsApp.primaryColor,
               unselectedColor: ColorsApp.tertiaryColors,
             ),
@@ -49,7 +52,8 @@ class _MainPageState extends State<MainPage> {
                 FontAwesomeIcons.store,
                 size: kIconSize,
               ),
-              title: const Text("Store"),
+              title: Text("Store",
+                  style: TextStyles.defaultStyle.colorPrimaryText.semiBold),
               selectedColor: ColorsApp.primaryColor,
               unselectedColor: ColorsApp.tertiaryColors,
             ),
@@ -59,7 +63,8 @@ class _MainPageState extends State<MainPage> {
                 FontAwesomeIcons.chartSimple,
                 size: kIconSize,
               ),
-              title: const Text("Statistic"),
+              title: Text("Statistic",
+                  style: TextStyles.defaultStyle.colorPrimaryText.semiBold),
               selectedColor: ColorsApp.primaryColor,
               unselectedColor: ColorsApp.tertiaryColors,
             ),
@@ -69,7 +74,8 @@ class _MainPageState extends State<MainPage> {
                 FontAwesomeIcons.userLarge,
                 size: kIconSize,
               ),
-              title: const Text("User"),
+              title: Text("User",
+                  style: TextStyles.defaultStyle.colorPrimaryText.semiBold),
               selectedColor: ColorsApp.primaryColor,
               unselectedColor: ColorsApp.tertiaryColors,
             ),
