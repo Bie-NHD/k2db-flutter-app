@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
+import 'package:k2dbmoneyapp/core/helpers/helper_notification.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,10 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: ColorsApp.appBarTextColor),
         ),
       ),
-      body: IconButton(
-        onPressed: () {},
-        icon: Icon(Icons.send),
-      ),
+      body: TestWebSocket(),
     );
   }
 }
