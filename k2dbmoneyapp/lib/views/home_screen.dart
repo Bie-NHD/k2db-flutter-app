@@ -21,6 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: ColorsApp.appBarTextColor),
         ),
       ),
+      body: IconButton(
+        onPressed: () {},
+        icon: Icon(Icons.send),
+      ),
     );
   }
 }
