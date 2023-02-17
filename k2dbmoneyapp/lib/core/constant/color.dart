@@ -13,7 +13,7 @@ class ColorsApp {
   static const Color headingTextColor = Color(0xFF181717);
   static const Color titleTextColor = Color(0xFF3B3838);
   static const Color hintTextColor = Color(0xFF7F7F7F);
-  static const Color appBarTextColor = Color(0xFF7F7F7F);
+  static const Color appBarTextColor = Color(0xFFFFFFFF);
   // Status color
   static const Color statusSuccessColor = Color(0xFF41AF68);
   static const Color statusErrorColor = Color(0xFFC00000);
