@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/routes.dart';
+import 'package:k2dbmoneyapp/views/components/screens/authen/main_page.dart';
 import 'package:k2dbmoneyapp/views/home_screen.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.deepOrange,
       ),
-      home: const HomeScreen(),
+      home: MainPage(),
     );
   }
 }
