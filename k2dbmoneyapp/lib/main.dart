@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/routes.dart';
 import 'package:k2dbmoneyapp/views/components/screens/authen/main_page.dart';
-import 'package:k2dbmoneyapp/views/home_screen.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
