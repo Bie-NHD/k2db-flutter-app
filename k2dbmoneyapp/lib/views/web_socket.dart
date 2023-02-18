@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_notification.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-  static const routeName = '/home_screen';
+class WebSocket extends StatefulWidget {
+  const WebSocket({Key? key}) : super(key: key);
+  static const routeName = '/web_socket';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<WebSocket> createState() => _WebSocketState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _WebSocketState extends State<WebSocket> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
