@@ -123,12 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: k8Padding),
                   ListView.separated(
                       shrinkWrap: true,
-                      itemBuilder: (context, index) => CardItemForYou(
+                      itemBuilder: (context, index) => const CardItemForYou(
                             imagePath: HelperAssets.imageAvt,
                             nameProduct: "Lê Hàn Quốc siêu",
                             price: "95.000đ",
                           ),
-                      separatorBuilder: (context, index) => Divider(
+                      separatorBuilder: (context, index) => const Divider(
                             height: k12Padding,
                           ),
                       itemCount: 10)
