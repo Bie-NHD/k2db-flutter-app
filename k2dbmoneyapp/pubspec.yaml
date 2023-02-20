@@ -91,10 +91,9 @@ flutter:
          - asset: assets/fonts/Nunito-SemiBold.ttf
          - asset: assets/fonts/Nunito-Bold.ttf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
+#     - family: CusIcons
+#       fonts:
+#         - asset: assets/fonts/CusIcons.ttf
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
