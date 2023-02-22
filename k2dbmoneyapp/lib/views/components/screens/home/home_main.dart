@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/extensions/extension_string.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
-import 'package:k2dbmoneyapp/views/components/screens/home/Widgets/widget_card_itemforyou.dart';
 import 'package:k2dbmoneyapp/views/components/widgets/widget_banner.dart';
-import 'package:k2dbmoneyapp/views/components/widgets/widget_card_function.dart';
+
+import '../../../../core/constant/text.dart';
+import '../../widgets/widget_card_function.dart';
+import 'Widgets/widget_card_itemproduct.dart';
+import 'Widgets/widget_card_itemtopproduct.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,8 +22,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isDisplayCurrentBalance = false;
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
@@ -57,31 +64,45 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const BannerHome(),
-            const SizedBox(height: k12Padding),
+            const SizedBox(height: k16Padding),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: k12Padding),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        FontAwesomeIcons.solidEye,
-                        size: kIconSize * 0.7,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isDisplayCurrentBalance = !isDisplayCurrentBalance;
+                          });
+                        },
+                        child: Icon(
+                          isDisplayCurrentBalance
+                              ? FontAwesomeIcons.solidEye
+                              : FontAwesomeIcons.solidEyeSlash,
+                          size: kIconSize * 0.7,
+                        ),
                       ),
                       const SizedBox(width: k8Padding),
                       Text(
-                        "23.291.0000",
+                        isDisplayCurrentBalance ? "23.910.000đ" : "******",
                         style: TextStyles.defaultStyle.bold,
                       ),
                       const Spacer(),
-                      const IconTextLink(title: "Funds"),
+                      IconTextLink(
+                        title: "Funds",
+                        onTap: () {},
+                      ),
                     ],
                   ),
-                  const SizedBox(height: k24Padding),
+                  const SizedBox(height: k12Padding),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -110,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            const Divider(height: k20Padding * 2, thickness: k8Padding / 2),
+            const Divider(height: k24Padding, thickness: k8Padding / 2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: k12Padding),
               child: Column(
@@ -118,23 +139,86 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("For you",
-                      style:
-                          TextStyles.defaultStyle.fontAppbar.colorSecondText),
-                  const SizedBox(height: k8Padding),
-                  ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const CardItemForYou(
-                            imagePath: HelperAssets.imageAvt,
-                            nameProduct: "Lê Hàn Quốc siêu",
-                            price: "95.000đ",
-                          ),
-                      separatorBuilder: (context, index) => const Divider(
-                            height: k12Padding,
-                          ),
-                      itemCount: 10)
+                      style: TextStyles
+                          .defaultStyle.fontAppbar.semiBold.colorPrimaryText),
+                  const SizedBox(
+                    height: k8Padding,
+                  ),
                 ],
               ),
             ),
+            // For you list
+            Row(
+              children: [
+                Expanded(
+                    child: SizedBox(
+                  height: 140,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      separatorBuilder: (context, index) => const SizedBox(
+                            width: k8Padding,
+                          ),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return const CardItemTopProduct(
+                            imagePath: HelperAssets.imageAvt,
+                            nameProduct: "Le Han Quoc sieu",
+                            price: "20.000.000 đ");
+                      }),
+                )),
+              ],
+            ),
+            const Divider(height: k24Padding, thickness: k8Padding / 2),
+            // Products section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+              child: Column(
+                verticalDirection: VerticalDirection.down,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Products",
+                        style: TextStyles
+                            .defaultStyle.fontAppbar.semiBold.colorPrimaryText,
+                      ),
+                      const Spacer(),
+                      IconTextLink(
+                        title: "See all",
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                  // const SizedBox(
+                  //   height: k12Padding,
+                  // ),
+                  const SizedBox(
+                    height: k8Padding,
+                  ),
+                  SizedBox(
+                    height: size.height,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 15,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: k8Padding,
+                        mainAxisSpacing: k24Padding,
+                      ),
+                      itemBuilder: (context, index) => CardItemProduct(
+                        onTap: () {},
+                        imagePath: HelperAssets.imageAvt,
+                        nameProduct: "Hoang Gia Kiet dep trai qua hihi",
+                        price: 1000.500,
+                        discountPercent: 20,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

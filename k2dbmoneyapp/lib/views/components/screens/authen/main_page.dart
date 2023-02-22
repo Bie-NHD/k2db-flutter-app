@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
-import 'package:k2dbmoneyapp/core/extensions/extension_string.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/components/screens/home/home_main.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../../core/constant/dimension.dart';
+import '../../../../core/constant/text.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);

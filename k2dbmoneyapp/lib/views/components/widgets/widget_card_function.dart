@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/extensions/extension_string.dart';
+
+import '../../../core/constant/text.dart';
+import '../../../core/extensions/extension_textstyle.dart';
 
 class CardItemFunction extends StatelessWidget {
   final IconData icon;
