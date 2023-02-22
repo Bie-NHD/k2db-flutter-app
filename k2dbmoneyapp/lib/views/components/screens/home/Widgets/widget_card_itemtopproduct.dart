@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/constant/color.dart';
 import '../../../../../core/constant/dimension.dart';
-import '../../../../../core/extensions/extension_string.dart';
+import '../../../../../core/constant/text.dart';
+import '../../../../../core/extensions/extension_textstyle.dart';
 
-class CardItemForYou extends StatelessWidget {
+class CardItemTopProduct extends StatelessWidget {
   final String imagePath;
   final String nameProduct;
   final String price;
-  const CardItemForYou(
+  const CardItemTopProduct(
       {Key? key,
       required this.imagePath,
       required this.nameProduct,
@@ -17,30 +18,28 @@ class CardItemForYou extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Container(
-      width: size.width * 0.2,
+      width: 120,
       padding: const EdgeInsets.all(k8Padding),
       decoration: BoxDecoration(
         border: Border.all(
           color: ColorsApp.backgroundDark,
           width: 0.5,
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(k12Padding)),
+        borderRadius: const BorderRadius.all(Radius.circular(kBorderRadiusMin)),
         color: ColorsApp.hintTextColor.withOpacity(0.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
             imagePath,
-            width: 50,
-            height: 50,
+            width: 70,
+            height: 70,
+            fit: BoxFit.cover,
           ),
-          const SizedBox(
-            height: k12Padding,
-          ),
+          const Spacer(),
           Text(
             nameProduct,
             style: TextStyles.defaultStyle.semiBold,
@@ -49,6 +48,7 @@ class CardItemForYou extends StatelessWidget {
           Text(
             price,
             style: TextStyles.defaultStyle.colorRed,
+            overflow: TextOverflow.ellipsis,
           )
         ],
       ),
