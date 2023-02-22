@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/extensions/extension_string.dart';
+
+import '../constant/text.dart';
 
 class IconTextLink extends StatelessWidget {
   final String title;
-  final Function()? onTap;
-  const IconTextLink({Key? key, required this.title, this.onTap})
+  final Function() onTap;
+  const IconTextLink({Key? key, required this.title, required this.onTap})
       : super(key: key);
 
   @override
