@@ -7,9 +7,8 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
-import 'package:k2dbmoneyapp/views/components/widgets/widget_banner.dart';
-
 import '../../../../core/constant/text.dart';
+import '../../widgets/widget_banner.dart';
 import '../../widgets/widget_card_function.dart';
 import 'Widgets/widget_card_itemproduct.dart';
 import 'Widgets/widget_card_itemtopproduct.dart';

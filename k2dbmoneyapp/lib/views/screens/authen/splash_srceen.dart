@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
-import 'package:k2dbmoneyapp/views/components/screens/authen/main_page.dart';
-
 import '../../../../core/helpers/helper_asset.dart';
+import 'main_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+  static const routeName = "/splash_screen";
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
