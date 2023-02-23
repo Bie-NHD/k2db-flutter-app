@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/routes.dart';
+import 'package:k2dbmoneyapp/views/screens/authen/onbroading_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/splash_srceen.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
+import 'package:k2dbmoneyapp/views/screens/authen/onbroading_screen.dart';
 import '../../../../core/helpers/helper_asset.dart';
 import 'main_page.dart';
 
@@ -22,11 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToMainPage() async {
-    await Future.delayed(const Duration(milliseconds: 4000), () {});
+    await Future.delayed(const Duration(milliseconds: 3500), () {});
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => const MainPage(),
+        builder: (BuildContext context) => const OnBoardingScreen(),
       ),
     );
   }

@@ -9,4 +9,7 @@ class HelperAssets {
   static const String banner4 = 'assets/images/banner4.jpg';
   static const String banner5 = 'assets/images/banner5.jpg';
   static const String splash = 'assets/images/splashsrceen.png';
+  static const String onBoard1 = 'assets/images/onboarding1.png';
+  static const String onBoard2 = 'assets/images/onboarding2.png';
+  static const String onBoard3 = 'assets/images/onboarding3.png';
 }
