@@ -13,7 +13,7 @@ import '../user/user_main.dart';
 >>>>>>> Stashed changes
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -88,8 +88,14 @@ class _MainPageState extends State<MainPage> {
           ]),
       body: IndexedStack(
         index: _currentIndex,
+<<<<<<< Updated upstream
         
         children: [HomeScreen(),HomeScreen(),HomeScreen(),HomeScreen(),UserScreen()],
+=======
+        children: const [
+          HomeScreen(),
+        ],
+>>>>>>> Stashed changes
       ),
     );
   }
