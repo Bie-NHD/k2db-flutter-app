@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
@@ -92,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(width: k8Padding),
                       Text(
-                        isDisplayCurrentBalance ? "23.910.000đ" : "******",
+                        isDisplayCurrentBalance
+                            ? (21122022.0).toFormatMoney()
+                            : "******",
                         style: TextStyles.defaultStyle.bold,
                       ),
                       const Spacer(),
@@ -164,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return const CardItemTopProduct(
                             imagePath: HelperAssets.imageAvt,
                             nameProduct: "Le Han Quoc sieu",
-                            price: "20.000.000 đ");
+                            price: 123456);
                       }),
                 )),
               ],
@@ -211,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {},
                         imagePath: HelperAssets.imageAvt,
                         nameProduct: "Hoang Gia Kiet dep trai qua hihi",
-                        price: 1000.500,
+                        price: 10000,
                         discountPercent: 20,
                       ),
                     ),
