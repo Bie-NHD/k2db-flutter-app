@@ -16,7 +16,7 @@ class HelperImage {
         imageFilePath,
         width: width,
         height: height,
-        fit: fit ?? BoxFit.contain,
+        fit: fit ?? BoxFit.cover,
         alignment: alignment ?? Alignment.center,
       ),
     );

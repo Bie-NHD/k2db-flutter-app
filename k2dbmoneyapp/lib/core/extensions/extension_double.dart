@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
-final formatCurrency = NumberFormat.simpleCurrency(locale: "vi-VN");
+final formatCurrency =
+    NumberFormat.simpleCurrency(name: "VND", decimalDigits: 0);
 
 extension StringX on double {
   String toFormatMoney() {

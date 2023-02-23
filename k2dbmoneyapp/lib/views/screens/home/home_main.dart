@@ -7,10 +7,11 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
+import 'package:k2dbmoneyapp/views/screens/home/Widgets/widget_card_itemproduct.dart';
+
 import '../../../../core/constant/text.dart';
 import '../../widgets/widget_banner.dart';
 import '../../widgets/widget_card_function.dart';
-import 'Widgets/widget_card_itemproduct.dart';
 import 'Widgets/widget_card_itemtopproduct.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,8 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Padding(
           padding: const EdgeInsets.only(left: k12Padding),
           child: CircleAvatar(
-            child: HelperImage.loadFromAsset(HelperAssets.imageAvt,
-                radius: BorderRadius.circular(k24Padding * 2)),
+            child: HelperImage.loadFromAsset(
+              HelperAssets.imageAvt,
+              radius: BorderRadius.circular(kBorderRadiusMax * 2),
+            ),
           ),
         ),
         title: Column(
@@ -140,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("For you",
+                  Text("Best Selling",
                       style: TextStyles
                           .defaultStyle.fontAppbar.semiBold.colorPrimaryText),
                   const SizedBox(
@@ -181,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Text(
-                        "Products",
+                        "For you",
                         style: TextStyles
                             .defaultStyle.fontAppbar.semiBold.colorPrimaryText,
                       ),
@@ -199,25 +202,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: k8Padding,
                   ),
                   SizedBox(
-                    height: size.height,
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 15,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: k8Padding,
-                        mainAxisSpacing: k24Padding,
-                      ),
-                      itemBuilder: (context, index) => CardItemProduct(
-                        onTap: () {},
-                        imagePath: HelperAssets.imageAvt,
-                        nameProduct: "Hoang Gia Kiet dep trai qua hihi",
-                        price: 10000,
-                        discountPercent: 20,
-                      ),
-                    ),
-                  )
+                      height: size.height,
+                      child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 15,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: k8Padding,
+                            mainAxisSpacing: k16Padding,
+                            childAspectRatio: 3 / 4,
+                          ),
+                          itemBuilder: (context, index) => CardItemProduct()))
                 ],
               ),
             )

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/widgets/widget_itembutton.dart';
 import 'package:k2dbmoneyapp/views/widgets/dot_indicators.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_onboardContent.dart';
