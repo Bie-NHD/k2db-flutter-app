@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:k2dbmoneyapp/core/extensions/extension_string.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
+import '../../../../core/constant/text.dart';
 
 class UserScreen extends StatelessWidget {
   static const routeName = "/user_screen";

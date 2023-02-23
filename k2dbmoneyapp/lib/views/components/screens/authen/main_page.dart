@@ -6,11 +6,8 @@ import 'package:k2dbmoneyapp/views/components/screens/home/home_main.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../../core/constant/dimension.dart';
-<<<<<<< Updated upstream
 import '../../../../core/constant/text.dart';
-=======
 import '../user/user_main.dart';
->>>>>>> Stashed changes
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -88,14 +85,13 @@ class _MainPageState extends State<MainPage> {
           ]),
       body: IndexedStack(
         index: _currentIndex,
-<<<<<<< Updated upstream
-        
-        children: [HomeScreen(),HomeScreen(),HomeScreen(),HomeScreen(),UserScreen()],
-=======
         children: const [
           HomeScreen(),
+          HomeScreen(),
+          HomeScreen(),
+          HomeScreen(),
+          UserScreen()
         ],
->>>>>>> Stashed changes
       ),
     );
   }

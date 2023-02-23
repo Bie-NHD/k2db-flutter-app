@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 
 import '../../../../../core/constant/text.dart';
 import '../../../../../core/extensions/extension_textstyle.dart';
@@ -73,23 +74,23 @@ class CardItemProduct extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              priceNew.toString(),
+                              priceNew.toFormatMoney(),
                               style: TextStyles.defaultStyle.colorRed,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Expanded(
                             child: Text(
-                              price.toInt().toString(),
+                              price.toFormatMoney(),
                               style: TextStyles
                                   .defaultStyle.fontMin.colorHintText
                                   .copyWith(
                                 decoration: TextDecoration.lineThrough,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              overflow: TextOverflow.ellipsis,
                             ),
-                          )
+                          ),
                         ],
                       )
                     ],
