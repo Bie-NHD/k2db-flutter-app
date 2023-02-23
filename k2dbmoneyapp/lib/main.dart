@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/routes.dart';
-import 'package:k2dbmoneyapp/views/components/screens/authen/main_page.dart';
+import 'package:k2dbmoneyapp/views/components/screens/authen/splash_srceen.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Nunito",
       ),
-      home: MainPage(),
+      home: const SplashScreen(),
     );
   }
 }

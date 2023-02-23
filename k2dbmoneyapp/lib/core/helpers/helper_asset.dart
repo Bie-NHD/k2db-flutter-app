@@ -8,4 +8,5 @@ class HelperAssets {
   static const String banner3 = 'assets/images/banner3.jpg';
   static const String banner4 = 'assets/images/banner4.jpg';
   static const String banner5 = 'assets/images/banner5.jpg';
+  static const String splash = 'assets/images/splashsrceen.png';
 }
