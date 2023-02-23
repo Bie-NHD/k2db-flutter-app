@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
           ]),
       body: IndexedStack(
         index: _currentIndex,
-        children: [HomeScreen()],
+        
         children: [HomeScreen(),HomeScreen(),HomeScreen(),HomeScreen(),UserScreen()],
       ),
     );
