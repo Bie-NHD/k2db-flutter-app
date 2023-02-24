@@ -65,7 +65,7 @@ class UserScreen extends StatelessWidget {
                       Text("Hoang Gia Kiet".toUpperCase(),
                           style: TextStyle(
                               fontSize: TextStyles
-                                  .defaultStyle.fontTitleAndButton.fontSize,
+                                  .defaultStyle.sizeTitleAndButton.fontSize,
                               fontWeight:
                                   TextStyles.defaultStyle.semiBold.fontWeight)),
                       Container(
@@ -76,6 +76,9 @@ class UserScreen extends StatelessWidget {
                             Text(
                               "123456789",
                               style: TextStyles.defaultStyle.colorHintText,
+                            ),
+                            const SizedBox(
+                              width: k8Padding / 2,
                             ),
                             const Icon(
                               FontAwesomeIcons.copy,

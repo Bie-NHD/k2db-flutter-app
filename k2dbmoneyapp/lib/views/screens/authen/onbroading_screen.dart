@@ -58,7 +58,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: k12Padding),
-              child: ItemButtonFillWidget(
+              child: ButtonFill(
                   text: "Get Started",
                   onTap: () {
                     return Navigator.of(context).pushNamed("/main_page");

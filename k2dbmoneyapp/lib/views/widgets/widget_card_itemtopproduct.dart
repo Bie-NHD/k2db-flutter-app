@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 
-import '../../../../../core/constant/color.dart';
-import '../../../../../core/constant/dimension.dart';
-import '../../../../../core/constant/text.dart';
-import '../../../../../core/extensions/extension_textstyle.dart';
+import '../../../core/constant/color.dart';
+import '../../../core/constant/dimension.dart';
+import '../../../core/constant/text.dart';
+import '../../../core/extensions/extension_textstyle.dart';
 
 class CardItemTopProduct extends StatelessWidget {
   final String imagePath;
@@ -48,7 +48,7 @@ class CardItemTopProduct extends StatelessWidget {
           ),
           Text(
             price.toFormatMoney(),
-            style: TextStyles.defaultStyle.colorRed,
+            style: TextStyles.defaultStyle.colorRedText,
             overflow: TextOverflow.ellipsis,
           )
         ],
