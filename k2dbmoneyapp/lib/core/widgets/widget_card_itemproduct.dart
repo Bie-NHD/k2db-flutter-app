@@ -6,7 +6,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 
-import '../../../../core/helpers/helper_asset.dart';
+import '../helpers/helper_asset.dart';
 
 class CardItemProduct extends StatelessWidget {
   const CardItemProduct({
@@ -74,7 +74,7 @@ class CardItemProduct extends StatelessWidget {
                             ),
                             Text(
                               "Bách Hoá Xanh",
-                              style: TextStyles.defaultStyle.fontMin,
+                              style: TextStyles.defaultStyle.sizeMin,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
@@ -84,12 +84,12 @@ class CardItemProduct extends StatelessWidget {
                         ),
                         Text(
                           12341512.0.toFormatMoney(),
-                          style: TextStyles.defaultStyle.colorRed,
+                          style: TextStyles.defaultStyle.colorRedText,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           "Kho: 12,5k",
-                          style: TextStyles.defaultStyle.fontMin.colorHintText,
+                          style: TextStyles.defaultStyle.sizeMin.colorHintText,
                         ),
                       ],
                     ),

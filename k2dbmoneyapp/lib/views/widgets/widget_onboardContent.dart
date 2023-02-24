@@ -52,7 +52,7 @@ class OnboardContent extends StatelessWidget {
           HelperImage.loadFromAsset(imgOnboard, height: 300),
           const Spacer(),
           Text(titleOnboard,
-              style: TextStyles.defaultStyle.fontHeading.bold,
+              style: TextStyles.defaultStyle.sizeHeading.bold,
               textAlign: TextAlign.center),
           const SizedBox(height: k12Padding),
           Text(descOnboard,

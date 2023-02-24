@@ -7,12 +7,12 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
-import 'package:k2dbmoneyapp/views/screens/home/Widgets/widget_card_itemproduct.dart';
+import 'package:k2dbmoneyapp/core/widgets/widget_card_itemproduct.dart';
 
 import '../../../../core/constant/text.dart';
 import '../../widgets/widget_banner.dart';
 import '../../widgets/widget_card_function.dart';
-import 'Widgets/widget_card_itemtopproduct.dart';
+import '../../widgets/widget_card_itemtopproduct.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text("Best Selling",
                       style: TextStyles
-                          .defaultStyle.fontAppbar.semiBold.colorPrimaryText),
+                          .defaultStyle.sizeAppbar.semiBold.colorBlueText),
                   const SizedBox(
                     height: k8Padding,
                   ),
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         "For you",
                         style: TextStyles
-                            .defaultStyle.fontAppbar.semiBold.colorPrimaryText,
+                            .defaultStyle.sizeAppbar.semiBold.colorBlueText,
                       ),
                       const Spacer(),
                       IconTextLink(
