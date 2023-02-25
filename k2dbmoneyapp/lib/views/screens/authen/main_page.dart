@@ -87,11 +87,11 @@ class _MainPageState extends State<MainPage> {
           ]),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          HomeScreen(),
-          PromotionScreen(),
-          HomeScreen(),
-          HomeScreen(),
+        children: [
+          const HomeScreen(),
+          const PromotionScreen(),
+          const HomeScreen(),
+          const HomeScreen(),
           UserScreen()
         ],
       ),
