@@ -8,6 +8,7 @@ import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
 import '../home/home_main.dart';
 import '../user/user_main.dart';
+import '../promotion/promotion_main.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -88,7 +89,7 @@ class _MainPageState extends State<MainPage> {
         index: _currentIndex,
         children: const [
           HomeScreen(),
-          HomeScreen(),
+          PromotionScreen(),
           HomeScreen(),
           HomeScreen(),
           UserScreen()
