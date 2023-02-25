@@ -3,12 +3,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
 import '../../../core/extensions/extension_textstyle.dart';
-import '../../../../core/constant/text.dart';
+import '../../../core/constant/text.dart';
 
-class PromotionScreen extends StatelessWidget {
+
+class PromotionScreen extends StatefulWidget {
+  const PromotionScreen({Key? key}) : super(key: key);
   static const routeName = "/promotion_screen";
 
-  const PromotionScreen({super.key});
+  @override
+  State<PromotionScreen> createState() => _PromotionScreenState();
+}
+
+class _PromotionScreenState extends State<PromotionScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +59,9 @@ class PromotionScreen extends StatelessWidget {
                     ),
                     child: Stack(
                       children: [
-                        Align(
-                          alignment: const AlignmentDirectional(1, -1),
+                        Positioned(
+                          top: 0,
+                          right: 0,
                           child: Container(
                             width: 210,
                             height: 46,
@@ -69,30 +76,26 @@ class PromotionScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: const AlignmentDirectional(-1, -1),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 0, 0),
-                            child: Text(
-                                'Accumulated points',
-                                style: TextStyle(
-                                  fontSize: TextStyles.defaultStyle.bold.fontSize,
-                                  fontWeight: TextStyles.defaultStyle.bold.fontWeight,
-                                  color: ColorsApp.backgroundLight,
-                                )
+                        Positioned(
+                          top: k12Padding,
+                          left: k12Padding,
+                          child: Text(
+                            'Accumulated points',
+                            style: TextStyle(
+                              fontSize: TextStyles.defaultStyle.bold.fontSize,
+                              fontWeight: TextStyles.defaultStyle.bold.fontWeight,
+                              color: ColorsApp.backgroundLight,
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: const AlignmentDirectional(-1, 1),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 12),
-                            child: Text(
-                              "7.000.000.000.000.000.000 Point",
-                              style: TextStyle(
-                                  fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
-                                  color: ColorsApp.backgroundLight,
-                              )
+                        Positioned(
+                          bottom: k12Padding,
+                          left: k12Padding,
+                          child: Text(
+                            "7.000.000.000.000.000.000 Point",
+                            style: TextStyle(
+                              fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
+                              color: ColorsApp.backgroundLight,
                             ),
                           ),
                         ),
@@ -118,41 +121,38 @@ class PromotionScreen extends StatelessWidget {
                         ),
                         child: Stack(
                           children: [
-                            Align(
-                              alignment: const AlignmentDirectional(-1, -1),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 0, 0),
-                                child: Text(
-                                  'MY GIFT',
-                                  style: TextStyle(
-                                    fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
-                                    fontWeight: TextStyles.defaultStyle.bold.fontWeight,
-                                    color: ColorsApp.defaultTextColor,
-                                  ),
+                            Positioned(
+                              top: k8Padding,
+                              left: k8Padding,
+                              child: Text(
+                                'MY GIFT',
+                                style: TextStyle(
+                                  fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
+                                  fontWeight: TextStyles.defaultStyle.bold.fontWeight,
+                                  color: ColorsApp.defaultTextColor,
                                 ),
                               ),
                             ),
-                            Align(
-                              alignment: const AlignmentDirectional(-1, 1),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 8),
-                                child: Text(
-                                  'Promotions are available',
-                                  style: TextStyle(
-                                    fontSize: TextStyles.defaultStyle.fontMin.fontSize,
-                                    fontWeight: TextStyles.defaultStyle.extraLight.fontWeight,
-                                    color: ColorsApp.defaultTextColor,
-                                  ),
+                            Positioned(
+                              bottom: k8Padding,
+                              left: k8Padding,
+                              child: Text(
+                                'Promotions are available',
+                                style: TextStyle(
+                                  fontSize: TextStyles.defaultStyle.fontMin.fontSize,
+                                  fontWeight: TextStyles.defaultStyle.extraLight.fontWeight,
+                                  color: ColorsApp.defaultTextColor,
                                 ),
                               ),
                             ),
-                            const Align(
-                              alignment: AlignmentDirectional(1, -1),
+                            const Positioned(
+                              top: k8Padding,
+                              right: k8Padding,
                               child: Icon(
                                 Icons.local_offer,
                                 size: kIconSize,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -173,41 +173,38 @@ class PromotionScreen extends StatelessWidget {
                         ),
                         child: Stack(
                           children: [
-                            Align(
-                              alignment: const AlignmentDirectional(-1, -1),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 0, 0),
-                                child: Text(
-                                  'EXCHANGE GIFTS',
-                                  style: TextStyle(
-                                    fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
-                                    fontWeight: TextStyles.defaultStyle.bold.fontWeight,
-                                    color: ColorsApp.defaultTextColor,
-                                  ),
+                            Positioned(
+                              top: k8Padding,
+                              left: k8Padding,
+                              child: Text(
+                                'EXCHANGE GIFTS',
+                                style: TextStyle(
+                                  fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
+                                  fontWeight: TextStyles.defaultStyle.bold.fontWeight,
+                                  color: ColorsApp.defaultTextColor,
                                 ),
                               ),
                             ),
-                            Align(
-                              alignment: const AlignmentDirectional(-1, 1),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 8),
-                                child: Text(
-                                  'Use points to exchange gifts',
-                                  style: TextStyle(
-                                    fontSize: TextStyles.defaultStyle.fontMin.fontSize,
-                                    fontWeight: TextStyles.defaultStyle.extraLight.fontWeight,
-                                    color: ColorsApp.defaultTextColor,
-                                  ),
+                            Positioned(
+                              bottom: k8Padding,
+                              left: k8Padding,
+                              child: Text(
+                                'Use points to exchange gifts',
+                                style: TextStyle(
+                                  fontSize: TextStyles.defaultStyle.fontMin.fontSize,
+                                  fontWeight: TextStyles.defaultStyle.extraLight.fontWeight,
+                                  color: ColorsApp.defaultTextColor,
                                 ),
                               ),
                             ),
-                            const Align(
-                              alignment: AlignmentDirectional(1, -1),
+                            const Positioned(
+                              top: k8Padding,
+                              right: k8Padding,
                               child: Icon(
                                 FontAwesomeIcons.gift,
                                 size: kIconSize - 2,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
