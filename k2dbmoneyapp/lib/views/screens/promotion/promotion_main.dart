@@ -5,7 +5,6 @@ import '../../../core/constant/dimension.dart';
 import '../../../core/extensions/extension_textstyle.dart';
 import '../../../core/constant/text.dart';
 
-
 class PromotionScreen extends StatefulWidget {
   const PromotionScreen({Key? key}) : super(key: key);
   static const routeName = "/promotion_screen";
@@ -15,7 +14,6 @@ class PromotionScreen extends StatefulWidget {
 }
 
 class _PromotionScreenState extends State<PromotionScreen> {
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -24,7 +22,8 @@ class _PromotionScreenState extends State<PromotionScreen> {
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
         title: const Center(
-          child: Text("Promotion",
+          child: Text(
+            "Promotion",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -83,7 +82,8 @@ class _PromotionScreenState extends State<PromotionScreen> {
                             'Accumulated points',
                             style: TextStyle(
                               fontSize: TextStyles.defaultStyle.bold.fontSize,
-                              fontWeight: TextStyles.defaultStyle.bold.fontWeight,
+                              fontWeight:
+                                  TextStyles.defaultStyle.bold.fontWeight,
                               color: ColorsApp.backgroundLight,
                             ),
                           ),
@@ -94,7 +94,8 @@ class _PromotionScreenState extends State<PromotionScreen> {
                           child: Text(
                             "7.000.000.000.000.000.000 Point",
                             style: TextStyle(
-                              fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
+                              fontSize:
+                                  TextStyles.defaultStyle.sizeDefault.fontSize,
                               color: ColorsApp.backgroundLight,
                             ),
                           ),
@@ -106,7 +107,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
               ],
             ),
             Row(
-              children: <Widget> [
+              children: <Widget>[
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: k12Padding),
                   child: Column(
@@ -127,8 +128,10 @@ class _PromotionScreenState extends State<PromotionScreen> {
                               child: Text(
                                 'MY GIFT',
                                 style: TextStyle(
-                                  fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
-                                  fontWeight: TextStyles.defaultStyle.bold.fontWeight,
+                                  fontSize: TextStyles
+                                      .defaultStyle.sizeDefault.fontSize,
+                                  fontWeight:
+                                      TextStyles.defaultStyle.bold.fontWeight,
                                   color: ColorsApp.defaultTextColor,
                                 ),
                               ),
@@ -139,8 +142,10 @@ class _PromotionScreenState extends State<PromotionScreen> {
                               child: Text(
                                 'Promotions are available',
                                 style: TextStyle(
-                                  fontSize: TextStyles.defaultStyle.fontMin.fontSize,
-                                  fontWeight: TextStyles.defaultStyle.extraLight.fontWeight,
+                                  fontSize:
+                                      TextStyles.defaultStyle.sizeMin.fontSize,
+                                  fontWeight: TextStyles
+                                      .defaultStyle.extraLight.fontWeight,
                                   color: ColorsApp.defaultTextColor,
                                 ),
                               ),
@@ -179,8 +184,10 @@ class _PromotionScreenState extends State<PromotionScreen> {
                               child: Text(
                                 'EXCHANGE GIFTS',
                                 style: TextStyle(
-                                  fontSize: TextStyles.defaultStyle.fontDefault.fontSize,
-                                  fontWeight: TextStyles.defaultStyle.bold.fontWeight,
+                                  fontSize: TextStyles
+                                      .defaultStyle.sizeDefault.fontSize,
+                                  fontWeight:
+                                      TextStyles.defaultStyle.bold.fontWeight,
                                   color: ColorsApp.defaultTextColor,
                                 ),
                               ),
@@ -191,8 +198,10 @@ class _PromotionScreenState extends State<PromotionScreen> {
                               child: Text(
                                 'Use points to exchange gifts',
                                 style: TextStyle(
-                                  fontSize: TextStyles.defaultStyle.fontMin.fontSize,
-                                  fontWeight: TextStyles.defaultStyle.extraLight.fontWeight,
+                                  fontSize:
+                                      TextStyles.defaultStyle.sizeMin.fontSize,
+                                  fontWeight: TextStyles
+                                      .defaultStyle.extraLight.fontWeight,
                                   color: ColorsApp.defaultTextColor,
                                 ),
                               ),
