@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/views/screens/store/store_main.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../../core/constant/dimension.dart';
@@ -90,9 +91,9 @@ class _MainPageState extends State<MainPage> {
         children: [
           const HomeScreen(),
           const PromotionScreen(),
+          const  StoreScreen(),
           const HomeScreen(),
-          const HomeScreen(),
-          UserScreen()
+          UserScreen(),
         ],
       ),
     );
