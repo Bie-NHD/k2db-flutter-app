@@ -21,16 +21,17 @@ final List<Onboard> onboard = [
       imgOnboard: HelperAssets.onBoard1,
       titleOnboard: 'Welcome to K2DB Money',
       descOnboard:
-          'Simple and secure way to send, spend, and manage your money'),
+          'Simple and secure way to send, spend, and manage your money. Automatic payment when shopping at the store'),
   Onboard(
       imgOnboard: HelperAssets.onBoard2,
       titleOnboard: 'Save your time and money',
       descOnboard:
-          'Save time paying at the store. Recommend suitable goods at the store'),
+          'Save time paying at the store. Recommend suitable goods at the store and let you know the right products for you'),
   Onboard(
       imgOnboard: HelperAssets.onBoard3,
       titleOnboard: 'Spending management',
-      descOnboard: 'Manage and check transactions'),
+      descOnboard:
+          'Manage and check transactions. Lets you know the shopping receipts and income and expenditure reports that you use during the month'),
 ];
 
 class OnboardContent extends StatelessWidget {
@@ -56,7 +57,7 @@ class OnboardContent extends StatelessWidget {
               textAlign: TextAlign.center),
           const SizedBox(height: k12Padding),
           Text(descOnboard,
-              style: TextStyles.defaultStyle, textAlign: TextAlign.end),
+              style: TextStyles.defaultStyle, textAlign: TextAlign.center),
           const Spacer(),
         ],
       ),

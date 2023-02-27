@@ -18,7 +18,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsApp.backgroundLight,
-      body: SafeArea(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: k12Padding, vertical: k24Padding),
         child: Column(
           children: [
             Expanded(
@@ -56,14 +58,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             const SizedBox(
               height: k24Padding * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
-              child: ButtonFill(
-                  text: "Get Started",
-                  onTap: () {
-                    return Navigator.of(context).pushNamed("/main_page");
-                  }),
-            ),
+            ButtonFill(
+                text: "Get Started",
+                onTap: () {
+                  return Navigator.of(context).pushNamed("/main_page");
+                }),
             const SizedBox(
               height: k24Padding * 2,
             )
