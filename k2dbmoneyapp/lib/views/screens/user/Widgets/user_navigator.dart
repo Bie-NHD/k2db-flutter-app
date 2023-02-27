@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
-import 'package:k2dbmoneyapp/views/screens/user/Widgets/user_navi_button.dart';
+import 'package:k2dbmoneyapp/views/widgets/widget_card_function_filled.dart';
 
 import '../../../../../core/constant/color.dart';
 import '../../../../../core/constant/dimension.dart';
 import '../../../../../core/constant/text.dart';
 
 class UserNavigator extends StatefulWidget {
-  String userBalance;
-  String currencySym;
+  final String userBalance;
+  final String currencySym;
   bool isShowingBalance;
 
   UserNavigator(
@@ -62,29 +62,37 @@ class _UserNavigatorState extends State<UserNavigator> {
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    UserNaviButton(
-                      icon: FontAwesomeIcons.wallet,
-                      text: "Balance",
-                    ),
-                    UserNaviButton(
-                      icon: FontAwesomeIcons.qrcode,
-                      text: "QR Scan",
-                    ),
-                    UserNaviButton(
-                      icon: FontAwesomeIcons.moneyCheck,
-                      text: "Bank",
-                    )
-                  ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                FilledCardItemFunction(
+                  icon: FontAwesomeIcons.wallet,
+                  text: "Balance",
+                  backgroundColor: ColorsApp.backgroundDark,
+                  color: ColorsApp.secondaryColor,
+                  size: kIconSize * 1.8,
                 ),
-              )
-            ],
-          )
+                FilledCardItemFunction(
+                  icon: FontAwesomeIcons.qrcode,
+                  text: "QR Scan",
+                  backgroundColor: ColorsApp.backgroundDark,
+                  color: ColorsApp.secondaryColor,
+                  size: kIconSize * 1.8,
+                ),
+                FilledCardItemFunction(
+                  icon: FontAwesomeIcons.wallet,
+                  text: "Balance",
+                  backgroundColor: ColorsApp.backgroundDark,
+                  color: ColorsApp.secondaryColor,
+                  size: kIconSize * 1.8,
+                ),
+              ]
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(k8Padding),
+                      child: e,
+                    ),
+                  )
+                  .toList())
         ],
       ),
     );

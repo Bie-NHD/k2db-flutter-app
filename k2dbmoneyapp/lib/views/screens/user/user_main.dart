@@ -9,6 +9,7 @@ import 'package:k2dbmoneyapp/views/screens/user/Widgets/user_navigator.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
+import 'Widgets/horizontal_button.dart';
 
 class UserScreen extends StatelessWidget {
   static const routeName = "/user_screen";
@@ -44,7 +45,7 @@ class UserScreen extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width - 24,
-              padding: const EdgeInsets.all(k14Padding),
+              padding: const EdgeInsets.all(k16Padding),
               decoration: BoxDecoration(
                   color: ColorsApp.backgroundLight.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(kBorderRadiusMax),
@@ -122,7 +123,9 @@ class UserScreen extends StatelessWidget {
             UserNavigator(
                 userBalance: userBalance,
                 currencySym: currencySym,
-                isShowingBalance: isShowingBalance)
+                isShowingBalance: isShowingBalance),
+            HorizontalButtonLink(
+                icon: FontAwesomeIcons.circleInfo, text: "Application Info")
           ],
         ),
       ),
