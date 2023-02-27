@@ -18,11 +18,9 @@ class Statistic extends StatelessWidget {
       backgroundColor: ColorsApp.backgroundLight,
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
-        title: Center(
-          child: Text('Transaction History',
-              style: TextStyles.defaultStyle.colorDefaultText.colorAppBarText
-                  .sizeAppbar.bold),
-        ),
+        centerTitle: true,
+        title: Text('Transaction History',
+              style: TextStyles.defaultStyle.colorDefaultText.colorAppBarText.sizeAppbar.bold),
         actions: [
           IconButton(
             onPressed: () {},
@@ -53,29 +51,30 @@ class Statistic extends StatelessWidget {
                           bottomLeft: Radius.circular(100),
                           bottomRight: Radius.circular(100))),
                 ),
-                Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 24,
-                    height: 210,
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  top: k24Padding,
+                  height: size.height * 0.23,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: k12Margin * 2),
+                    // height: 150,
+                    decoration: BoxDecoration(
+                        color: ColorsApp.backgroundDark,
+                        borderRadius: BorderRadius.circular(k12Margin)
+                    ),
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 24),
-                      // height: 150,
-                      decoration: BoxDecoration(
-                          color: ColorsApp.backgroundDark.withOpacity(0.99),
-                          borderRadius: BorderRadius.circular(12)),
+                      margin: const EdgeInsets.only(left: k12Margin * 2.2, right: k12Margin * 2.2),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const SizedBox(height: k16Padding,),
                           Row(
                             children: [
                               Container(
                                 height: k20Padding * 1.5,
                                 width: k20Padding * 1.5,
                                 margin: const EdgeInsets.only(
-                                  top: k20Padding,
-                                  left: k24Padding,
-                                  // bottom: k12Margin,
                                   right: k14Padding,
                                 ),
                                 child: HelperImage.loadFromAsset(
@@ -84,34 +83,21 @@ class Statistic extends StatelessWidget {
                                       kBorderRadiusMax * 2),
                                 ),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(top: k20Padding),
-                                child: Text(
-                                  'K2DP Money',
-                                  style: TextStyles
-                                      .defaultStyle
-                                      .sizeTitleAndButton
-                                      .colorAppBarText
-                                      .semiBold,
+                              Text('K2DP Money',
+                                  style: TextStyles.defaultStyle.sizeTitleAndButton.colorAppBarText.semiBold,
                                 ),
-                              ),
                             ],
                           ),
-                          Container(
-                            padding: const EdgeInsets.only(left: k24Padding),
-                            child: Row(
+                          Row(
                               children: [
-                                Text(
-                                  '23.239.000 đ',
-                                  style: TextStyles.defaultStyle.colorRedText
-                                      .sizeHeading.bold,
+                                Text('23.239.000 đ',
+                                  style: TextStyles.defaultStyle.colorRedText.sizeHeading.bold,
                                 ),
                                 const Spacer(),
                                 Container(
                                   height: k20Padding * 1.8,
                                   width: k20Padding * 1.8,
                                   margin: const EdgeInsets.only(
-                                      right: 24,
                                       top: k12Margin,
                                       bottom: k12Margin),
                                   child: HelperImage.loadFromAsset(
@@ -122,14 +108,10 @@ class Statistic extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(left: k24Padding),
-                            child: Column(
+                          Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  "Account",
+                                Text("Account",
                                   style: TextStyles.defaultStyle.colorAppBarText
                                       .sizeDefault.regular,
                                   // overflow: TextOverflow.ellipsis,
@@ -137,26 +119,26 @@ class Statistic extends StatelessWidget {
                                 const SizedBox(
                                   height: k12Margin,
                                 ),
-                                Text(
-                                  "HOANG GIA KIET",
+                                Text("HOANG GIA KIET",
                                   style: TextStyles.defaultStyle
                                       .sizeTitleAndButton.colorAppBarText.bold,
                                 ),
-                                Text(
-                                  "0321 964 789",
+                                Text("0321 964 789",
                                   style: TextStyles.defaultStyle
                                       .sizeTitleAndButton.colorAppBarText.bold,
-                                ),
+                                  )
                               ],
-                            ),
                           ),
-                        ],
-                      ),
-                    )),
-              ],
-            ),
+                      ],
+                     ),
+                    ),
+                  )
+              ),
+            ],
+          ),
+            SizedBox(height: size.height * 0.055),
             Container(
-              padding: const EdgeInsets.only(top: 52, left: k12Padding),
+              padding: const EdgeInsets.only(left: k12Padding, right: k12Margin),
               child: Column(
                 children: [
                   Row(
@@ -172,7 +154,8 @@ class Statistic extends StatelessWidget {
                           icon: const Icon(
                             FontAwesomeIcons.magnifyingGlass,
                             size: kIconSize - 2,
-                          )),
+                          )
+                      ),
                     ],
                   ),
                   const Divider(
@@ -182,47 +165,33 @@ class Statistic extends StatelessWidget {
                     endIndent: k12Padding,
                   ),
                   SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                            top: k8Margin,
-                          ),
-                          child: Row(
-                            children: [
-                              // icon: FontAwesomeIcons.
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "15/02/2023 20:26:30",
-                                    style: TextStyles
-                                        .defaultStyle
-                                        .sizeTitleAndButton
-                                        .colorHintText
-                                        .regular,
-                                  ),
-                                  Text(
-                                    "Vo Che Bang chuyen tien nhau",
-                                    style: TextStyles.defaultStyle.regular
-                                        .sizeTitleAndButton.regular,
-                                  )
-                                ],
-                              ),
-                              Text(
-                                "-526.000 đ",
-                                style: TextStyles.defaultStyle.bold
-                                    .sizeTitleAndButton.colorRedText,
-                              ),
-                              // IconButton(
-                              //     onPressed: () {},
-                              //     icon: FontAwesomeIcons.arrowRight
-                              // )
-                            ],
-                          ),
-                        )
-                      ],
+                    child: Container(
+                      margin: const EdgeInsets.only(top: k8Margin),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              children: [
+                                // icon: FontAwesomeIcons.
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("15/02/2023 20:26:30",
+                                      style: TextStyles.defaultStyle.sizeTitleAndButton.colorHintText.regular,
+                                    ),
+                                    Text("Vo Che Bang chuyen tien nhau",
+                                      style: TextStyles.defaultStyle.regular.sizeTitleAndButton.regular,
+                                    )
+                                  ],
+                                ),
+                                const Spacer(),
+                                Text("-526.000 đ",
+                                  style: TextStyles.defaultStyle.bold.sizeTitleAndButton.colorRedText,
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
                     ),
                   )
                 ],
