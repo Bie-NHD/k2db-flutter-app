@@ -16,7 +16,8 @@ extension TextStyleExtensions on TextStyle {
   TextStyle get colorDefaultText =>
       copyWith(color: ColorsApp.defaultTextColor); //Black
   TextStyle get colorDeepBlueText => copyWith(color: ColorsApp.primaryColor);
-  TextStyle get colorGrayText => copyWith(color: ColorsApp.secondaryColor);
+  TextStyle get colorYellowText => copyWith(color: ColorsApp.secondaryColor);
+  TextStyle get colorGrayText => copyWith(color: ColorsApp.tertiaryColors);
   TextStyle get colorHeadingText => copyWith(color: ColorsApp.headingTextColor);
   TextStyle get colorTitleText => copyWith(color: ColorsApp.titleTextColor);
   TextStyle get colorHintText => copyWith(color: ColorsApp.hintTextColor);
