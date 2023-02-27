@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../core/constant/color.dart';
-import '../../../core/constant/dimension.dart';
-import '../../../core/extensions/extension_textstyle.dart';
-import '../../../core/constant/text.dart';
+import 'package:k2dbmoneyapp/core/constant/color.dart';
+import 'package:k2dbmoneyapp/core/constant/dimension.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/core/constant/text.dart';
+
+import 'package:k2dbmoneyapp/views/widgets/widget_item_promotion.dart';
 
 class PromotionScreen extends StatefulWidget {
   const PromotionScreen({Key? key}) : super(key: key);
@@ -46,7 +48,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
         child: Column(
           children: <Widget>[
             Stack(
-              children: [
+              children: <Widget>[
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(12, 24, 12, 12),
                   child: Container(
@@ -57,7 +59,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Stack(
-                      children: [
+                      children: <Widget>[
                         Positioned(
                           top: 0,
                           right: 0,
@@ -83,7 +85,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
                             style: TextStyle(
                               fontSize: TextStyles.defaultStyle.bold.fontSize,
                               fontWeight:
-                                  TextStyles.defaultStyle.bold.fontWeight,
+                              TextStyles.defaultStyle.bold.fontWeight,
                               color: ColorsApp.backgroundLight,
                             ),
                           ),
@@ -95,7 +97,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
                             "7.000.000.000.000.000.000 Point",
                             style: TextStyle(
                               fontSize:
-                                  TextStyles.defaultStyle.sizeDefault.fontSize,
+                              TextStyles.defaultStyle.sizeDefault.fontSize,
                               color: ColorsApp.backgroundLight,
                             ),
                           ),
@@ -107,118 +109,16 @@ class _PromotionScreenState extends State<PromotionScreen> {
               ],
             ),
             Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: k12Padding),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 173,
-                        height: 64,
-                        decoration: BoxDecoration(
-                          color: ColorsApp.backgroundLight,
-                          borderRadius: BorderRadius.circular(12),
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: k8Padding,
-                              left: k8Padding,
-                              child: Text(
-                                'MY GIFT',
-                                style: TextStyle(
-                                  fontSize: TextStyles
-                                      .defaultStyle.sizeDefault.fontSize,
-                                  fontWeight:
-                                      TextStyles.defaultStyle.bold.fontWeight,
-                                  color: ColorsApp.defaultTextColor,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: k8Padding,
-                              left: k8Padding,
-                              child: Text(
-                                'Promotions are available',
-                                style: TextStyle(
-                                  fontSize:
-                                      TextStyles.defaultStyle.sizeMin.fontSize,
-                                  fontWeight: TextStyles
-                                      .defaultStyle.extraLight.fontWeight,
-                                  color: ColorsApp.defaultTextColor,
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: k8Padding,
-                              right: k8Padding,
-                              child: Icon(
-                                Icons.local_offer,
-                                size: kIconSize,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+              children: const <Widget>[
+                ItemPromotion(
+                  nameItem: "MY GIFT",
+                  describeItem: "Promotions are available",
+                  icon: Icons.local_offer,
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: k12Padding),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 173,
-                        height: 64,
-                        decoration: BoxDecoration(
-                          color: ColorsApp.backgroundLight,
-                          borderRadius: BorderRadius.circular(12),
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: k8Padding,
-                              left: k8Padding,
-                              child: Text(
-                                'EXCHANGE GIFTS',
-                                style: TextStyle(
-                                  fontSize: TextStyles
-                                      .defaultStyle.sizeDefault.fontSize,
-                                  fontWeight:
-                                      TextStyles.defaultStyle.bold.fontWeight,
-                                  color: ColorsApp.defaultTextColor,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: k8Padding,
-                              left: k8Padding,
-                              child: Text(
-                                'Use points to exchange gifts',
-                                style: TextStyle(
-                                  fontSize:
-                                      TextStyles.defaultStyle.sizeMin.fontSize,
-                                  fontWeight: TextStyles
-                                      .defaultStyle.extraLight.fontWeight,
-                                  color: ColorsApp.defaultTextColor,
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: k8Padding,
-                              right: k8Padding,
-                              child: Icon(
-                                FontAwesomeIcons.gift,
-                                size: kIconSize - 2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                ItemPromotion(
+                  nameItem: "EXCHANGE GIFTS",
+                  describeItem: "Use points to exchange gifts",
+                  icon: FontAwesomeIcons.gift,
                 ),
               ],
             ),
