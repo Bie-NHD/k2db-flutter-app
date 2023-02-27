@@ -17,7 +17,7 @@ class CardItemProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          vertical: k8Padding, horizontal: k12Padding),
+          vertical: k8Padding / 2, horizontal: k12Padding),
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).pushNamed("/detail_product");

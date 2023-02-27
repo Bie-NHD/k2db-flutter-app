@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Nunito",
       ),
-      home: const SplashScreen(),
+      home: const SplashScreen(), //SplashScreen()
     );
   }
 }

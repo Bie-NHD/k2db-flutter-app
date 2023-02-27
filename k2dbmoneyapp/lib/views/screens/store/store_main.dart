@@ -87,7 +87,7 @@ class _StoreScreenState extends State<StoreScreen> {
                       icon: const Icon(
                         FontAwesomeIcons.xmark,
                         color: ColorsApp.hintTextColor,
-                        size: kIconSize,
+                        size: kIconSize - 4,
                       ),
                       onPressed: () {
                         clearText();
