@@ -61,7 +61,7 @@ class _StoreScreenState extends State<StoreScreen> {
                   controller: fieldText,
                   onChanged: (value) {
                     setState(() {
-                      _search = value;
+                      fieldText.text = value;
                     });
                   },
                   cursorColor: ColorsApp.primaryColor,

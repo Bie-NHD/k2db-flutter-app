@@ -7,6 +7,7 @@ import 'package:k2dbmoneyapp/views/widgets/widget_onboardContent.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
+  static const routeName = "/onBoarding_screen";
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
