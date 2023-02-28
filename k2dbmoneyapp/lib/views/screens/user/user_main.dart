@@ -9,15 +9,33 @@ import 'package:k2dbmoneyapp/views/screens/user/Widgets/user_navigator.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
+import 'Widgets/widget_user_tabbar.dart';
 
-class UserScreen extends StatelessWidget {
+class UserScreen extends StatefulWidget {
   static const routeName = "/user_screen";
+
+  const UserScreen({super.key});
+
+  @override
+  State<UserScreen> createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen>
+    with SingleTickerProviderStateMixin {
   final String userID = "0123456789";
-  final String userBalance = "123.600";
-  final String currencySym = "₫";
+
+  final double userBalance = 123600;
+
   final bool isShowingBalance = false;
 
-  UserScreen({super.key});
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +101,7 @@ class UserScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {},
                   child: const Icon(FontAwesomeIcons.angleRight,
-                      size: kIconSize * 1.5, color: ColorsApp.secondaryColor),
+                      size: kIconSize * 1.5, color: ColorsApp.tertiaryColors),
                 )
               ],
             ),
@@ -97,16 +115,8 @@ class UserScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(kBorderRadiusMax)),
             ),
             UserNavigator(
-                userBalance: userBalance,
-                currencySym: currencySym,
-                isShowingBalance: isShowingBalance),
-            Padding(
-              padding: const EdgeInsets.only(top: k8Padding, left: k16Padding),
-              child: Text(
-                "Your Account",
-                style: TextStyles.defaultStyle.bold.colorHintText,
-              ),
-            ),
+                userBalance: userBalance, isShowingBalance: isShowingBalance),
+            UserTabBar(tabController: _tabController),
             const Divider(
               color: ColorsApp.tertiaryColors,
               thickness: 2,
