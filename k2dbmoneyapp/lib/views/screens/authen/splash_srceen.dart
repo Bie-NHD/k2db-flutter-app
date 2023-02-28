@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       animate = true;
     });
-    await Future.delayed(const Duration(milliseconds: 5000));
+    await Future.delayed(const Duration(milliseconds: 3000));
     seenOnboard == true
         ? Navigator.of(context).pushNamed("/main_page")
         : Navigator.of(context).pushNamed("/onBoarding_screen");
