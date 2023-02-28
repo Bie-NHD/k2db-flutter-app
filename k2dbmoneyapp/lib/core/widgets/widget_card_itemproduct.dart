@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
@@ -9,8 +10,25 @@ import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import '../helpers/helper_asset.dart';
 
 class CardItemProduct extends StatelessWidget {
+  final Function() onTap;
+  final String imgProduct;
+  final String nameProduct;
+  final String imgStore;
+  final String nameStore;
+  final double price;
+  final int quantity;
+  final double? discountPercent;
+
   const CardItemProduct({
     Key? key,
+    required this.onTap,
+    required this.nameProduct,
+    this.discountPercent,
+    required this.price,
+    required this.imgProduct,
+    required this.imgStore,
+    required this.nameStore,
+    required this.quantity,
   }) : super(key: key);
 
   @override
@@ -19,9 +37,7 @@ class CardItemProduct extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
           vertical: k8Padding / 2, horizontal: k12Padding),
       child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed("/detail_product");
-        },
+        onTap: onTap,
         child: Stack(
           children: [
             Container(
@@ -40,7 +56,7 @@ class CardItemProduct extends StatelessWidget {
               child: Column(
                 children: [
                   Image.asset(
-                    HelperAssets.product,
+                    imgProduct,
                     width: double.maxFinite,
                     height: 100,
                     fit: BoxFit.cover,
@@ -53,7 +69,7 @@ class CardItemProduct extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
+                          nameProduct,
                           style: TextStyles.defaultStyle.semiBold,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -73,7 +89,7 @@ class CardItemProduct extends StatelessWidget {
                               width: k8Padding / 2,
                             ),
                             Text(
-                              "Bách Hoá Xanh",
+                              nameStore,
                               style: TextStyles.defaultStyle.sizeMin,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -83,13 +99,14 @@ class CardItemProduct extends StatelessWidget {
                           height: k8Padding / 2,
                         ),
                         Text(
-                          12341512.0.toFormatMoney(),
+                          price.toFormatMoney(),
                           style: TextStyles.defaultStyle.colorRedText,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "Kho: 12,5k",
+                          "Kho: $quantity",
                           style: TextStyles.defaultStyle.sizeMin.colorHintText,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
@@ -97,24 +114,27 @@ class CardItemProduct extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-                top: 0,
-                left: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: k8Padding / 4, horizontal: k8Padding),
-                  decoration: const BoxDecoration(
-                    color: ColorsApp.statusErrorColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(kBorderRadiusMin),
-                      bottomRight: Radius.circular(kBorderRadiusMin),
+            discountPercent != null
+                ? Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: k8Padding / 4, horizontal: k8Padding),
+                      decoration: const BoxDecoration(
+                        color: ColorsApp.statusErrorColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(kBorderRadiusMin),
+                          bottomRight: Radius.circular(kBorderRadiusMin),
+                        ),
+                      ),
+                      child: Text(
+                        "-$discountPercent%",
+                        style: TextStyles.defaultStyle.colorAppBarText,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    "-50%",
-                    style: TextStyles.defaultStyle.colorAppBarText,
-                  ),
-                ))
+                  )
+                : Container(),
           ],
         ),
       ),

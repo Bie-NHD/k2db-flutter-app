@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
@@ -28,49 +29,42 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(),
-        body: NestedScrollView(
-      floatHeaderSlivers: true,
-      headerSliverBuilder: (context, innerBoxIsScrolled) => [
-        SliverAppBar(
-          floating: true,
-          snap: true,
-          backgroundColor: ColorsApp.primaryColor,
-          leadingWidth: k20Padding * 2.7,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: k12Padding),
-            child: CircleAvatar(
-              child: HelperImage.loadFromAsset(
-                HelperAssets.imageAvt,
-                radius: BorderRadius.circular(kBorderRadiusMax * 2),
-              ),
+      appBar: AppBar(
+        backgroundColor: ColorsApp.primaryColor,
+        leadingWidth: k20Padding * 2.7,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: k12Padding),
+          child: CircleAvatar(
+            child: HelperImage.loadFromAsset(
+              HelperAssets.imageAvt,
+              radius: BorderRadius.circular(kBorderRadiusMax * 2),
             ),
           ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Good Morning",
-                style: TextStyles.defaultStyle.colorAppBarText,
-              ),
-              Text(
-                "Hoang Gia Kiet",
-                style: TextStyles.defaultStyle.colorAppBarText.semiBold,
-              ),
-            ],
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                FontAwesomeIcons.solidBell,
-                size: kIconSize - 2,
-              ),
-              tooltip: "Notifications",
-            )
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Good Morning",
+              style: TextStyles.defaultStyle.colorAppBarText,
+            ),
+            Text(
+              "Hoang Gia Kiet",
+              style: TextStyles.defaultStyle.colorAppBarText.semiBold,
+            ),
           ],
-        )
-      ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              FontAwesomeIcons.solidBell,
+              size: kIconSize - 2,
+            ),
+            tooltip: "Notifications",
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +207,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisSpacing: k16Padding,
                         childAspectRatio: 4 / 5,
                       ),
-                      itemBuilder: (context, index) => const CardItemProduct(),
+                      itemBuilder: (context, index) => CardItemProduct(
+                        imgProduct: HelperAssets.product,
+                        nameProduct: "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
+                        imgStore: HelperAssets.logoBrandStore,
+                        nameStore: "Bách Hóa Xanh",
+                        price: 100000,
+                        quantity: 12500,
+                        discountPercent: 20,
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(DetailProductScreen.routeName);
+                        },
+                      ),
                     ),
                   )
                 ],
@@ -222,6 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    ));
+    );
   }
 }
