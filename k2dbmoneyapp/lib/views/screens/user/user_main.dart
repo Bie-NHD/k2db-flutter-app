@@ -9,14 +9,13 @@ import 'package:k2dbmoneyapp/views/screens/user/Widgets/user_navigator.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
-import 'Widgets/horizontal_button.dart';
 
 class UserScreen extends StatelessWidget {
   static const routeName = "/user_screen";
-  String userID = "0123456789";
-  String userBalance = "123.600";
-  String currencySym = "₫";
-  bool isShowingBalance = false;
+  final String userID = "0123456789";
+  final String userBalance = "123.600";
+  final String currencySym = "₫";
+  final bool isShowingBalance = false;
 
   UserScreen({super.key});
 
@@ -43,73 +42,50 @@ class UserScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width - 24,
-              padding: const EdgeInsets.all(k16Padding),
-              decoration: BoxDecoration(
-                  color: ColorsApp.backgroundLight.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(kBorderRadiusMax),
-                  boxShadow: [
-                    BoxShadow(
-                        color: ColorsApp.tertiaryColors.withOpacity(0.3),
-                        offset: const Offset(5, 4),
-                        blurRadius: 20,
-                        spreadRadius: 3)
-                  ]),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CircleAvatar(
-                    radius: kIconSize * 1.5,
-                    child: HelperImage.loadFromAsset(HelperAssets.imageAvt,
-                        radius: BorderRadius.circular(kBorderRadiusIcon)),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("Hoang Gia Kiet".toUpperCase(),
-                          style: TextStyle(
-                              fontSize:
-                                  TextStyles.defaultStyle.sizeHeading.fontSize,
-                              fontWeight:
-                                  TextStyles.defaultStyle.semiBold.fontWeight)),
-                      Container(
-                          margin:
-                              const EdgeInsets.symmetric(vertical: k8Margin),
-                          child: GestureDetector(
-                            onTap: () async {
-                              await Clipboard.setData(
-                                  ClipboardData(text: userID));
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  userID,
-                                  style: TextStyles.defaultStyle.colorHintText,
-                                ),
-                                const SizedBox(width: k8Padding),
-                                const Icon(
-                                  FontAwesomeIcons.copy,
-                                  size: kIconSize * 0.8,
-                                  color: ColorsApp.secondaryColor,
-                                )
-                              ],
-                            ),
-                          ))
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: const Icon(
-                      FontAwesomeIcons.angleRight,
-                      size: kIconSize,
-                    ),
-                  )
-                ],
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircleAvatar(
+                  radius: kIconSize * 1.5,
+                  child: HelperImage.loadFromAsset(HelperAssets.imageAvt,
+                      radius: BorderRadius.circular(kBorderRadiusIcon)),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text("Hoang Gia Kiet".toUpperCase(),
+                        style: TextStyles.defaultStyle.semiBold.sizeHeading
+                            .colorDefaultText),
+                    GestureDetector(
+                      onTap: () async {
+                        await Clipboard.setData(ClipboardData(text: userID));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            userID,
+                            style: TextStyles.defaultStyle.colorHintText,
+                          ),
+                          const SizedBox(width: k8Padding),
+                          const Icon(
+                            FontAwesomeIcons.copy,
+                            size: kIconSize * 0.8,
+                            color: ColorsApp.defaultTextColor,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Icon(FontAwesomeIcons.angleRight,
+                      size: kIconSize * 1.5, color: ColorsApp.secondaryColor),
+                )
+              ],
             ),
             Container(
               width: MediaQuery.of(context).size.width - 24,
@@ -124,8 +100,35 @@ class UserScreen extends StatelessWidget {
                 userBalance: userBalance,
                 currencySym: currencySym,
                 isShowingBalance: isShowingBalance),
-            HorizontalButtonLink(
-                icon: FontAwesomeIcons.circleInfo, text: "Application Info")
+            Padding(
+              padding: const EdgeInsets.only(top: k8Padding, left: k16Padding),
+              child: Text(
+                "Your Account",
+                style: TextStyles.defaultStyle.bold.colorHintText,
+              ),
+            ),
+            const Divider(
+              color: ColorsApp.tertiaryColors,
+              thickness: 2,
+            ),
+            TextButton(
+                onPressed: () {},
+                child: Row(
+                  children: [
+                    const Icon(
+                      FontAwesomeIcons.arrowRightFromBracket,
+                      size: kIconSize,
+                      color: ColorsApp.statusErrorColor,
+                    ),
+                    const SizedBox(
+                      width: k8Padding,
+                    ),
+                    Text(
+                      "Log out",
+                      style: TextStyles.defaultStyle.semiBold.colorRedText,
+                    )
+                  ],
+                ))
           ],
         ),
       ),
