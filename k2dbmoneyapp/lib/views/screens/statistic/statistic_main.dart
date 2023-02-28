@@ -3,10 +3,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
+import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_card_function.dart';
+import 'package:intl/intl.dart';
+
+import '../../widgets/widget_item_history.dart';
 
 class Statistic extends StatelessWidget {
   const Statistic({Key? key}) : super(key: key);
@@ -121,11 +126,11 @@ class Statistic extends StatelessWidget {
                                 ),
                                 Text("HOANG GIA KIET",
                                   style: TextStyles.defaultStyle
-                                      .sizeTitleAndButton.colorAppBarText.bold,
+                                      .sizeTitleAndButton.colorAppBarText.semiBold,
                                 ),
                                 Text("0321 964 789",
                                   style: TextStyles.defaultStyle
-                                      .sizeTitleAndButton.colorAppBarText.bold,
+                                      .sizeTitleAndButton.colorAppBarText.semiBold,
                                   )
                               ],
                           ),
@@ -170,26 +175,14 @@ class Statistic extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                              children: [
-                                // icon: FontAwesomeIcons.
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("15/02/2023 20:26:30",
-                                      style: TextStyles.defaultStyle.sizeTitleAndButton.colorHintText.regular,
-                                    ),
-                                    Text("Vo Che Bang chuyen tien nhau",
-                                      style: TextStyles.defaultStyle.regular.sizeTitleAndButton.regular,
-                                    )
-                                  ],
-                                ),
-                                const Spacer(),
-                                Text("-526.000 đ",
-                                  style: TextStyles.defaultStyle.bold.sizeTitleAndButton.colorRedText,
-                                ),
-                              ],
-                            ),
+                          Transaction_History(
+                              dateTime: DateTime.now(),
+                              title: 'Vo Che Bang chuyen tien nhau',
+                              price: -521000,
+                              sizeIcon: kIconSize,
+                              isBuying: true,
+                              onTap: () {},
+                          )
                         ],
                       ),
                     ),
@@ -203,3 +196,6 @@ class Statistic extends StatelessWidget {
     );
   }
 }
+
+
+

@@ -7,8 +7,9 @@ import '../constant/text.dart';
 
 class IconTextLink extends StatelessWidget {
   final String title;
+  final double? sizeIcon;
   final Function() onTap;
-  const IconTextLink({Key? key, required this.title, required this.onTap})
+  const IconTextLink({Key? key, this.sizeIcon, required this.title, required this.onTap})
       : super(key: key);
 
   @override
@@ -25,9 +26,9 @@ class IconTextLink extends StatelessWidget {
           const SizedBox(
             width: k8Padding / 2,
           ),
-          const Icon(
+          Icon(
             FontAwesomeIcons.angleRight,
-            size: kIconSize / 2,
+            size: sizeIcon?? kIconSize / 2,
             color: ColorsApp.backgroundDark,
           ),
         ],
