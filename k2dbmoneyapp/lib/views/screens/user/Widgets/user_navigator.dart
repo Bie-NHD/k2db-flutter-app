@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_card_function_filled.dart';
 
@@ -8,15 +9,11 @@ import '../../../../../core/constant/dimension.dart';
 import '../../../../../core/constant/text.dart';
 
 class UserNavigator extends StatefulWidget {
-  final String userBalance;
-  final String currencySym;
+  final double userBalance;
   bool isShowingBalance;
 
   UserNavigator(
-      {super.key,
-      required this.userBalance,
-      required this.currencySym,
-      required this.isShowingBalance});
+      {super.key, required this.userBalance, required this.isShowingBalance});
 
   @override
   State<UserNavigator> createState() => _UserNavigatorState();
@@ -53,8 +50,15 @@ class _UserNavigatorState extends State<UserNavigator> {
               ),
               Text(
                 widget.isShowingBalance
-                    ? "${widget.userBalance} ${widget.currencySym}"
-                    : "${widget.userBalance.replaceRange(0, widget.userBalance.length, "*" * widget.userBalance.length)} ${widget.currencySym}",
+                    ? (widget.userBalance).toFormatMoney()
+                    : (widget.userBalance).toString().replaceRange(
+                        0,
+                        (widget.userBalance).toFormatMoney().toString().length,
+                        "*" *
+                            (widget.userBalance)
+                                .toFormatMoney()
+                                .toString()
+                                .length),
                 style: TextStyle(
                     fontWeight: TextStyles.defaultStyle.bold.fontWeight,
                     fontSize: TextStyles.defaultStyle.sizeHeading.fontSize),
