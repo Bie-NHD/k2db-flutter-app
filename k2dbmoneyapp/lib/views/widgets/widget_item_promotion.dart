@@ -29,10 +29,16 @@ class ItemPromotion extends StatelessWidget {
               width: 173,
               height: 64,
               decoration: BoxDecoration(
-                color: ColorsApp.backgroundLight,
-                borderRadius: BorderRadius.circular(12),
-                shape: BoxShape.rectangle,
-              ),
+                  borderRadius: BorderRadius.circular(kBorderRadiusMin),
+                  color: ColorsApp.backgroundLight,
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorsApp.backgroundDark.withOpacity(0.25),
+                      offset: const Offset(0, 3),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                    ),
+                  ]),
               child: Stack(
                 children: [
                   Positioned(
