@@ -7,6 +7,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 
 import '../../../../core/helpers/helper_asset.dart';
+import '../../../main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -31,7 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
       animate = true;
     });
     await Future.delayed(const Duration(milliseconds: 5000));
-    return Navigator.of(context).pushNamed("/onBoarding_screen");
+    seenOnboard == true
+        ? Navigator.of(context).pushNamed("/main_page")
+        : Navigator.of(context).pushNamed("/onBoarding_screen");
   }
 
   @override

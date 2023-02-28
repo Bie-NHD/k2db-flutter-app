@@ -48,7 +48,13 @@ class OnboardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const Spacer(),
+          Text(
+            "K2DB Money",
+            style: TextStyles.defaultStyle.bold.sizeHeading.colorDeepBlueText,
+          ),
           const Spacer(),
           HelperImage.loadFromAsset(imgOnboard, height: 300),
           const Spacer(),
