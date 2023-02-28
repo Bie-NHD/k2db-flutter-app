@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 
 import 'package:k2dbmoneyapp/views/widgets/widget_item_promotion.dart';
@@ -23,14 +24,9 @@ class _PromotionScreenState extends State<PromotionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
-        title: const Center(
-          child: Text(
-            "Promotion",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        centerTitle: true,
+        title: Text('Promotion',
+            style: TextStyles.defaultStyle.colorDefaultText.colorAppBarText.sizeAppbar.bold
         ),
         actions: [
           IconButton(
@@ -82,24 +78,15 @@ class _PromotionScreenState extends State<PromotionScreen> {
                           left: k12Padding,
                           child: Text(
                             'Accumulated points',
-                            style: TextStyle(
-                              fontSize: TextStyles.defaultStyle.bold.fontSize,
-                              fontWeight:
-                              TextStyles.defaultStyle.bold.fontWeight,
-                              color: ColorsApp.backgroundLight,
-                            ),
+                            style: TextStyles.defaultStyle.colorAppBarText.bold.sizeDefault,
                           ),
                         ),
                         Positioned(
                           bottom: k12Padding,
                           left: k12Padding,
                           child: Text(
-                            "7.000.000.000.000.000.000 Point",
-                            style: TextStyle(
-                              fontSize:
-                              TextStyles.defaultStyle.sizeDefault.fontSize,
-                              color: ColorsApp.backgroundLight,
-                            ),
+                            "7.000.000.000.000.000 Point",
+                            style: TextStyles.defaultStyle.colorAppBarText.regular.sizeDefault,
                           ),
                         ),
                       ],
@@ -109,16 +96,18 @@ class _PromotionScreenState extends State<PromotionScreen> {
               ],
             ),
             Row(
-              children: const <Widget>[
+              children: <Widget>[
                 ItemPromotion(
                   nameItem: "MY GIFT",
                   describeItem: "Promotions are available",
                   icon: Icons.local_offer,
+                  onTap: () {},
                 ),
                 ItemPromotion(
                   nameItem: "EXCHANGE GIFTS",
                   describeItem: "Use points to exchange gifts",
                   icon: FontAwesomeIcons.gift,
+                  onTap: () {},
                 ),
               ],
             ),
