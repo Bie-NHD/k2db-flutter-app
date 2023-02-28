@@ -21,7 +21,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int _pageIndex = 0;
   final PageController _pageController = PageController(initialPage: 0);
 
-  Future setSeenonboard() async {
+  Future setSeenOnboard() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     seenOnboard = await prefs.setBool('seenOnboard', true);
     // this will set seenOnboard to true when running onboard page for first time.
@@ -30,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     super.initState();
-    setSeenonboard();
+    setSeenOnboard();
   }
 
   @override
@@ -97,18 +97,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                   ),
                                 ),
                               ],
-                            ),
-                            InkWell(
-                              onTap: () {
-                                _pageController.nextPage(
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                              child: const Text(
-                                "Next",
-                                style: TextStyles.defaultStyle,
-                              ),
                             ),
                           ],
                         ),
