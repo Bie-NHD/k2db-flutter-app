@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/constant/text.dart';
+import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
 import 'package:k2dbmoneyapp/core/widgets/widget_itembutton.dart';
 import 'package:k2dbmoneyapp/views/widgets/dot_indicators.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_onboardContent.dart';
@@ -38,11 +38,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       backgroundColor: ColorsApp.backgroundLight,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+        padding: const EdgeInsets.symmetric(
+            horizontal: k12Padding, vertical: k24Padding),
         child: Column(
           children: [
+            const SizedBox(height: k24Padding + 10),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconTextLink(
+                title: 'Skip',
+                onTap: () {
+                  Navigator.of(context).pushNamed("/main_page");
+                },
+              ),
+            ),
             Expanded(
-              flex: 9,
+              flex: 8,
               child: PageView.builder(
                 onPageChanged: (index) {
                   setState(() {
@@ -74,15 +85,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed("/main_page");
-                              },
-                              child: const Text(
-                                "Skip",
-                                style: TextStyles.defaultStyle,
-                              ),
-                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
