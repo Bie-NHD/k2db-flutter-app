@@ -28,6 +28,7 @@ class BannerHome extends StatelessWidget {
         ),
         child: Image.asset(
           bannerList[itemIndex],
+          width: size.width,
           fit: BoxFit.cover,
           alignment: Alignment.center,
         ),

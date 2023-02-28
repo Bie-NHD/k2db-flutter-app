@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:k2dbmoneyapp/core/constant/color.dart';
-import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
-import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
-import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
-import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
-import 'package:k2dbmoneyapp/core/widgets/widget_card_itemproduct.dart';
 
-import '../../../../core/constant/text.dart';
+import '../../../core/constant/color.dart';
+import '../../../core/constant/dimension.dart';
+import '../../../core/constant/text.dart';
+import '../../../core/helpers/helper_asset.dart';
+import '../../../core/helpers/helper_image.dart';
+import '../../../core/widgets/icon_textlink.dart';
+import '../../../core/widgets/widget_card_itemproduct.dart';
 import '../../widgets/widget_banner.dart';
 import '../../widgets/widget_card_function.dart';
 import '../../widgets/widget_card_itemtopproduct.dart';
@@ -27,47 +27,50 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorsApp.primaryColor,
-        leadingWidth: k20Padding * 2.7,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: k12Padding),
-          child: CircleAvatar(
-            child: HelperImage.loadFromAsset(
-              HelperAssets.imageAvt,
-              radius: BorderRadius.circular(kBorderRadiusMax * 2),
+        body: NestedScrollView(
+      floatHeaderSlivers: true,
+      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+        SliverAppBar(
+          floating: true,
+          snap: true,
+          backgroundColor: ColorsApp.primaryColor,
+          leadingWidth: k20Padding * 2.7,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: k12Padding),
+            child: CircleAvatar(
+              child: HelperImage.loadFromAsset(
+                HelperAssets.imageAvt,
+                radius: BorderRadius.circular(kBorderRadiusMax * 2),
+              ),
             ),
           ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Good Morning",
-              style: TextStyles.defaultStyle.colorAppBarText,
-            ),
-            Text(
-              "Hoang Gia Kiet",
-              style: TextStyles.defaultStyle.colorAppBarText.semiBold,
-            ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Good Morning",
+                style: TextStyles.defaultStyle.colorAppBarText,
+              ),
+              Text(
+                "Hoang Gia Kiet",
+                style: TextStyles.defaultStyle.colorAppBarText.semiBold,
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                FontAwesomeIcons.solidBell,
+                size: kIconSize - 2,
+              ),
+              tooltip: "Notifications",
+            )
           ],
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              FontAwesomeIcons.solidBell,
-              size: kIconSize - 2,
-            ),
-            tooltip: "Notifications",
-          )
-        ],
-      ),
+        )
+      ],
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -107,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: k12Padding),
+                  const SizedBox(height: k20Padding),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -145,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text("Best Selling",
                       style: TextStyles
-                          .defaultStyle.sizeAppbar.semiBold.colorBlueText),
+                          .defaultStyle.sizeAppbar.semiBold.colorDeepBlueText),
                   const SizedBox(
                     height: k8Padding,
                   ),
@@ -179,48 +182,45 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: k12Padding),
               child: Column(
-                verticalDirection: VerticalDirection.down,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "For you",
                         style: TextStyles
-                            .defaultStyle.sizeAppbar.semiBold.colorBlueText,
+                            .defaultStyle.sizeAppbar.semiBold.colorDeepBlueText,
                       ),
-                      const Spacer(),
                       IconTextLink(
                         title: "See all",
                         onTap: () {},
                       ),
                     ],
                   ),
-                  // const SizedBox(
-                  //   height: k12Padding,
-                  // ),
                   const SizedBox(
                     height: k8Padding,
                   ),
                   SizedBox(
-                      height: size.height,
-                      child: GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 15,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: k8Padding,
-                            mainAxisSpacing: k16Padding,
-                            childAspectRatio: 3 / 4,
-                          ),
-                          itemBuilder: (context, index) => CardItemProduct()))
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 23,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: k8Padding,
+                        mainAxisSpacing: k16Padding,
+                        childAspectRatio: 4 / 5,
+                      ),
+                      itemBuilder: (context, index) => const CardItemProduct(),
+                    ),
+                  )
                 ],
               ),
             )
           ],
         ),
       ),
-    );
+    ));
   }
 }
