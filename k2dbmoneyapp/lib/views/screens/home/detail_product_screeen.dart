@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
@@ -22,7 +21,6 @@ class DetailProductScreen extends StatefulWidget {
 
 class _DetailProductScreenState extends State<DetailProductScreen> {
   int _pageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -127,7 +125,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                         Expanded(
                           child: Text(
                             "Kem đặc có đường Hoàn hảo lon",
-                            style: TextStyles.defaultStyle.semiBold,
+                            style: TextStyles.defaultStyle.semiBold.sizeAppbar,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -198,23 +196,23 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                 ]),
               ),
               const SizedBox(height: k8Padding),
-              const ItemInformation(
+              const ItemDetailProduct(
                 fieldInformation: "Brand",
                 valueInformation: "Hoàn Hảo (Việt Nam)",
               ),
-              const ItemInformation(
+              const ItemDetailProduct(
                 fieldInformation: "Manufacture date",
                 valueInformation: "28/02/2023",
               ),
-              const ItemInformation(
+              const ItemDetailProduct(
                 fieldInformation: "Expiry Date",
                 valueInformation: "28/02/2024",
               ),
-              const ItemInformation(
+              const ItemDetailProduct(
                 fieldInformation: "Country of Origin",
                 valueInformation: "Việt Nam",
               ),
-              const ItemInformation(
+              const ItemDetailProduct(
                 fieldInformation: "Warranty Duration",
                 valueInformation: "3 Months",
               ),
@@ -229,9 +227,68 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                       style: TextStyles.defaultStyle.bold,
                     ),
                     const SizedBox(height: k8Padding),
-                    const ButtonFill(
+                    ButtonFill(
                       text: "The store is selling this product",
-                    ),
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(k12Padding,
+                                    k12Padding, k12Padding, k24Padding),
+                                child: Wrap(children: [
+                                  Center(
+                                    child: Container(
+                                      width: 100,
+                                      height: 8,
+                                      decoration: BoxDecoration(
+                                        color: ColorsApp.hintTextColor,
+                                        borderRadius: BorderRadius.circular(
+                                            kBorderRadiusMax),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: k24Padding),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          HelperImage.loadFromAsset(
+                                            HelperAssets.logoBrandStore,
+                                            width: k24Padding,
+                                            height: k24Padding,
+                                            radius: BorderRadius.circular(
+                                                kBorderRadiusMax),
+                                          ),
+                                          const SizedBox(
+                                            width: k8Padding - 2,
+                                          ),
+                                          Text(
+                                            "Bách Hóa Xanh Lê Văn Việt",
+                                            style: TextStyles
+                                                .defaultStyle.semiBold,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                      const ItemBottomSheet(
+                                        icon: FontAwesomeIcons.phone,
+                                        text: "078xxxxxxx",
+                                      ),
+                                      const ItemBottomSheet(
+                                        icon: FontAwesomeIcons.locationDot,
+                                        text:
+                                            "450-451 Lê Văn Việt, Phường Tăng Nhơn Phú A, Tp. Thủ Đức, TP. Hồ Chí Minh",
+                                      ),
+                                      const SizedBox(height: k24Padding),
+                                      const ButtonOutline(text: "Go to store"),
+                                    ],
+                                  ),
+                                ]),
+                              );
+                            });
+                      },
+                    )
                   ],
                 ),
               )
@@ -243,10 +300,44 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
   }
 }
 
-class ItemInformation extends StatelessWidget {
+class ItemBottomSheet extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  const ItemBottomSheet({
+    Key? key,
+    required this.icon,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: k12Padding),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            icon,
+            size: kIconSize,
+          ),
+          const SizedBox(width: k8Padding),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyles.defaultStyle.semiBold,
+              textAlign: TextAlign.justify,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ItemDetailProduct extends StatelessWidget {
   final String fieldInformation;
   final String? valueInformation;
-  const ItemInformation({
+  const ItemDetailProduct({
     Key? key,
     required this.fieldInformation,
     this.valueInformation,
