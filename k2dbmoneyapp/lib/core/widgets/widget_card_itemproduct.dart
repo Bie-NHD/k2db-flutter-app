@@ -33,110 +33,106 @@ class CardItemProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: k8Padding / 2, horizontal: k12Padding),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Stack(
-          children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(kBorderRadiusMin),
-                  color: ColorsApp.backgroundLight,
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorsApp.backgroundDark.withOpacity(0.25),
-                      offset: const Offset(0, 3),
-                      spreadRadius: 3,
-                      blurRadius: 6,
-                    ),
-                  ]),
-              child: Column(
-                children: [
-                  Image.asset(
-                    imgProduct,
-                    width: double.maxFinite,
-                    height: 100,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: k8Padding / 2, horizontal: k8Padding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          nameProduct,
-                          style: TextStyles.defaultStyle.semiBold,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(
-                          height: k8Padding / 2,
-                        ),
-                        Row(
-                          children: [
-                            HelperImage.loadFromAsset(
-                              HelperAssets.logoBrandStore,
-                              width: k24Padding,
-                              height: k24Padding,
-                              radius: BorderRadius.circular(kBorderRadiusMax),
-                            ),
-                            const SizedBox(
-                              width: k8Padding / 2,
-                            ),
-                            Text(
-                              nameStore,
-                              style: TextStyles.defaultStyle.sizeMin,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: k8Padding / 2,
-                        ),
-                        Text(
-                          price.toFormatMoney(),
-                          style: TextStyles.defaultStyle.colorRedText,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          "Kho: $quantity",
-                          style: TextStyles.defaultStyle.sizeMin.colorHintText,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              color: ColorsApp.backgroundLight,
+              borderRadius: BorderRadius.circular(kBorderRadiusMin),
+              border: Border.all(color: ColorsApp.hintTextColor, width: 0.2),
             ),
-            discountPercent != null
-                ? Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: k8Padding / 4, horizontal: k8Padding),
-                      decoration: const BoxDecoration(
+            child: Column(
+              children: [
+                Image.asset(
+                  imgProduct,
+                  width: double.maxFinite,
+                  height: 100,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(k8Padding / 2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        nameProduct,
+                        style: TextStyles.defaultStyle.semiBold,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(
+                        height: k8Padding / 2,
+                      ),
+                      Row(
+                        children: [
+                          HelperImage.loadFromAsset(
+                            HelperAssets.logoBrandStore,
+                            width: k24Padding,
+                            height: k24Padding,
+                            radius: BorderRadius.circular(kBorderRadiusMax),
+                          ),
+                          const SizedBox(
+                            width: k8Padding / 2,
+                          ),
+                          Text(
+                            nameStore,
+                            style: TextStyles.defaultStyle.sizeMin.semiBold,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: k8Padding / 2,
+                      ),
+                      Text(
+                        price.toFormatMoney(),
+                        style: TextStyles.defaultStyle.colorRedText,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: k8Padding / 2),
+                      Text(
+                        "Kho: $quantity",
+                        style: TextStyles.defaultStyle.sizeMin.colorHintText,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          discountPercent != null
+              ? Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: k8Padding / 4, horizontal: k8Padding / 2),
+                    decoration: const BoxDecoration(
                         color: ColorsApp.statusErrorColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(kBorderRadiusMin),
                           bottomRight: Radius.circular(kBorderRadiusMin),
                         ),
-                      ),
-                      child: Text(
-                        "-$discountPercent%",
-                        style: TextStyles.defaultStyle.colorAppBarText,
-                      ),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 2),
+                            color: ColorsApp.backgroundLight,
+                            blurRadius: 4,
+                          )
+                        ]),
+                    child: Text(
+                      "-$discountPercent%",
+                      style: TextStyles.defaultStyle.colorAppBarText,
                     ),
-                  )
-                : Container(),
-          ],
-        ),
+                  ),
+                )
+              : Container(),
+        ],
       ),
     );
   }
