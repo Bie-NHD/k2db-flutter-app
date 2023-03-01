@@ -6,6 +6,10 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 
+import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
+import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
+
+import 'package:k2dbmoneyapp/views/widgets/widget_item_product_promotion.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_item_promotion.dart';
 
 class PromotionScreen extends StatefulWidget {
@@ -89,6 +93,15 @@ class _PromotionScreenState extends State<PromotionScreen> {
                             style: TextStyles.defaultStyle.colorAppBarText.regular.sizeDefault,
                           ),
                         ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: HelperImage.loadFromAsset(
+                              HelperAssets.iconPromotion,
+                              height: 60,
+                              width: 60,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -108,6 +121,46 @@ class _PromotionScreenState extends State<PromotionScreen> {
                   describeItem: "Use points to exchange gifts",
                   icon: FontAwesomeIcons.gift,
                   onTap: () {},
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(k12Padding),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Recommend for you',
+                        style: TextStyles.defaultStyle.colorDeepBlueText.bold.sizeHeading,
+                      ),
+                    ]
+                  ),
+                ),
+                // Products section
+                Column(
+                  children: [
+                    SizedBox(
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 25,
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          crossAxisSpacing: k20Padding,
+                          mainAxisSpacing: k12Padding,
+                          childAspectRatio: 55/34,
+                        ),
+                        itemBuilder: (context, index) => ItemProductPromotion(
+                          imgProduct: HelperAssets.bannerProductPromotion,
+                          namePromotion: "Giảm đến 45% cho các thiết bị gia dụng",
+                          timePromotion: "Còn 13 ngày nữa hết hạn",
+                          onTap: () {},
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
