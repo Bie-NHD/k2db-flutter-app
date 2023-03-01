@@ -8,6 +8,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
+import 'package:k2dbmoneyapp/views/screens/authen/main_page.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_card_function.dart';
 import 'package:intl/intl.dart';
 
@@ -22,45 +23,47 @@ class Statistic extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorsApp.backgroundLight,
       appBar: AppBar(
-        backgroundColor: ColorsApp.primaryColor,
+        elevation: 2,
+        automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text('Transaction History',
-              style: TextStyles.defaultStyle.colorDefaultText.colorAppBarText.sizeAppbar.bold),
+        backgroundColor: ColorsApp.primaryColor,
+        title: Text(
+          "Transaction History",
+          style:
+          TextStyles.defaultStyle.semiBold.sizeAppbar.colorAppBarText,
+        ),
         actions: [
           IconButton(
+            padding: const EdgeInsets.all(k12Padding),
             onPressed: () {},
             icon: const Icon(
               FontAwesomeIcons.chartSimple,
-              size: kIconSize,
-              // color: ColorsApp.primaryColor,
+              size: kIconSize - 2,
             ),
-            style: IconButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: ColorsApp.backgroundLight,
-            ),
-          ),
+            tooltip: "...",
+          )
         ],
       ),
       body: SizedBox(
-        height: size.height * 0.4,
+        // height: size.height * 0.5,
         child: Column(
           children: [
             Stack(
               clipBehavior: Clip.none,
               children: <Widget>[
                 Container(
-                  height: size.height * 0.2,
+                  height: size.height * 0.15,
                   decoration: const BoxDecoration(
                       color: ColorsApp.primaryColor,
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(100),
-                          bottomRight: Radius.circular(100))),
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50))),
                 ),
               Positioned(
                   left: 0,
                   right: 0,
                   top: k24Padding,
-                  height: size.height * 0.23,
+                  height: size.height * 0.22,
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: k12Margin * 2),
                     // height: 150,
@@ -141,12 +144,14 @@ class Statistic extends StatelessWidget {
               ),
             ],
           ),
-            SizedBox(height: size.height * 0.055),
+            SizedBox(height: size.height * 0.09),
             Container(
-              padding: const EdgeInsets.only(left: k12Padding, right: k12Margin),
+              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
               child: Column(
                 children: [
                   Row(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    // mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         'Transaction History',
@@ -163,29 +168,28 @@ class Statistic extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Divider(
-                    height: 0,
-                    thickness: k8Padding / 4,
-                    indent: 0,
-                    endIndent: k12Padding,
-                  ),
                   SingleChildScrollView(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: k8Margin),
-                      child: Column(
+                    child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Transaction_History(
                               dateTime: DateTime.now(),
-                              title: 'Vo Che Bang chuyen tien nhau',
+                              title: 'Vo Che Bang chuyen tien nhau cho chi Mii',
                               price: -521000,
                               sizeIcon: kIconSize,
                               isBuying: true,
                               onTap: () {},
-                          )
+                          ),
+                          Transaction_History(
+                            dateTime: DateTime.now(),
+                            title: 'Vo Che Bang chuyen tien nhau cho anh ny cua chi Mii',
+                            price: -521000,
+                            sizeIcon: kIconSize,
+                            isBuying: true,
+                            onTap: () {},
+                          ),
                         ],
                       ),
-                    ),
                   )
                 ],
               ),

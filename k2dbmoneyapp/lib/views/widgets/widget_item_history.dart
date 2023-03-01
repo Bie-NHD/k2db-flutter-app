@@ -20,37 +20,55 @@ class Transaction_History extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
-      child:  Row(
+      child:  Column(
         children: [
-          if(isBuying == true)...[
-            const Icon(
-              FontAwesomeIcons.store,
-              size: kIconSize,
-              color: ColorsApp.primaryColor,
-            )
-          ]else...[
-            const SizedBox(width: kIconSize, height: kIconSize)
-          ],
-          const SizedBox(width: k8Margin),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          const Divider(
+            height: 0,
+            thickness: k8Padding / 4,
+            indent: 0,
+            endIndent: k12Padding,
+          ),
+          const SizedBox(height: k8Margin / 2),
+          Row(
             children: [
-              Text(DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime),
-                style: TextStyles.defaultStyle.sizeTitleAndButton.colorHintText.regular,
+              if(isBuying == true)...[
+                const Icon(
+                  FontAwesomeIcons.store,
+                  size: kIconSize,
+                  color: ColorsApp.primaryColor,
+                )
+              ]else...[
+                const SizedBox(width: kIconSize, height: kIconSize)
+              ],
+              const SizedBox(width: k12Margin),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime),
+                    style: TextStyles.defaultStyle.sizeTitleAndButton.colorHintText.regular,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.55,
+                    child: Text(title,
+                      style: TextStyles.defaultStyle.regular.sizeTitleAndButton.regular,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(height: k8Margin / 2),
+                ],
               ),
-              Text(title,
-                style: TextStyles.defaultStyle.regular.sizeTitleAndButton.regular,
-              )
+              const Spacer(),
+              Text(price.toFormatMoney(),
+                style: TextStyles.defaultStyle.bold.sizeTitleAndButton.colorRedText,
+              ),
+              const SizedBox(width: k8Margin / 2),
+              IconTextLink(title: '', onTap: () {}, sizeIcon: kIconSize,)
             ],
           ),
-          const Spacer(),
-          Text(price.toFormatMoney(),
-            style: TextStyles.defaultStyle.bold.sizeTitleAndButton.colorRedText,
-          ),
-          const SizedBox(width: k8Margin,),
-          IconTextLink(title: '', onTap: () {}, sizeIcon: kIconSize,)
         ],
       ),
     );
