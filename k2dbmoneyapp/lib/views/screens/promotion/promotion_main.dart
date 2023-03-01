@@ -28,9 +28,10 @@ class _PromotionScreenState extends State<PromotionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text('Promotion',
-            style: TextStyles.defaultStyle.colorDefaultText.colorAppBarText.sizeAppbar.bold
+            style: TextStyles.defaultStyle.colorAppBarText.sizeAppbar.bold
         ),
         actions: [
           IconButton(
@@ -114,13 +115,17 @@ class _PromotionScreenState extends State<PromotionScreen> {
                   nameItem: "MY GIFT",
                   describeItem: "Promotions are available",
                   icon: Icons.local_offer,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed("/my_gift_screen");
+                  },
                 ),
                 ItemPromotion(
                   nameItem: "EXCHANGE GIFTS",
                   describeItem: "Use points to exchange gifts",
                   icon: FontAwesomeIcons.gift,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed("/exchange_gift_screen");
+                  },
                 ),
               ],
             ),
