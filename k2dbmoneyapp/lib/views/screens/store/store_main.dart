@@ -15,16 +15,31 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
-  String _search = '';
   final fieldText = TextEditingController();
 
-  void clearText() {
-    fieldText.clear();
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes.
+    fieldText.addListener(_printLatestValue);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree and removes the _printLatestValue listener.
+    fieldText.dispose();
+    super.dispose();
+  }
+
+  void _printLatestValue() {
+    // ignore: avoid_print
+    print('Second text field: ${fieldText.text}');
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -58,11 +73,16 @@ class _StoreScreenState extends State<StoreScreen> {
             child: Column(
               children: [
                 TextField(
+                  enableInteractiveSelection:
+                      true, //long-pressing the TextField to select text and show the cut/copy/paste menu
                   controller: fieldText,
-                  onChanged: (value) {
-                    setState(() {
-                      fieldText.text = value;
-                    });
+                  onChanged: (text) {
+                    TextSelection previousSelection = fieldText.selection;
+                    fieldText.text = text;
+                    fieldText.selection = previousSelection;
+                    // setState(() {
+                    //   fieldText.text = text;
+                    // });
                   },
                   cursorColor: ColorsApp.primaryColor,
                   decoration: InputDecoration(
@@ -75,7 +95,7 @@ class _StoreScreenState extends State<StoreScreen> {
                           width: 0.8,
                           style: BorderStyle.none),
                     ),
-                    hintText: 'Search',
+                    hintText: 'Search Store',
                     hintMaxLines: 1,
                     hintStyle: TextStyles.defaultStyle.colorHintText,
                     prefixIcon: const Icon(
@@ -90,8 +110,7 @@ class _StoreScreenState extends State<StoreScreen> {
                         size: kIconSize - 4,
                       ),
                       onPressed: () {
-                        clearText();
-                        //TODO: Clean text
+                        fieldText.clear();
                       },
                     ),
                     focusedBorder: const OutlineInputBorder(

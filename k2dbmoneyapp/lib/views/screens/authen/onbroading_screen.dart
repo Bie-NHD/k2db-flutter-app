@@ -19,7 +19,6 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int _pageIndex = 0;
-  final PageController _pageController = PageController(initialPage: 0);
 
   Future setSeenOnboard() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
