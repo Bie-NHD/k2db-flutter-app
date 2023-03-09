@@ -7,14 +7,11 @@ import '../../../core/constant/text.dart';
 import '../../../core/extensions/extension_textstyle.dart';
 
 class CardItemTopProduct extends StatelessWidget {
-  final String imagePath;
-  final String nameProduct;
-  final double price;
+  final String? imagePath;
+  final String? nameProduct;
+  final double? price;
   const CardItemTopProduct(
-      {Key? key,
-      required this.imagePath,
-      required this.nameProduct,
-      required this.price})
+      {Key? key, this.imagePath, this.nameProduct, this.price})
       : super(key: key);
 
   @override
@@ -35,19 +32,19 @@ class CardItemTopProduct extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            imagePath,
+            imagePath ?? "",
             width: 70,
             height: 70,
             fit: BoxFit.cover,
           ),
           const Spacer(),
           Text(
-            nameProduct,
+            nameProduct ?? "No name",
             style: TextStyles.defaultStyle.semiBold,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            price.toFormatMoney(),
+            price == 0.0 ? 0.0.toFormatMoney() : price!.toFormatMoney(),
             style: TextStyles.defaultStyle.colorRedText,
             overflow: TextOverflow.ellipsis,
           )

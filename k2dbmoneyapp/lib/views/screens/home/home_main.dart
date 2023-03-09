@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: k12Padding),
             const BannerHome(),
             const SizedBox(height: k16Padding),
             Padding(
@@ -107,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: k20Padding),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CardItemFunction(
                         icon: FontAwesomeIcons.circlePlus,
@@ -156,18 +157,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                     child: SizedBox(
                   height: 140,
-                  child: ListView.separated(
+                  child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) => const SizedBox(
-                            width: k8Padding,
-                          ),
                       itemCount: 10,
                       itemBuilder: (context, index) {
-                        return const CardItemTopProduct(
-                            imagePath: HelperAssets.imageAvt,
-                            nameProduct: "Le Han Quoc sieu",
-                            price: 123456);
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              right: k8Padding,
+                              left: index == 0 ? k8Padding : 0),
+                          child: const CardItemTopProduct(
+                              imagePath: HelperAssets.imageAvt,
+                              nameProduct: "Le Han Quoc sieu",
+                              price: 0),
+                        );
                       }),
                 )),
               ],
