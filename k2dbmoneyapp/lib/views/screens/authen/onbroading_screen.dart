@@ -47,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               child: IconTextLink(
                 title: 'Skip',
                 onTap: () {
-                  Navigator.of(context).pushNamed("/main_page");
+                  Navigator.of(context).pushNamed("/sign_in_screen");
                 },
               ),
             ),
@@ -79,7 +79,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           text: "Get Started",
                           onTap: () {
                             return Navigator.of(context)
-                                .pushNamed("/main_page");
+                                .pushNamed("/sign_in_screen");
                           })
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/services/web_socket.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/main_page.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/onbroading_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/authen/sign_in.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/splash_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/home_main.dart';
@@ -23,4 +24,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailProductScreen.routeName: (context) => const DetailProductScreen(),
   MyGiftScreen.routeName: (context) => const MyGiftScreen(),
   ExchangeGiftScreen.routeName: (context) => const ExchangeGiftScreen(),
+  SignInScreen.routeName: (context) => const SignInScreen(),
 };
