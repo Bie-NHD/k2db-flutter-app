@@ -11,7 +11,6 @@ import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/main_page.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_card_function.dart';
 import 'package:intl/intl.dart';
-
 import '../../widgets/widget_item_history.dart';
 
 class Statistic extends StatelessWidget {
@@ -23,7 +22,7 @@ class Statistic extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorsApp.backgroundLight,
       appBar: AppBar(
-        elevation: 2,
+        elevation: 0,
         automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: ColorsApp.primaryColor,
@@ -45,7 +44,6 @@ class Statistic extends StatelessWidget {
         ],
       ),
       body: SizedBox(
-        // height: size.height * 0.5,
         child: Column(
           children: [
             Stack(
@@ -56,8 +54,8 @@ class Statistic extends StatelessWidget {
                   decoration: const BoxDecoration(
                       color: ColorsApp.primaryColor,
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50))),
+                          bottomLeft: Radius.circular(24),
+                          bottomRight: Radius.circular(24))),
                 ),
               Positioned(
                   left: 0,
@@ -145,54 +143,61 @@ class Statistic extends StatelessWidget {
             ],
           ),
             SizedBox(height: size.height * 0.09),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
-              child: Column(
-                children: [
-                  Row(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Transaction History',
-                        style: TextStyles.defaultStyle.colorTitleText
-                            .sizeTitleAndButton.bold,
-                      ),
-                      const Spacer(),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            FontAwesomeIcons.magnifyingGlass,
-                            size: kIconSize - 2,
-                          )
-                      ),
-                    ],
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              // child: Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+                child:
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Row(
                         children: [
-                          Transaction_History(
-                              dateTime: DateTime.now(),
-                              title: 'Vo Che Bang chuyen tien nhau cho chi Mii',
-                              price: -521000,
-                              sizeIcon: kIconSize,
-                              isBuying: true,
-                              onTap: () {},
+                          Text(
+                            'Transaction History',
+                            style: TextStyles.defaultStyle.colorTitleText
+                                .sizeTitleAndButton.bold,
                           ),
-                          Transaction_History(
-                            dateTime: DateTime.now(),
-                            title: 'Vo Che Bang chuyen tien nhau cho anh ny cua chi Mii',
-                            price: -521000,
-                            sizeIcon: kIconSize,
-                            isBuying: true,
-                            onTap: () {},
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                FontAwesomeIcons.magnifyingGlass,
+                                size: kIconSize - 2,
+                              )
                           ),
                         ],
                       ),
-                  )
-                ],
-              ),
+                    ),
+                    const Divider(
+                      height: 0,
+                      thickness: k8Padding / 4,
+                      indent: 0,
+                      endIndent: 0,
+                      color: ColorsApp.hintTextColor,
+                    ),
+                    Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+                          child: ListView.builder(
+                            itemCount: 20,
+                            itemBuilder: (context, index){
+                              return Transaction_History(
+                                onTap: () {
+                                  BottomSheetHelper.showBottomSheet(context);
+                                },
+                                price: -521000,
+                                dateTime: DateTime.now(),
+                                isBuying: true,
+                                title: 'Vo Che Bang chuyen tien nhau hom bua truoc cho chi Mii',
+                              );
+                          }
+                    ),
+                        )
+                    )
+                  ],
+                ),
+              // ),
             )
           ],
         ),
