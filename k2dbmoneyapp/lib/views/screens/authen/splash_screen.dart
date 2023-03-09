@@ -27,13 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future startAnimation() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 100));
     setState(() {
       animate = true;
     });
-    await Future.delayed(const Duration(milliseconds: 3000));
+    await Future.delayed(const Duration(milliseconds: 2000));
     seenOnboard == true
-        ? Navigator.of(context).pushNamed("/main_page")
+        ? Navigator.of(context).pushNamed("/sign_in_screen")
         : Navigator.of(context).pushNamed("/onBoarding_screen");
   }
 
@@ -58,11 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           AnimatedPositioned(
-            duration: const Duration(milliseconds: 2000),
+            duration: const Duration(milliseconds: 1600),
             top: 150,
             left: animate ? k24Padding : -80,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 2000),
+              duration: const Duration(milliseconds: 1600),
               opacity: animate ? 1 : 0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,12 +83,12 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           AnimatedPositioned(
-            duration: const Duration(milliseconds: 2400),
+            duration: const Duration(milliseconds: 1600),
             bottom: animate ? 250 : 0,
             left: k24Padding,
             right: k24Padding,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 2000),
+              duration: const Duration(milliseconds: 1600),
               opacity: animate ? 1 : 0,
               child: HelperImage.loadFromAsset(HelperAssets.imageSplash,
                   width: size.width * 0.8),

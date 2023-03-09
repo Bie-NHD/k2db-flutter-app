@@ -73,7 +73,7 @@ class HorizontalButtonLinkFill extends ButtonFill {
       this.icon,
       required super.text,
       super.color,
-      super.onTap,
+      required super.onTap,
       super.width,
       this.alignment})
       : super(key: key);

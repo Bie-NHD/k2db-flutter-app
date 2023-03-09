@@ -7,11 +7,15 @@ import '../constant/text.dart';
 
 class ButtonFill extends StatelessWidget {
   const ButtonFill(
-      {Key? key, required this.text, this.onTap, this.color, this.width})
+      {Key? key,
+      required this.text,
+      required this.onTap,
+      this.color,
+      this.width})
       : super(key: key);
 
   final String text;
-  final Function()? onTap;
+  final Function() onTap;
   final Color? color;
   final double? width;
 
