@@ -72,9 +72,40 @@ class _UserTabBarState extends State<UserTabBar> {
                     "Test1",
                     style: TextStyles.defaultStyle.sizeHeading,
                   ),
-                  Text(
-                    "Test2",
-                    style: TextStyles.defaultStyle.sizeHeading,
+                  Padding(
+                    padding: const EdgeInsets.all(k12Padding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Edit",
+                                    style: TextStyles
+                                        .defaultStyle.semiBold.colorDefaultText,
+                                  ),
+                                  const Icon(
+                                    FontAwesomeIcons.pen,
+                                    size: kIconSize,
+                                  ),
+                                  const Icon(
+                                    FontAwesomeIcons.angleRight,
+                                    size: kIconSize,
+                                  )
+                                ]
+                                    .map(
+                                      (e) => Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: k8Padding / 2),
+                                        child: e,
+                                      ),
+                                    )
+                                    .toList())),
+                      ],
+                    ),
                   )
                 ],
               ),
