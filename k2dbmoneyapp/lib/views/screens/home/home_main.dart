@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
+import 'package:k2dbmoneyapp/views/screens/home/products_screen.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            // For you list
+            // Best selling list
             Row(
               children: [
                 Expanded(
@@ -190,7 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       IconTextLink(
                         title: "See all",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(ProductsScreen.routeName);
+                        },
                       ),
                     ],
                   ),
