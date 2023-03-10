@@ -20,4 +20,6 @@ class HelperAssets {
   static const String bannerProductPromotion =
       'assets/images/banner_product_promotion.jpg';
   static const String signIn = 'assets/images/signIn.png';
+  static const String placeholderUserAvatar =
+      'assets/images/placeholder_userAvatar.png';
 }

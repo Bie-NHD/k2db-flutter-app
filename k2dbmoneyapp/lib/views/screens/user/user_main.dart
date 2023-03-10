@@ -9,6 +9,7 @@ import 'package:k2dbmoneyapp/views/screens/user/Widgets/user_navigator.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
+import 'Modal/User.dart';
 import 'Widgets/widget_user_tabbar.dart';
 
 class UserScreen extends StatefulWidget {
@@ -29,6 +30,8 @@ class _UserScreenState extends State<UserScreen>
   final bool isShowingBalance = false;
 
   late TabController _tabController;
+
+  User user = User.base();
 
   @override
   void initState() {
@@ -116,7 +119,10 @@ class _UserScreenState extends State<UserScreen>
             ),
             UserNavigator(
                 userBalance: userBalance, isShowingBalance: isShowingBalance),
-            UserTabBar(tabController: _tabController),
+            UserTabBar(
+              tabController: _tabController,
+              user: user,
+            ),
             const Divider(
               color: ColorsApp.tertiaryColors,
               thickness: 2,
