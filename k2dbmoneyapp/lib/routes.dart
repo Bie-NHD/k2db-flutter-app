@@ -6,6 +6,7 @@ import 'package:k2dbmoneyapp/views/screens/authen/sign_in.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/splash_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/home_main.dart';
+import 'package:k2dbmoneyapp/views/screens/home/products_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/promotion/exchange_gift.dart';
 import 'package:k2dbmoneyapp/views/screens/promotion/my_gift.dart';
 import 'package:k2dbmoneyapp/views/screens/promotion/promotion_main.dart';
@@ -25,4 +26,5 @@ final Map<String, WidgetBuilder> routes = {
   MyGiftScreen.routeName: (context) => const MyGiftScreen(),
   ExchangeGiftScreen.routeName: (context) => const ExchangeGiftScreen(),
   SignInScreen.routeName: (context) => const SignInScreen(),
+  ProductsScreen.routeName: (context) => const ProductsScreen(),
 };
