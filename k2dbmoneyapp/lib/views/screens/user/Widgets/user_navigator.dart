@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
@@ -11,9 +11,13 @@ import '../../../../../core/constant/text.dart';
 class UserNavigator extends StatefulWidget {
   final double userBalance;
   bool isShowingBalance;
+  int len;
 
-  UserNavigator(
-      {super.key, required this.userBalance, required this.isShowingBalance});
+  UserNavigator({
+    super.key,
+    required this.userBalance,
+    required this.isShowingBalance,
+  }) : len = userBalance.toFormatMoney().toString().length;
 
   @override
   State<UserNavigator> createState() => _UserNavigatorState();
@@ -45,25 +49,25 @@ class _UserNavigatorState extends State<UserNavigator> {
                     ? FontAwesomeIcons.solidEye
                     : FontAwesomeIcons.solidEyeSlash),
               ),
-              const SizedBox(
-                width: k8Padding,
-              ),
               Text(
                 widget.isShowingBalance
                     ? (widget.userBalance).toFormatMoney()
-                    : (widget.userBalance).toString().replaceRange(
-                        0,
-                        (widget.userBalance).toFormatMoney().toString().length,
-                        "*" *
-                            (widget.userBalance)
-                                .toFormatMoney()
-                                .toString()
-                                .length),
+                    : (widget.userBalance)
+                        .toFormatMoney()
+                        .toString()
+                        .replaceRange(0, widget.len, "*" * widget.len),
                 style: TextStyle(
                     fontWeight: TextStyles.defaultStyle.bold.fontWeight,
                     fontSize: TextStyles.defaultStyle.sizeHeading.fontSize),
               )
-            ],
+            ]
+                .map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: k8Padding),
+                    child: e,
+                  ),
+                )
+                .toList(),
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,

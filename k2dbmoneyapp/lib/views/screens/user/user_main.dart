@@ -35,15 +35,12 @@ class _UserScreenState extends State<UserScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
@@ -63,60 +60,8 @@ class _UserScreenState extends State<UserScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CircleAvatar(
-                  radius: kIconSize * 1.5,
-                  child: HelperImage.loadFromAsset(HelperAssets.imageAvt,
-                      radius: BorderRadius.circular(kBorderRadiusIcon)),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("Hoang Gia Kiet".toUpperCase(),
-                        style: TextStyles.defaultStyle.semiBold.sizeHeading
-                            .colorDefaultText),
-                    GestureDetector(
-                      onTap: () async {
-                        await Clipboard.setData(ClipboardData(text: userID));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            userID,
-                            style: TextStyles.defaultStyle.colorHintText,
-                          ),
-                          const SizedBox(width: k8Padding),
-                          const Icon(
-                            FontAwesomeIcons.copy,
-                            size: kIconSize * 0.8,
-                            color: ColorsApp.defaultTextColor,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Icon(FontAwesomeIcons.angleRight,
-                      size: kIconSize * 1.5, color: ColorsApp.tertiaryColors),
-                )
-              ],
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width - 24,
-              height: MediaQuery.of(context).size.height * 0.15,
-              margin: const EdgeInsets.only(top: k12Margin),
-              padding: const EdgeInsets.all(k14Padding),
-              decoration: BoxDecoration(
-                  color: ColorsApp.tertiaryColors,
-                  borderRadius: BorderRadius.circular(kBorderRadiusMax)),
-            ),
+            UserCard(userID: userID),
+            const PointProgressBar(),
             UserNavigator(
                 userBalance: userBalance, isShowingBalance: isShowingBalance),
             UserTabBar(
@@ -148,6 +93,83 @@ class _UserScreenState extends State<UserScreen>
           ],
         ),
       ),
+    );
+  }
+}
+
+class PointProgressBar extends StatelessWidget {
+  const PointProgressBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width - 24,
+      height: MediaQuery.of(context).size.height * 0.15,
+      margin: const EdgeInsets.only(top: k12Margin),
+      padding: const EdgeInsets.all(k14Padding),
+      decoration: BoxDecoration(
+          color: ColorsApp.tertiaryColors,
+          borderRadius: BorderRadius.circular(kBorderRadiusMax)),
+    );
+  }
+}
+
+class UserCard extends StatelessWidget {
+  const UserCard({
+    Key? key,
+    required this.userID,
+  }) : super(key: key);
+
+  final String userID;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        CircleAvatar(
+          radius: kIconSize * 1.5,
+          child: HelperImage.loadFromAsset(HelperAssets.imageAvt,
+              radius: BorderRadius.circular(kBorderRadiusIcon)),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("Hoang Gia Kiet".toUpperCase(),
+                style: TextStyles
+                    .defaultStyle.semiBold.sizeHeading.colorDefaultText),
+            GestureDetector(
+              onTap: () async {
+                await Clipboard.setData(ClipboardData(text: userID));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    userID,
+                    style: TextStyles.defaultStyle.colorHintText,
+                  ),
+                  const SizedBox(width: k8Padding),
+                  const Icon(
+                    FontAwesomeIcons.copy,
+                    size: kIconSize * 0.8,
+                    color: ColorsApp.defaultTextColor,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: const Icon(FontAwesomeIcons.angleRight,
+              size: kIconSize * 1.5, color: ColorsApp.tertiaryColors),
+        )
+      ],
     );
   }
 }
