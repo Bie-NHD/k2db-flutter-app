@@ -22,78 +22,63 @@ class UserTabBar extends StatefulWidget {
 }
 
 class _UserTabBarState extends State<UserTabBar> {
-  late User _user;
-  @override
-  void initState() {
-    super.initState();
-    _user = widget._user;
-  }
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: Padding(
-          padding: const EdgeInsets.only(top: k12Margin),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: k12Padding),
+      child: DefaultTabController(
+          length: 2,
+          initialIndex: 0,
           child: Column(
             children: [
-              NameTabs(widget: widget),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: TabBarView(
+              TabBar(
                   controller: widget._tabController,
-                  children: [InfoTab(user: _user), const SecurityTab()],
-                ),
+                  onTap: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                      widget._tabController.animateTo(index);
+                    });
+                  },
+                  labelPadding:
+                      const EdgeInsets.symmetric(horizontal: k12Padding),
+                  labelColor: ColorsApp.defaultTextColor,
+                  labelStyle: TextStyles.defaultStyle.semiBold.colorDefaultText,
+                  indicator: BoxDecoration(
+                      color: ColorsApp.tertiaryColors,
+                      borderRadius: BorderRadius.circular(kBorderRadiusMin)),
+                  tabs: [
+                    Tab(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(FontAwesomeIcons.circleInfo),
+                            SizedBox(
+                              width: k8Padding,
+                            ),
+                            Text("My Account"),
+                          ]),
+                    ),
+                    Tab(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(FontAwesomeIcons.shield),
+                            SizedBox(
+                              width: k8Padding,
+                            ),
+                            Text("Security"),
+                          ]),
+                    ),
+                  ]),
+              IndexedStack(
+                index: selectedIndex,
+                children: [InfoTab(user: widget._user), const SecurityTab()],
               ),
             ],
-          ),
-        ));
-  }
-}
-
-class NameTabs extends StatelessWidget {
-  const NameTabs({
-    Key? key,
-    required this.widget,
-  }) : super(key: key);
-
-  final UserTabBar widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return TabBar(
-        controller: widget._tabController,
-        labelPadding: const EdgeInsets.symmetric(horizontal: k12Padding),
-        labelColor: ColorsApp.defaultTextColor,
-        labelStyle: TextStyles.defaultStyle.semiBold.colorDefaultText,
-        indicator: BoxDecoration(
-            color: ColorsApp.tertiaryColors,
-            borderRadius: BorderRadius.circular(kBorderRadiusMin)),
-        tabs: [
-          Tab(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(FontAwesomeIcons.circleInfo),
-                  SizedBox(
-                    width: k8Padding,
-                  ),
-                  Text("My Account"),
-                ]),
-          ),
-          Tab(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(FontAwesomeIcons.shield),
-                  SizedBox(
-                    width: k8Padding,
-                  ),
-                  Text("Security"),
-                ]),
-          ),
-        ]);
+          )),
+    );
   }
 }
 
@@ -109,20 +94,23 @@ class InfoTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(k12Padding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const EditButton(),
-          Flexible(
-            child: ListView.builder(
-                itemCount: infoContent(user: _user).length,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) =>
-                    infoContent(user: _user)[index]),
-          ),
-        ],
+      child: ConstrainedBox(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const EditButton(),
+            Flexible(
+              child: ListView.builder(
+                  itemCount: infoContent(user: _user).length,
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) =>
+                      infoContent(user: _user)[index]),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -182,7 +170,8 @@ class EditButton extends StatelessWidget {
 }
 
 List<InfoContentItem> infoContent({required User user}) => [
-      InfoContentItem(title: "Name", content: user.userName),
+      InfoContentItem(
+          icon: FontAwesomeIcons.user, title: "Name", content: user.userName),
       InfoContentItem(title: "Gender", content: user.gender ?? "Not specified")
     ];
 List<Widget> securityContent() => [];
@@ -197,31 +186,42 @@ class InfoContentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: k12Padding),
+      padding: const EdgeInsets.symmetric(vertical: k8Padding),
       child: ListTile(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kBorderRadiusMin),
             side: const BorderSide(color: ColorsApp.tertiaryColors)),
-        leading: Icon(
-          icon,
-          size: kIconSize,
-          color: ColorsApp.defaultTextColor,
-        ),
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: k12Padding),
-          child: Wrap(
-            direction: Axis.horizontal,
-            children: [
-              Text(
+        title: Wrap(
+          direction: Axis.horizontal,
+          crossAxisAlignment: WrapCrossAlignment.end,
+          children: [
+            (icon != null)
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+                    child: Icon(
+                      icon,
+                      size: kIconSize,
+                      color: ColorsApp.defaultTextColor,
+                    ),
+                  )
+                : const SizedBox(
+                    width: k12Padding * 2 + kIconSize,
+                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: k12Padding),
+              child: Text(
                 title,
                 style: TextStyles.defaultStyle.semiBold.colorDefaultText,
               ),
-              Text(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: k12Padding),
+              child: Text(
                 content,
                 style: TextStyles.defaultStyle.regular.colorDefaultText,
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
