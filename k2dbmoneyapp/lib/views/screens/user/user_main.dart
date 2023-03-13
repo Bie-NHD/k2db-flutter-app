@@ -234,36 +234,38 @@ class _UserCardState extends State<UserCard> {
         decoration: BoxDecoration(color: Colors.red),
         padding: EdgeInsets.all(k12Padding),
         child: IntrinsicHeight(
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-            CardItemFunction(
-              icon: FontAwesomeIcons.wallet,
-              text: "Balance",
-              color: ColorsApp.tertiaryColors,
-            ),
-            VerticalDivider(
-              color: ColorsApp.tertiaryColors,
-              indent: 3,
-              endIndent: 3,
-              thickness: 1.5,
-            ),
-            CardItemFunction(
-              icon: FontAwesomeIcons.qrcode,
-              text: "QR Scan",
-              color: ColorsApp.tertiaryColors,
-            ),
-            VerticalDivider(
-              color: ColorsApp.tertiaryColors,
-              indent: 3,
-              endIndent: 3,
-              thickness: 1.5,
-            ),
-            CardItemFunction(
-              icon: FontAwesomeIcons.wallet,
-              text: "Balance",
-              color: ColorsApp.tertiaryColors,
-            ),
-          ]),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CardItemFunction(
+                  icon: FontAwesomeIcons.wallet,
+                  text: "Balance",
+                  color: ColorsApp.tertiaryColors,
+                ),
+                VerticalDivider(
+                  color: ColorsApp.tertiaryColors,
+                  indent: 3,
+                  endIndent: 3,
+                  thickness: 1.5,
+                ),
+                CardItemFunction(
+                  icon: FontAwesomeIcons.qrcode,
+                  text: "QR Scan",
+                  color: ColorsApp.tertiaryColors,
+                ),
+                VerticalDivider(
+                  color: ColorsApp.tertiaryColors,
+                  indent: 3,
+                  endIndent: 3,
+                  thickness: 1.5,
+                ),
+                CardItemFunction(
+                  icon: FontAwesomeIcons.wallet,
+                  text: "Balance",
+                  color: ColorsApp.tertiaryColors,
+                ),
+              ]),
         ),
       )
     ]);
