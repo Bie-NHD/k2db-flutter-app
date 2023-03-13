@@ -24,8 +24,6 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen>
     with SingleTickerProviderStateMixin {
-  final String userID = "0123456789";
-  final double userBalance = 123600;
   final bool isShowingBalance = false;
   late TabController _tabController;
   User user = User.base();
@@ -40,7 +38,9 @@ class _UserScreenState extends State<UserScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: ColorsApp.primaryColor,
+        shadowColor: Colors.transparent,
         actions: [
           IconButton(
             onPressed: () {},
@@ -57,10 +57,9 @@ class _UserScreenState extends State<UserScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            UserCard(userID: userID),
+            UserCard(user: user),
             const PointProgressBar(),
-            UserNavigator(
-                userBalance: userBalance, isShowingBalance: isShowingBalance),
+            UserNavigator(user: user, isShowingBalance: isShowingBalance),
             UserTabBar(
               tabController: _tabController,
               user: user,
@@ -71,15 +70,14 @@ class _UserScreenState extends State<UserScreen>
             ),
             TextButton(
                 onPressed: () {},
-                child: Row(
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  spacing: k8Padding,
                   children: [
                     const Icon(
                       FontAwesomeIcons.arrowRightFromBracket,
                       size: kIconSize,
                       color: ColorsApp.statusErrorColor,
-                    ),
-                    const SizedBox(
-                      width: k8Padding,
                     ),
                     Text(
                       "Log out",
@@ -89,7 +87,7 @@ class _UserScreenState extends State<UserScreen>
                 ))
           ]
               .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: k12Padding),
+                    padding: const EdgeInsets.symmetric(vertical: k8Padding),
                     child: e,
                   ))
               .toList(),
@@ -121,71 +119,72 @@ class PointProgressBar extends StatelessWidget {
 class UserCard extends StatelessWidget {
   const UserCard({
     Key? key,
-    required this.userID,
+    required this.user,
   }) : super(key: key);
 
-  final String userID;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        CircleAvatar(
-          radius: kIconSize * 1.5,
-          child: HelperImage.loadFromAsset(HelperAssets.imageAvt,
-              radius: BorderRadius.circular(kBorderRadiusIcon)),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text("Hoang Gia Kiet".toUpperCase(),
-                style: TextStyles
-                    .defaultStyle.semiBold.sizeHeading.colorDefaultText),
-            GestureDetector(
-              onTap: () async {
-                await Clipboard.setData(ClipboardData(text: userID));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    userID,
-                    style: TextStyles.defaultStyle.colorHintText,
-                  ),
-                  const SizedBox(width: k8Padding),
-                  const Icon(
-                    FontAwesomeIcons.copy,
-                    size: kIconSize * 0.8,
-                    color: ColorsApp.defaultTextColor,
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: const Icon(FontAwesomeIcons.angleRight,
-              size: kIconSize * 1.5, color: ColorsApp.tertiaryColors),
-        )
-      ],
+    return Center(
+      child: Wrap(
+        direction: Axis.horizontal,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: k8Padding,
+        children: [
+          CircleAvatar(
+            radius: kIconSize * 1.5,
+            child: HelperImage.loadFromAsset(user.userAvatar,
+                radius: BorderRadius.circular(kBorderRadiusIcon)),
+          ),
+          Wrap(
+            direction: Axis.vertical,
+            alignment: WrapAlignment.spaceAround,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            spacing: k8Padding,
+            children: [
+              Text(user.userName.toUpperCase(),
+                  style: TextStyles
+                      .defaultStyle.semiBold.sizeHeading.colorDefaultText),
+              GestureDetector(
+                onTap: () async {
+                  await Clipboard.setData(ClipboardData(text: user.userID));
+                },
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: k8Padding / 2,
+                  children: [
+                    Text(
+                      user.userID,
+                      style: TextStyles.defaultStyle.colorHintText,
+                    ),
+                    const Icon(
+                      FontAwesomeIcons.copy,
+                      size: kIconSize * 0.8,
+                      color: ColorsApp.defaultTextColor,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
 
 class UserNavigator extends StatefulWidget {
-  final double userBalance;
+  User user;
   bool isShowingBalance;
   int len;
 
   UserNavigator({
     super.key,
-    required this.userBalance,
+    required this.user,
     required this.isShowingBalance,
-  }) : len = userBalance.toFormatMoney().toString().length;
+  }) : len = user.userBalance.toFormatMoney().toString().length;
 
   @override
   State<UserNavigator> createState() => _UserNavigatorState();
@@ -204,8 +203,10 @@ class _UserNavigatorState extends State<UserNavigator> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.center,
+            spacing: k8Padding,
             children: [
               GestureDetector(
                 onTap: () {
@@ -219,8 +220,8 @@ class _UserNavigatorState extends State<UserNavigator> {
               ),
               Text(
                 widget.isShowingBalance
-                    ? (widget.userBalance).toFormatMoney()
-                    : (widget.userBalance)
+                    ? (widget.user.userBalance).toFormatMoney()
+                    : (widget.user.userBalance)
                         .toFormatMoney()
                         .toString()
                         .replaceRange(0, widget.len, "*" * widget.len),
@@ -228,17 +229,12 @@ class _UserNavigatorState extends State<UserNavigator> {
                     fontWeight: TextStyles.defaultStyle.bold.fontWeight,
                     fontSize: TextStyles.defaultStyle.sizeHeading.fontSize),
               )
-            ]
-                .map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: k8Padding),
-                    child: e,
-                  ),
-                )
-                .toList(),
+            ],
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+              direction: Axis.horizontal,
+              alignment: WrapAlignment.center,
+              spacing: k8Padding,
               children: const [
                 FilledCardItemFunction(
                   icon: FontAwesomeIcons.wallet,
@@ -261,14 +257,7 @@ class _UserNavigatorState extends State<UserNavigator> {
                   color: ColorsApp.secondaryColor,
                   size: kIconSize * 1.8,
                 ),
-              ]
-                  .map(
-                    (e) => Padding(
-                      padding: const EdgeInsets.all(k8Padding),
-                      child: e,
-                    ),
-                  )
-                  .toList())
+              ])
         ],
       ),
     );

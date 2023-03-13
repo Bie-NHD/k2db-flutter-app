@@ -94,14 +94,15 @@ class InfoTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(k12Padding),
-      child: ConstrainedBox(
+      child: Container(
         constraints:
-            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const EditButton(),
             Flexible(
+              flex: 2,
               child: ListView.builder(
                   itemCount: infoContent(user: _user).length,
                   scrollDirection: Axis.vertical,
@@ -186,43 +187,46 @@ class InfoContentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: k8Padding),
-      child: ListTile(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kBorderRadiusMin),
-            side: const BorderSide(color: ColorsApp.tertiaryColors)),
-        title: Wrap(
-          direction: Axis.horizontal,
-          crossAxisAlignment: WrapCrossAlignment.end,
-          children: [
-            (icon != null)
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: k12Padding),
-                    child: Icon(
-                      icon,
-                      size: kIconSize,
-                      color: ColorsApp.defaultTextColor,
-                    ),
-                  )
-                : const SizedBox(
-                    width: k12Padding * 2 + kIconSize,
+      margin: const EdgeInsets.symmetric(vertical: k8Margin),
+      padding: const EdgeInsets.all(k12Padding),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(kBorderRadiusMin),
+          border: Border.all(color: ColorsApp.tertiaryColors)),
+      constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 2 * k24Padding),
+      child: Wrap(
+        direction: Axis.horizontal,
+        crossAxisAlignment: WrapCrossAlignment.end,
+        children: [
+          (icon != null)
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+                  child: Icon(
+                    icon,
+                    size: kIconSize,
+                    color: ColorsApp.defaultTextColor,
                   ),
-            Padding(
-              padding: const EdgeInsets.only(left: k12Padding),
-              child: Text(
-                title,
-                style: TextStyles.defaultStyle.semiBold.colorDefaultText,
-              ),
+                )
+              : const SizedBox(
+                  width: k12Padding * 2 + kIconSize,
+                ),
+          Padding(
+            padding: const EdgeInsets.only(left: k12Padding),
+            child: Text(
+              title,
+              style:
+                  TextStyles.defaultStyle.semiBold.colorDefaultText.sizeDefault,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: k12Padding),
-              child: Text(
-                content,
-                style: TextStyles.defaultStyle.regular.colorDefaultText,
-              ),
-            )
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+            child: Text(
+              content,
+              style:
+                  TextStyles.defaultStyle.regular.colorDefaultText.sizeDefault,
+            ),
+          )
+        ],
       ),
     );
   }
