@@ -23,61 +23,70 @@ class UserTabBar extends StatefulWidget {
 
 class _UserTabBarState extends State<UserTabBar> {
   int selectedIndex = 0;
+  List<Tab> tabs = [
+    Tab(
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+        Icon(FontAwesomeIcons.circleInfo),
+        SizedBox(
+          width: k8Padding,
+        ),
+        Text("My Account"),
+      ]),
+    ),
+    Tab(
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+        Icon(FontAwesomeIcons.shield),
+        SizedBox(
+          width: k8Padding,
+        ),
+        Text("Security"),
+      ]),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: k12Padding),
       child: DefaultTabController(
-          length: 2,
-          initialIndex: 0,
-          child: Column(
-            children: [
-              TabBar(
-                  controller: widget._tabController,
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                      widget._tabController.animateTo(index);
-                    });
-                  },
-                  labelPadding:
-                      const EdgeInsets.symmetric(horizontal: k12Padding),
-                  labelColor: ColorsApp.defaultTextColor,
-                  labelStyle: TextStyles.defaultStyle.semiBold.colorDefaultText,
-                  indicator: BoxDecoration(
-                      color: ColorsApp.tertiaryColors,
-                      borderRadius: BorderRadius.circular(kBorderRadiusMin)),
-                  tabs: [
-                    Tab(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(FontAwesomeIcons.circleInfo),
-                            SizedBox(
-                              width: k8Padding,
-                            ),
-                            Text("My Account"),
-                          ]),
-                    ),
-                    Tab(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(FontAwesomeIcons.shield),
-                            SizedBox(
-                              width: k8Padding,
-                            ),
-                            Text("Security"),
-                          ]),
-                    ),
-                  ]),
-              IndexedStack(
-                index: selectedIndex,
-                children: [InfoTab(user: widget._user), const SecurityTab()],
-              ),
-            ],
-          )),
+        length: 2,
+        initialIndex: 0,
+        child: Column(
+          children: [
+            TabBar(
+                controller: widget._tabController,
+                onTap: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                    widget._tabController.animateTo(index);
+                  });
+                },
+                labelPadding:
+                    const EdgeInsets.symmetric(horizontal: k12Padding),
+                labelColor: Colors.white,
+                unselectedLabelColor: ColorsApp.primaryColor,
+                labelStyle: TextStyles.defaultStyle.semiBold.colorDefaultText,
+                indicator: BoxDecoration(
+                  // color: ColorsApp.primaryColor,
+                  borderRadius: BorderRadius.circular(kBorderRadiusMin),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0, 0.7],
+                    colors: [ColorsApp.primaryColor, ColorsApp.statusNoteColor],
+                  ),
+                ),
+                tabs: tabs),
+            IndexedStack(
+              index: selectedIndex,
+              children: [
+                InfoTab(user: widget._user),
+                const SecurityTab(),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -92,27 +101,18 @@ class InfoTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(k12Padding),
-      child: Container(
-        constraints:
-            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const EditButton(),
-            Flexible(
-              flex: 2,
-              child: ListView.builder(
-                  itemCount: infoContent(user: _user).length,
-                  scrollDirection: Axis.vertical,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) =>
-                      infoContent(user: _user)[index]),
-            ),
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const EditButton(),
+        ListView.builder(
+          itemCount: infoContent(user: _user).length,
+          scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => infoContent(user: _user)[index],
         ),
-      ),
+      ],
     );
   }
 }
@@ -124,14 +124,13 @@ class SecurityTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(k12Padding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const EditButton(),
-        ],
-      ),
+    return ListView.builder(
+      itemCount: 3,
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (context, index) =>
+          const InfoContentItem(title: "a", content: "b"),
     );
   }
 }
@@ -148,23 +147,24 @@ class EditButton extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: Wrap(
-            direction: Axis.horizontal,
-            spacing: k8Padding,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              Text(
-                "Edit",
-                style: TextStyles.defaultStyle.semiBold.colorDefaultText,
-              ),
-              const Icon(
-                FontAwesomeIcons.pen,
-                size: kIconSize,
-              ),
-              const Icon(
-                FontAwesomeIcons.angleRight,
-                size: kIconSize,
-              )
-            ]),
+          direction: Axis.horizontal,
+          spacing: k8Padding,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text(
+              "Edit",
+              style: TextStyles.defaultStyle.semiBold.colorDefaultText,
+            ),
+            const Icon(
+              FontAwesomeIcons.pen,
+              size: kIconSize,
+            ),
+            const Icon(
+              FontAwesomeIcons.angleRight,
+              size: kIconSize,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -22,7 +22,10 @@ class _UserScreenState extends State<UserScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
   }
 
   @override
@@ -32,9 +35,10 @@ class _UserScreenState extends State<UserScreen>
       extendBodyBehindAppBar: true,
       appBar: buildAppBar(),
       body: UserMainBody(
-          user: user,
-          isShowingBalance: isShowingBalance,
-          tabController: _tabController),
+        user: user,
+        isShowingBalance: isShowingBalance,
+        tabController: _tabController,
+      ),
     );
   }
 
@@ -44,16 +48,6 @@ class _UserScreenState extends State<UserScreen>
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
       elevation: 0,
-      // actions: [
-      //   IconButton(
-      //     onPressed: () {},
-      //     icon: const Icon(
-      //       FontAwesomeIcons.solidBell,
-      //       size: kIconSize,
-      //     ),
-      //     tooltip: "Notifications",
-      //   )
-      // ],
     );
   }
 }

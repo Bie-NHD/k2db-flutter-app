@@ -10,7 +10,6 @@ import '../../../../core/constant/text.dart';
 import '../../../../core/helpers/helper_image.dart';
 import '../../../widgets/widget_card_function.dart';
 import '../Modal/User.dart';
-import '../user_main.dart';
 import 'widget_user_tabbar.dart';
 
 class UserMainBody extends StatefulWidget {
@@ -38,8 +37,10 @@ class _UserMainBodyState extends State<UserMainBody> {
     final Size size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
       child: SafeArea(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
@@ -62,9 +63,9 @@ class _UserMainBodyState extends State<UserMainBody> {
                         ]),
                   ),
                 ),
-                // Main Body
+                // Header Decoration
                 Container(
-                  height: size.height,
+                  height: size.height * 0.3,
                   margin: EdgeInsets.only(top: size.height * 0.2),
                   padding: EdgeInsets.only(top: size.height * 0.25),
                   decoration: const BoxDecoration(
@@ -72,42 +73,9 @@ class _UserMainBodyState extends State<UserMainBody> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(kBorderRadiusMax),
                           topRight: Radius.circular(kBorderRadiusMax))),
-                  child: Column(children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: k24Padding),
-                      child: UserTabBar(
-                        tabController: widget._tabController,
-                        user: widget.user,
-                      ),
-                    ),
-                    const Divider(
-                      color: ColorsApp.tertiaryColors,
-                      thickness: 2,
-                    ),
-                    TextButton(
-                        onPressed: () {},
-                        child: Wrap(
-                          direction: Axis.horizontal,
-                          spacing: k8Padding,
-                          children: [
-                            const Icon(
-                              FontAwesomeIcons.arrowRightFromBracket,
-                              size: kIconSize,
-                              color: ColorsApp.statusErrorColor,
-                            ),
-                            Text(
-                              "Log out",
-                              style:
-                                  TextStyles.defaultStyle.semiBold.colorRedText,
-                            )
-                          ],
-                        ))
-                  ]),
                 ),
                 // Balance Display
                 Container(
-                  // Balance Display
                   padding: const EdgeInsets.symmetric(horizontal: k24Padding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +137,7 @@ class _UserMainBodyState extends State<UserMainBody> {
                               BoxShadow(
                                   color:
                                       ColorsApp.primaryColor.withOpacity(0.5),
-                                  offset: Offset(3, 3),
+                                  offset: const Offset(3, 3),
                                   blurRadius: 10,
                                   spreadRadius: 2)
                             ]),
@@ -231,39 +199,82 @@ class _UserMainBodyState extends State<UserMainBody> {
                             color: ColorsApp.backgroundLight),
                         child: IntrinsicHeight(
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                CardItemFunction(
-                                  icon: FontAwesomeIcons.wallet,
-                                  text: "Balance",
-                                  color: ColorsApp.tertiaryColors,
-                                ),
-                                VerticalDivider(
-                                  color: ColorsApp.tertiaryColors,
-                                  indent: 3,
-                                  endIndent: 3,
-                                  thickness: 1.5,
-                                ),
-                                CardItemFunction(
-                                  icon: FontAwesomeIcons.qrcode,
-                                  text: "QR Scan",
-                                  color: ColorsApp.tertiaryColors,
-                                ),
-                                VerticalDivider(
-                                  color: ColorsApp.tertiaryColors,
-                                  indent: 3,
-                                  endIndent: 3,
-                                  thickness: 1.5,
-                                ),
-                                CardItemFunction(
-                                  icon: FontAwesomeIcons.wallet,
-                                  text: "Balance",
-                                  color: ColorsApp.tertiaryColors,
-                                ),
-                              ]),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              CardItemFunction(
+                                icon: FontAwesomeIcons.wallet,
+                                text: "Balance",
+                                color: ColorsApp.tertiaryColors,
+                              ),
+                              VerticalDivider(
+                                color: ColorsApp.tertiaryColors,
+                                indent: 3,
+                                endIndent: 3,
+                                thickness: 1.5,
+                              ),
+                              CardItemFunction(
+                                icon: FontAwesomeIcons.qrcode,
+                                text: "QR Scan",
+                                color: ColorsApp.tertiaryColors,
+                              ),
+                              VerticalDivider(
+                                color: ColorsApp.tertiaryColors,
+                                indent: 3,
+                                endIndent: 3,
+                                thickness: 1.5,
+                              ),
+                              CardItemFunction(
+                                icon: FontAwesomeIcons.wallet,
+                                text: "Balance",
+                                color: ColorsApp.tertiaryColors,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                      // Main content
+                      Container(
+                        color: Colors.white,
+                        width: double.maxFinite,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: k24Padding),
+                              child: UserTabBar(
+                                tabController: widget._tabController,
+                                user: widget.user,
+                              ),
+                            ),
+                            const Divider(
+                              color: ColorsApp.tertiaryColors,
+                              thickness: 2,
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Wrap(
+                                direction: Axis.horizontal,
+                                spacing: k8Padding,
+                                children: [
+                                  const Icon(
+                                    FontAwesomeIcons.arrowRightFromBracket,
+                                    size: kIconSize,
+                                    color: ColorsApp.statusErrorColor,
+                                  ),
+                                  Text(
+                                    "Log out",
+                                    style: TextStyles
+                                        .defaultStyle.semiBold.colorRedText,
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 )
