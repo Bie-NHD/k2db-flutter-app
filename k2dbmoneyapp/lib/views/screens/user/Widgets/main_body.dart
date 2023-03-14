@@ -167,6 +167,13 @@ class _UserMainBodyState extends State<UserMainBody> {
                                   onTap: () async {
                                     await Clipboard.setData(ClipboardData(
                                         text: widget.user.userID));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        duration: Duration(seconds: 2),
+                                        content: Text(
+                                            "User ID Copied to Clipboard!"),
+                                      ),
+                                    );
                                   },
                                   child: Wrap(
                                     direction: Axis.horizontal,
