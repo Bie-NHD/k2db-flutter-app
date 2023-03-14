@@ -38,61 +38,80 @@ class _UserScreenState extends State<UserScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: ColorsApp.primaryColor,
-        shadowColor: Colors.transparent,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              FontAwesomeIcons.solidBell,
-              size: kIconSize - 2,
+      appBar: buildAppBar(),
+      body: buildBody(context),
+    );
+  }
+
+  Stack buildBody(BuildContext context) {
+    return Stack(children: [
+      Positioned(
+        top: MediaQuery.of(context).size.height * 0.2,
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(kBorderRadiusMax)),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(k24Padding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UserCard(user: user, isShowingBalance: isShowingBalance),
+                const PointProgressBar(),
+                UserTabBar(
+                  tabController: _tabController,
+                  user: user,
+                ),
+                const Divider(
+                  color: ColorsApp.tertiaryColors,
+                  thickness: 2,
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      spacing: k8Padding,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.arrowRightFromBracket,
+                          size: kIconSize,
+                          color: ColorsApp.statusErrorColor,
+                        ),
+                        Text(
+                          "Log out",
+                          style: TextStyles.defaultStyle.semiBold.colorRedText,
+                        )
+                      ],
+                    ))
+              ]
+                  .map((e) => Padding(
+                        padding:
+                            const EdgeInsets.symmetric(vertical: k8Padding),
+                        child: e,
+                      ))
+                  .toList(),
             ),
-            tooltip: "Notifications",
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(k24Padding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            UserCard(user: user, isShowingBalance: isShowingBalance),
-            const PointProgressBar(),
-            UserTabBar(
-              tabController: _tabController,
-              user: user,
-            ),
-            const Divider(
-              color: ColorsApp.tertiaryColors,
-              thickness: 2,
-            ),
-            TextButton(
-                onPressed: () {},
-                child: Wrap(
-                  direction: Axis.horizontal,
-                  spacing: k8Padding,
-                  children: [
-                    const Icon(
-                      FontAwesomeIcons.arrowRightFromBracket,
-                      size: kIconSize,
-                      color: ColorsApp.statusErrorColor,
-                    ),
-                    Text(
-                      "Log out",
-                      style: TextStyles.defaultStyle.semiBold.colorRedText,
-                    )
-                  ],
-                ))
-          ]
-              .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: k8Padding),
-                    child: e,
-                  ))
-              .toList(),
+          ),
         ),
       ),
+    ]);
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: ColorsApp.primaryColor,
+      shadowColor: Colors.transparent,
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            FontAwesomeIcons.solidBell,
+            size: kIconSize - 2,
+          ),
+          tooltip: "Notifications",
+        )
+      ],
     );
   }
 }
