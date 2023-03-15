@@ -9,9 +9,10 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 class UserEditScreen extends StatefulWidget {
-  UserEditScreen({super.key, required this.user});
+  UserEditScreen({super.key, required this.user}) : isSaved = false;
 
   final User user;
+  late bool isSaved;
   static const routeName = "/infoEdit_screen";
 
   @override
@@ -19,8 +20,9 @@ class UserEditScreen extends StatefulWidget {
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
+  // _UserEditScreenState():isSaved = false;
   late bool isSaved;
-  late List<EditItem> list;
+  late List<Item> list;
 
   @override
   Widget build(BuildContext context) {
@@ -64,22 +66,35 @@ class _UserEditScreenState extends State<UserEditScreen> {
             },
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            top: k24Padding,
-            left: k24Padding,
-            right: k24Padding,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                isSaved.toString().toUpperCase(),
-              ),
-            ],
-          ),
+        body:
+            // Container(
+            //   padding: const EdgeInsets.only(
+            //     top: k24Padding,
+            //     left: k24Padding,
+            //     right: k24Padding,
+            //   ),
+            // child:
+            // Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     for
+            //   ],
+            // ),
+            Stack(
+          children: [
+            // Expanded(
+            // child:
+            ListView(
+              children: [
+                // Iterable.generate(list.length,(index)=>EditItem(item: list[index]))
+                for (Item index in list) EditItem(item: index)
+              ],
+              // )
+            )
+          ],
         ),
+        // )
       ),
     );
   }
@@ -171,33 +186,41 @@ class _UserEditScreenState extends State<UserEditScreen> {
   @override
   void initState() {
     super.initState();
-    isSaved = true;
+    isSaved = widget.isSaved;
 
     list = [
-      EditItem(
+      Item(
+        content: widget.user.userName.toString(),
         icon: FontAwesomeIcons.user,
         user: widget.user,
         onChanged: _changeSaved(),
       ),
+      Item(user: widget.user, icon: F)
     ];
   }
 }
 
-class EditItem extends StatefulWidget {
-  EditItem(
-      {Key? key,
-      required this.user,
-      this.labelText,
-      required this.icon,
-      this.notBlank = false,
-      required this.onChanged})
-      : super(key: key);
-
-  final User user;
+class Item {
+  Item({
+    required this.user,
+    this.labelText,
+    required this.icon,
+    this.onChanged,
+    this.notBlank = false,
+    required this.content,
+  });
+  late final User user;
   final String? labelText;
   final IconData icon;
   bool notBlank;
   final onChanged;
+  final String content;
+}
+
+class EditItem extends StatefulWidget {
+  EditItem({Key? key, required this.item}) : super(key: key);
+
+  Item item;
 
   @override
   State<EditItem> createState() => _EditItemState();
@@ -227,27 +250,34 @@ class _EditItemState extends State<EditItem> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            widget.icon,
+            widget.item.icon,
             size: kIconSize,
             color: ColorsApp.defaultTextColor,
           ),
           Expanded(
-            child: TextField(
-              controller: TextEditingController.fromValue(
-                TextEditingValue(text: widget.user.userName),
-              ),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(k8Padding),
-                label: Text(
-                  widget.labelText ?? "",
-                  style: TextStyles
-                      .defaultStyle.sizeTitleAndButton.colorDefaultText,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: k8Padding),
+              decoration: BoxDecoration(
+                  color: ColorsApp.tertiaryColors.withOpacity(0.5)),
+              child: TextField(
+                controller: widget.item.content.isEmpty
+                    ? TextEditingController()
+                    : TextEditingController.fromValue(
+                        TextEditingValue(text: widget.item.content),
+                      ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(k8Padding),
+                  label: Text(
+                    widget.item.labelText ?? "",
+                    style: TextStyles
+                        .defaultStyle.sizeTitleAndButton.colorDefaultText,
+                  ),
+                  helperText: widget.item.notBlank ? "Must not be blank" : null,
                 ),
-                helperText: widget.notBlank ? "Must not be blank" : null,
+                onChanged: (value) {
+                  widget.item.onChanged;
+                },
               ),
-              onChanged: (value) {
-                widget.onChanged;
-              },
             ),
           ),
         ],
