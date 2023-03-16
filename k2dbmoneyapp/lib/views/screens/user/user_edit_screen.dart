@@ -9,11 +9,13 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 class UserEditScreen extends StatefulWidget {
-  UserEditScreen({super.key, required this.user}) : isSaved = true;
+  UserEditScreen({super.key, required this.user});
 
   final User user;
-  late bool isSaved;
+  final bool isSaved = true;
   static const routeName = "/infoEdit_screen";
+
+  // bool get isSaved => _isSaved;
 
   @override
   State<UserEditScreen> createState() => _UserEditScreenState();
@@ -67,7 +69,25 @@ class _UserEditScreenState extends State<UserEditScreen> {
           ),
           actions: [
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                if (isSaved) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("No changes to save"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  _onSave();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Changes Saved Successfully!"),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: ColorsApp.statusSuccessColor,
+                    ),
+                  );
+                }
+              },
               icon: const Icon(
                 FontAwesomeIcons.solidFloppyDisk,
                 color: ColorsApp.backgroundLight,
@@ -98,19 +118,21 @@ class _UserEditScreenState extends State<UserEditScreen> {
             //     for
             //   ],
             // ),
-            Stack(
-          children: [
-            // Expanded(
-            // child:
-            ListView(
-              children: [
-                Text(isSaved.toString()),
-                // Iterable.generate(list.length,(index)=>EditItem(item: list[index]))
-                for (Item index in list) EditItem(item: index)
-              ],
-              // )
-            )
-          ],
+            SafeArea(
+          child: Stack(
+            children: [
+              // Expanded(
+              // child:
+              ListView(
+                children: [
+                  Text(isSaved.toString()),
+                  // Iterable.generate(list.length,(index)=>EditItem(item: list[index]))
+                  for (Item index in list) EditItem(item: index)
+                ],
+                // )
+              )
+            ],
+          ),
         ),
         // )
       ),
@@ -145,6 +167,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                 TextButton.icon(
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.of(context).pop(widget.user);
                   },
                   icon: const Icon(
                     FontAwesomeIcons.circleXmark,
@@ -152,7 +175,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                     size: kIconSize,
                   ),
                   label: Text(
-                    "Cancel",
+                    "Do not Save",
                     style: TextStyles
                         .defaultStyle.sizeDefault.colorRedText.semiBold,
                   ),
@@ -161,6 +184,8 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   onPressed: () async {
                     await _onSave();
                     Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.of(context).pop(widget.user);
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("Changes Saved Successfully!"),
@@ -208,7 +233,9 @@ class _UserEditScreenState extends State<UserEditScreen> {
   @override
   void initState() {
     super.initState();
+    // widget.isSaved = true;
     isSaved = widget.isSaved;
+    // isSaved = true;
 
     list = [
       Item(
