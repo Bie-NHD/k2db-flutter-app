@@ -9,7 +9,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 class UserEditScreen extends StatefulWidget {
-  UserEditScreen({super.key, required this.user}) : isSaved = false;
+  UserEditScreen({super.key, required this.user}) : isSaved = true;
 
   final User user;
   late bool isSaved;
@@ -47,7 +47,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
       child: Scaffold(
         backgroundColor: ColorsApp.backgroundLight.withOpacity(0.5),
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: ColorsApp.backgroundDark.withOpacity(0.5),
           elevation: 0,
           shadowColor: Colors.transparent,
           automaticallyImplyLeading: false,
@@ -65,6 +65,23 @@ class _UserEditScreenState extends State<UserEditScreen> {
                       builder: ((context) => showExitDialog(context)));
             },
           ),
+          actions: [
+            TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(
+                FontAwesomeIcons.solidFloppyDisk,
+                color: ColorsApp.backgroundLight,
+              ),
+              label: Text(
+                "Save",
+                style: TextStyles
+                    .defaultStyle.sizeDefault.colorAppBarText.semiBold,
+              ),
+            ),
+            const SizedBox(
+              width: k12Padding,
+            )
+          ],
         ),
         body:
             // Container(
@@ -87,6 +104,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
             // child:
             ListView(
               children: [
+                Text(isSaved.toString()),
                 // Iterable.generate(list.length,(index)=>EditItem(item: list[index]))
                 for (Item index in list) EditItem(item: index)
               ],
@@ -172,14 +190,18 @@ class _UserEditScreenState extends State<UserEditScreen> {
 
   _onSave() {
     setState(() {
-      _changeSaved();
+      _change_isSaved();
     });
   }
 
-  _changeSaved() {
+  _change_isSaved() {
     setState(() {
       isSaved = !isSaved;
     });
+  }
+
+  _textField_onChange() {
+    isSaved ? _change_isSaved() : null;
   }
   // void callback()
 
@@ -193,9 +215,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
         content: widget.user.userName.toString(),
         icon: FontAwesomeIcons.user,
         user: widget.user,
-        onChanged: _changeSaved(),
+        onChanged: _textField_onChange(),
+        labelText: "Your name",
       ),
-      Item(user: widget.user, icon: F)
+      Item(
+          user: widget.user,
+          icon: FontAwesomeIcons.genderless,
+          content: widget.user.gender.toString(),
+          onChanged: _textField_onChange())
     ];
   }
 }
@@ -231,22 +258,22 @@ class _EditItemState extends State<EditItem> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(k8Margin),
+      padding: const EdgeInsets.symmetric(
+          horizontal: k12Padding, vertical: k8Padding),
       decoration: BoxDecoration(
         color: ColorsApp.backgroundLight,
         borderRadius: BorderRadius.circular(kBorderRadiusMin),
         border: Border.all(color: ColorsApp.primaryColor, width: 1.5),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-              color: ColorsApp.secondaryColor,
-              offset: Offset(2, 2),
+              color: ColorsApp.statusNoteColor.withOpacity(0.5),
+              offset: const Offset(5, 5),
               blurRadius: 3,
-              spreadRadius: 1)
+              spreadRadius: 5)
         ],
       ),
-      constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.5),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
@@ -254,9 +281,13 @@ class _EditItemState extends State<EditItem> {
             size: kIconSize,
             color: ColorsApp.defaultTextColor,
           ),
+          const SizedBox(
+            width: k8Padding,
+          ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: k8Padding),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: k12Padding, vertical: k8Padding),
               decoration: BoxDecoration(
                   color: ColorsApp.tertiaryColors.withOpacity(0.5)),
               child: TextField(
