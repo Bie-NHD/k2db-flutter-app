@@ -24,6 +24,7 @@ class User {
   User.base(
       {this.userName = "John",
       this.userBalance = 75130,
+      this.gender = "Non-Specified",
       this.userAvatar = HelperAssets.placeholderUserAvatar})
       : userPoint = Points.base();
 }
