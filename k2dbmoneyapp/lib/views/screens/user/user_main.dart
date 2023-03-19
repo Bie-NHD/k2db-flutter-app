@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constant/color.dart';
 import 'Modal/User.dart';
-import 'Widgets/main_body.dart';
+import 'Widgets/user_main_body.dart';
 
 class UserScreen extends StatefulWidget {
   static const routeName = "/user_screen";
@@ -31,7 +31,8 @@ class _UserScreenState extends State<UserScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsApp.primaryColor,
+      backgroundColor: ColorsApp.backgroundLight,
+      extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: buildAppBar(),
       body: UserMainBody(
