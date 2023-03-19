@@ -43,8 +43,9 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   font_awesome_flutter: ^10.4.0
   carousel_slider: ^4.2.1
-  intl: ^0.18.0
+  intl: any
   shared_preferences: ^2.0.18
+  charts_flutter: ^0.12.0
 
 
 dev_dependencies:
