@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constant/color.dart';
 import 'Modal/User.dart';
-import 'Widgets/main_body.dart';
+import 'Widgets/user_main_body.dart';
 
 class UserScreen extends StatefulWidget {
   static const routeName = "/user_screen";
