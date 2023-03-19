@@ -34,6 +34,7 @@ class _UserTabBarState extends State<UserTabBar> {
         length: 2,
         initialIndex: 0,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             TabBar(
                 controller: widget._tabController,
@@ -114,6 +115,7 @@ class SecurityTab extends StatelessWidget {
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) =>
           const InfoContentItem(title: "a", content: "b"),
     );

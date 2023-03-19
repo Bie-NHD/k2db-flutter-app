@@ -28,6 +28,7 @@ class InfoTab extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        //Edit Button
         Container(
           margin: const EdgeInsets.symmetric(vertical: k8Margin),
           child: Align(
@@ -61,12 +62,15 @@ class InfoTab extends StatelessWidget {
             ),
           ),
         ),
-        ListView.builder(
-          itemCount: infoContent(user: _user).length,
-          scrollDirection: Axis.vertical,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) => infoContent(user: _user)[index],
+        Flexible(
+          child: ListView.builder(
+            itemCount: infoContent(user: _user).length,
+            padding: EdgeInsets.zero,
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => infoContent(user: _user)[index],
+          ),
         ),
       ],
     );
