@@ -31,7 +31,8 @@ class _UserScreenState extends State<UserScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsApp.primaryColor,
+      backgroundColor: ColorsApp.backgroundLight,
+      extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: buildAppBar(),
       body: UserMainBody(
