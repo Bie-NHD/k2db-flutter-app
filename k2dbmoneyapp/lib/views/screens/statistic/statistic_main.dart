@@ -11,7 +11,9 @@ import 'package:k2dbmoneyapp/core/widgets/icon_textlink.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/main_page.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_card_function.dart';
 import 'package:intl/intl.dart';
+import '../../widgets/ModalBotoomSheet.dart';
 import '../../widgets/widget_item_history.dart';
+import 'Statistical_Chart_Screen.dart';
 
 class Statistic extends StatelessWidget {
   const Statistic({Key? key}) : super(key: key);
@@ -34,7 +36,9 @@ class Statistic extends StatelessWidget {
         actions: [
           IconButton(
             padding: const EdgeInsets.all(k12Padding),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Statistical_Chart()));
+            },
             icon: const Icon(
               FontAwesomeIcons.chartSimple,
               size: kIconSize - 2,
@@ -189,7 +193,7 @@ class Statistic extends StatelessWidget {
                                 price: -521000,
                                 dateTime: DateTime.now(),
                                 isBuying: true,
-                                title: 'Vo Che Bang chuyen tien nhau hom bua truoc cho chi Mii',
+                                title: 'Vo Che Bang chuyen tien nhau hom bua ngay 8 thang 3 cho chi Mii yeu dauuuuuu ',
                               );
                           }
                     ),
