@@ -12,7 +12,7 @@ class UserEditScreen extends StatefulWidget {
   UserEditScreen({super.key, required this.user});
 
   final User user;
-  final bool isSaved = true;
+  // final bool isSaved = true;
   static const routeName = "/infoEdit_screen";
 
   // bool get isSaved => _isSaved;
@@ -22,10 +22,79 @@ class UserEditScreen extends StatefulWidget {
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
-  // _UserEditScreenState():isSaved = false;
-  late bool isSaved;
-  late List<Item> list;
 
+  //TODO: Fix Save Buttons Behavior
+  bool isSaved = true;
+  late List<Item> list = [
+    Item(
+      content: widget.user.userName.toString(),
+      icon: FontAwesomeIcons.user,
+      user: widget.user,
+      onChanged: _textField_onChange(),
+      labelText: "Your name",
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+    Item(
+      user: widget.user,
+      icon: FontAwesomeIcons.genderless,
+      content: widget.user.gender.toString(),
+      onChanged: _textField_onChange(),
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    isSaved = true;
+  }
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -49,7 +118,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
       child: Scaffold(
         backgroundColor: ColorsApp.backgroundLight.withOpacity(0.5),
         appBar: AppBar(
-          backgroundColor: ColorsApp.backgroundDark.withOpacity(0.5),
+          backgroundColor: ColorsApp.primaryColor,
           elevation: 0,
           shadowColor: Colors.transparent,
           automaticallyImplyLeading: false,
@@ -64,7 +133,8 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   ? Navigator.pop(context)
                   : showDialog(
                       context: context,
-                      builder: ((context) => showExitDialog(context)));
+                      builder: ((context) => showExitDialog(context)),
+                    );
             },
           ),
           actions: [
@@ -103,38 +173,27 @@ class _UserEditScreenState extends State<UserEditScreen> {
             )
           ],
         ),
-        body:
-            // Container(
-            //   padding: const EdgeInsets.only(
-            //     top: k24Padding,
-            //     left: k24Padding,
-            //     right: k24Padding,
-            //   ),
-            // child:
-            // Column(
-            //   mainAxisSize: MainAxisSize.min,
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     for
-            //   ],
-            // ),
-            SafeArea(
-          child: Stack(
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(
+                horizontal: k24Padding, vertical: k12Padding),
+            physics: const ClampingScrollPhysics(),
             children: [
-              // Expanded(
-              // child:
-              ListView(
-                children: [
-                  Text(isSaved.toString()),
-                  // Iterable.generate(list.length,(index)=>EditItem(item: list[index]))
-                  for (Item index in list) EditItem(item: index)
-                ],
-                // )
-              )
+              Text(
+                "Edit your user acount info",
+                style: TextStyles.defaultStyle.semiBold.sizeAppbar,
+              ),
+              Text(isSaved.toString()),
+              for (Item index in list) EditItem(item: index)
+              // ListView.builder(
+              //   // physics: const NeverScrollableScrollPhysics(),
+              //   itemCount: list.length,
+              //   // itemExtent: 20,
+              //   itemBuilder: (context, index) => EditItem(item: list[index]),
+              // ),
             ],
           ),
         ),
-        // )
       ),
     );
   }
@@ -229,29 +288,6 @@ class _UserEditScreenState extends State<UserEditScreen> {
     isSaved ? _change_isSaved() : null;
   }
   // void callback()
-
-  @override
-  void initState() {
-    super.initState();
-    // widget.isSaved = true;
-    isSaved = widget.isSaved;
-    // isSaved = true;
-
-    list = [
-      Item(
-        content: widget.user.userName.toString(),
-        icon: FontAwesomeIcons.user,
-        user: widget.user,
-        onChanged: _textField_onChange(),
-        labelText: "Your name",
-      ),
-      Item(
-          user: widget.user,
-          icon: FontAwesomeIcons.genderless,
-          content: widget.user.gender.toString(),
-          onChanged: _textField_onChange())
-    ];
-  }
 }
 
 class Item {
