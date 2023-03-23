@@ -19,6 +19,7 @@ class ItemPromotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -26,15 +27,15 @@ class ItemPromotion extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: 173,
-              height: 64,
+              width: size.width * 0.453,
+              height: size.height * 0.075,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(kBorderRadiusMin),
                   color: ColorsApp.backgroundLight,
                   boxShadow: [
                     BoxShadow(
                       color: ColorsApp.backgroundDark.withOpacity(0.25),
-                      offset: const Offset(0, 3),
+                      offset: const Offset(0, 0),
                       spreadRadius: 1,
                       blurRadius: 1,
                     ),

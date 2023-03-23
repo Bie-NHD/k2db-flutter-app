@@ -29,7 +29,9 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
         actions: [
           IconButton(
             padding: const EdgeInsets.all(k12Padding),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed("/help_promotion_screen");
+            },
             icon: const Icon(
               FontAwesomeIcons.solidCircleQuestion,
               size: kIconSize - 2,
@@ -37,6 +39,36 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
             tooltip: "Help",
           )
         ],
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(k16Padding),
+        color: ColorsApp.backgroundLight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'This function is temporarily not supported, please come back!',
+              textAlign: TextAlign.center,
+              style: TextStyles.defaultStyle.sizeHeading.colorDefaultText.bold.copyWith(
+                decoration: TextDecoration.none,
+              ),
+            ),
+            const SizedBox(height: k16Padding),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Handle button press event
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(ColorsApp.primaryColor),
+              ),
+              child: Text(
+                'Return',
+                style: TextStyles.defaultStyle.sizeTitleAndButton.colorAppBarText.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

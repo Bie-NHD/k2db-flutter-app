@@ -23,6 +23,7 @@ class PromotionScreen extends StatefulWidget {
 class _PromotionScreenState extends State<PromotionScreen> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     // TODO: implement build
 
     return Scaffold(
@@ -36,7 +37,9 @@ class _PromotionScreenState extends State<PromotionScreen> {
         actions: [
           IconButton(
             padding: const EdgeInsets.all(k12Padding),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed("/help_promotion_screen");
+            },
             icon: const Icon(
               FontAwesomeIcons.solidCircleQuestion,
               size: kIconSize - 2,
@@ -53,8 +56,8 @@ class _PromotionScreenState extends State<PromotionScreen> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(12, 24, 12, 12),
                   child: Container(
-                    width: 366,
-                    height: 90,
+                    width: size.width * 1.15,
+                    height: size.height * 0.12,
                     decoration: BoxDecoration(
                       color: ColorsApp.primaryColor,
                       borderRadius: BorderRadius.circular(12),
@@ -65,12 +68,12 @@ class _PromotionScreenState extends State<PromotionScreen> {
                           top: 0,
                           right: 0,
                           child: Container(
-                            width: 210,
-                            height: 46,
+                            width: size.width * 0.453,
+                            height: size.height * 0.06,
                             decoration: const BoxDecoration(
                               color: ColorsApp.statusNoteColor,
                               borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(90),
+                                bottomLeft: Radius.circular(70),
                                 bottomRight: Radius.circular(0),
                                 topLeft: Radius.circular(0),
                                 topRight: Radius.circular(12),
@@ -83,15 +86,15 @@ class _PromotionScreenState extends State<PromotionScreen> {
                           left: k12Padding,
                           child: Text(
                             'Accumulated points',
-                            style: TextStyles.defaultStyle.colorAppBarText.bold.sizeDefault,
+                            style: TextStyles.defaultStyle.sizeAppbar.colorAppBarText.semiBold,
                           ),
                         ),
                         Positioned(
                           bottom: k12Padding,
                           left: k12Padding,
                           child: Text(
-                            "7.000.000.000.000.000 Point",
-                            style: TextStyles.defaultStyle.colorAppBarText.regular.sizeDefault,
+                            "7.000.000.000 Point",
+                            style: TextStyles.defaultStyle.sizeHeading.colorYellowText.bold,
                           ),
                         ),
                         Positioned(
@@ -137,7 +140,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
                     children: <Widget>[
                       Text(
                         'Recommend for you',
-                        style: TextStyles.defaultStyle.colorDeepBlueText.bold.sizeHeading,
+                        style: TextStyles.defaultStyle.sizeAppbar.colorDeepBlueText.semiBold,
                       ),
                     ]
                   ),
