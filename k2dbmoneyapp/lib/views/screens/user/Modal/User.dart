@@ -8,33 +8,54 @@ class User {
   double userBalance;
   Points userPoint;
   String userAvatar;
+  Security security;
 
   User(
       {required this.userName,
       this.userBalance = 0,
       int userPoint = 0,
       List<int> pointGoals = const [0],
-      this.gender = "Non-Specified",
-      this.userAvatar = HelperAssets.placeholderUserAvatar})
+      this.gender = Gender.blank,
+      this.userAvatar = HelperAssets.placeholderUserAvatar,
+      this.userPhone})
       : userPoint = Points(
             currentPoints: userPoint,
             currentGoal: pointGoals[0],
             pointGoals: pointGoals);
 
-  User.base(
-      {this.userName = "John",
-      this.userBalance = 75130,
-      this.gender = "Non-Specified",
-      this.userAvatar = HelperAssets.placeholderUserAvatar})
-      : userPoint = Points.base();
+  User.base({
+    this.userName = "John",
+    this.userBalance = 75130,
+    this.gender = Gender.blank,
+    this.userAvatar = HelperAssets.placeholderUserAvatar,
+    this.security = Security.base(),
+  }) : userPoint = Points.base();
 }
 
-class SecurityInfo {
+class Gender {
+  static const String blank = "Non-Specified";
+  static const String enby = "Non-binary";
+  static const String male = "Male";
+  static const String female = "Female";
+}
+
+class Security {
   late String phoneNum;
-  bool hasValidatedCitizenID = false;
-  late String citizenID;
-  bool hasPIN = false;
-  late String PIN;
+  bool hasValidatedCitizenID;
+  String? citizenID;
+  bool hasPIN;
+  String? PIN;
+
+  Security({
+    required this.phoneNum,
+    this.citizenID,
+    this.PIN,
+  })  : hasValidatedCitizenID = citizenID != null ? true : false,
+        hasPIN = PIN != null ? true : false;
+
+  static Security base() {
+    return Security(phoneNum: "0909123456");
+  }
 }
 
 class Points {
@@ -50,8 +71,7 @@ class Points {
     }
   }
 
-  Points.base({this.currentPoints = 0, this.pointGoals = const [5, 10, 15, 20]})
-      : currentGoal = pointGoals[0];
+  static Points base() => Points(currentPoints: 0, pointGoals: [5, 10, 15, 20]);
 
   updateCurretPoints() {
     int index = 0;

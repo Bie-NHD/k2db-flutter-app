@@ -16,11 +16,20 @@ class InfoTab extends StatelessWidget {
 
   final User _user;
 
-  List<InfoContentItem> infoContent({required User user}) => [
-        InfoContentItem(
-            icon: FontAwesomeIcons.user, title: "Name", content: user.userName),
-        InfoContentItem(
-            title: "Gender", content: user.gender ?? "Not specified")
+  List<Info> infoContent() => [
+        Info(
+          icon: FontAwesomeIcons.user,
+          title: "Name",
+          content: _user.userName,
+        ),
+        Info(
+          title: "Gender",
+          content: _user.gender ?? "Not specified",
+        ),
+        Info(
+          title: "Phone",
+          content: _user.userPhone ?? "",
+        ),
       ];
 
   @override
@@ -38,7 +47,8 @@ class InfoTab extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserEditScreen(user: _user)));
+                      builder: (context) => UserEditScreen(user: _user),
+                    ));
               },
               child: Wrap(
                 direction: Axis.horizontal,
@@ -62,27 +72,37 @@ class InfoTab extends StatelessWidget {
             ),
           ),
         ),
-        Flexible(
-          child: ListView.builder(
-            itemCount: infoContent(user: _user).length,
-            padding: EdgeInsets.zero,
-            scrollDirection: Axis.vertical,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) => infoContent(user: _user)[index],
-          ),
+        ListView.builder(
+          itemCount: infoContent().length,
+          padding: EdgeInsets.zero,
+          scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => InfoItem(info: infoContent()[index]),
         ),
       ],
     );
   }
 }
 
-class InfoContentItem extends StatelessWidget {
+class Info {
   final IconData? icon;
   final String title;
   final String content;
-  const InfoContentItem(
-      {super.key, this.icon, required this.title, required this.content});
+
+  Info({this.icon, required this.title, required this.content});
+}
+
+class InfoItem extends StatelessWidget {
+  // final IconData? icon;
+  // final String title;
+  // final String content;
+  final Info info;
+
+  const InfoItem({
+    super.key,
+    required this.info,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +119,11 @@ class InfoContentItem extends StatelessWidget {
         direction: Axis.horizontal,
         crossAxisAlignment: WrapCrossAlignment.end,
         children: [
-          (icon != null)
+          (info.icon != null)
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: k12Padding),
                   child: Icon(
-                    icon,
+                    info.icon,
                     size: kIconSize,
                     color: ColorsApp.defaultTextColor,
                   ),
@@ -114,7 +134,7 @@ class InfoContentItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: k12Padding),
             child: Text(
-              title,
+              info.title,
               style:
                   TextStyles.defaultStyle.semiBold.colorDefaultText.sizeDefault,
             ),
@@ -122,7 +142,7 @@ class InfoContentItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: k12Padding),
             child: Text(
-              content,
+              info.content,
               style:
                   TextStyles.defaultStyle.regular.colorDefaultText.sizeDefault,
             ),
