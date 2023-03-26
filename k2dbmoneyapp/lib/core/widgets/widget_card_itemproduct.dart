@@ -78,10 +78,12 @@ class CardItemProduct extends StatelessWidget {
                           const SizedBox(
                             width: k8Padding / 2,
                           ),
-                          Text(
-                            nameStore,
-                            style: TextStyles.defaultStyle.sizeMin.semiBold,
-                            overflow: TextOverflow.ellipsis,
+                          Expanded(
+                            child: Text(
+                              nameStore,
+                              style: TextStyles.defaultStyle.sizeMin.semiBold,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),
