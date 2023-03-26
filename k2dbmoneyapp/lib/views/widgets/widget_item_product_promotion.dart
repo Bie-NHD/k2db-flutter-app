@@ -23,6 +23,7 @@ class ItemProductPromotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(right: k12Padding, left: k12Padding, bottom: k8Padding/2),
       child: GestureDetector(
@@ -37,7 +38,7 @@ class ItemProductPromotion extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: ColorsApp.backgroundDark.withOpacity(0.25),
-                      offset: const Offset(0, 3),
+                      offset: const Offset(0, 0),
                       spreadRadius: 1,
                       blurRadius: 1,
                     ),
@@ -47,7 +48,7 @@ class ItemProductPromotion extends StatelessWidget {
                   Image.asset(
                     imgProduct,
                     width: double.maxFinite,
-                    height: 174,
+                    height: size.height * 0.219,
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
                   ),
