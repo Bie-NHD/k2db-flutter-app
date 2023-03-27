@@ -4,6 +4,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/products_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/home/top-up/top_up_screen.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
@@ -114,7 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       CardItemFunction(
                         icon: FontAwesomeIcons.circlePlus,
                         text: "Top up",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(TopUpScreen.routeName);
+                        },
                       ),
                       CardItemFunction(
                         icon: FontAwesomeIcons.arrowUpFromBracket,

@@ -17,6 +17,8 @@ class HelperAssets {
       'assets/images/bottom_right_splash.png';
   static const String imageSplash = 'assets/images/Splash_Srceen.png';
   static const String iconPromotion = 'assets/images/icon_promotion.png';
+  static const String iconBoxMyGift = 'assets/images/icon_box_mygift.png';
+  static const String iconOff50MyGift = 'assets/images/icon_off50_mygift.jpg';
   static const String bannerProductPromotion =
       'assets/images/banner_product_promotion.jpg';
   static const String signIn = 'assets/images/signIn.png';

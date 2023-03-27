@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:k2dbmoneyapp/routes.dart';
-import 'package:k2dbmoneyapp/views/screens/authen/splash_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/home/home_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Nunito",
       ),
 
-      home: const SplashScreen(), //SignInScreen(),
+      home: const HomeScreen(), //SplashScreen(),
     );
   }
 }
