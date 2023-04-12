@@ -24,11 +24,11 @@ class InfoTab extends StatelessWidget {
         ),
         Info(
           title: "Gender",
-          content: _user.gender ?? "Not specified",
+          content: _user.gender,
         ),
         Info(
           title: "Phone",
-          content: _user.userPhone ?? "",
+          content: _user.security.phoneNum,
         ),
       ];
 
