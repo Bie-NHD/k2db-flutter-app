@@ -8,27 +8,33 @@ import '../../../../core/constant/text.dart';
 import '../Modal/User.dart';
 import '../user_edit_screen.dart';
 
-class InfoTab extends StatelessWidget {
-  const InfoTab({
+class InfoTab extends StatefulWidget {
+  InfoTab({
     super.key,
-    required User user,
-  }) : _user = user;
+    required this.user,
+  });
 
-  final User _user;
+  User user;
 
+  @override
+  State<InfoTab> createState() => _InfoTabState();
+}
+
+class _InfoTabState extends State<InfoTab> {
+  late User user = widget.user;
   List<Info> infoContent() => [
         Info(
           icon: FontAwesomeIcons.user,
           title: "Name",
-          content: _user.userName,
+          content: user.userName,
         ),
         Info(
           title: "Gender",
-          content: _user.gender,
+          content: user.gender,
         ),
         Info(
           title: "Phone",
-          content: _user.security.phoneNum,
+          content: user.security.phoneNum,
         ),
       ];
 
@@ -43,12 +49,16 @@ class InfoTab extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
+                // final User new_user = await
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UserEditScreen(user: _user),
+                      builder: (context) => UserEditScreen(user: user),
                     ));
+                // setState(() {
+                //   user = new_user;
+                // });
               },
               child: Wrap(
                 direction: Axis.horizontal,
