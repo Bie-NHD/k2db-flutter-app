@@ -8,6 +8,7 @@ import 'package:k2dbmoneyapp/views/widgets/widget_item_history.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/dimension.dart';
 import '../../core/constant/text.dart';
+import '../screens/statistic/statistic_main.dart';
 
 class BottomSheetHelper{
   static  showBottomSheet(BuildContext context){
@@ -31,14 +32,17 @@ class ModalBottomSheet extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(onPressed: () {}, icon: const Icon(FontAwesomeIcons.xmark, color: ColorsApp.hintTextColor, size: kIconSize * 0.8)),
+            IconButton(onPressed: () {
+              Navigator.pop(context, Statistic());
+            }, icon: const Icon(FontAwesomeIcons.xmark, color: ColorsApp.backgroundDark, size: kIconSize)),
             Text('Lịch sử giao dịch', style: TextStyles.defaultStyle.bold.colorDefaultText.sizeAppbar,),
             Visibility(visible: false,child: IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back))),
           ],
         ),
         const Divider(
-          thickness: k8Margin / 3 ,
+          thickness: k8Margin / 5,
           height: 0,
+          color: ColorsApp.primaryColor,
         ),
         Container(
           margin: const EdgeInsets.symmetric(vertical: k12Margin, horizontal: k12Margin),
@@ -72,7 +76,7 @@ class TransactionHistory extends StatelessWidget {
           children: [
             Container(
               width: size.width * 0.5,
-              height: size.height * 0.09,
+              height: size.height * 0.08,
               child: Text('Từ tài khoản', style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.regular,),
             ),
             Container(
@@ -85,7 +89,7 @@ class TransactionHistory extends StatelessWidget {
           children: [
             Container(
               width: size.width * 0.5,
-              height: size.height * 0.09,
+              height: size.height * 0.08,
               child: Text('Đến tài khoản', style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.regular,),
             ),
             Container(
@@ -98,7 +102,7 @@ class TransactionHistory extends StatelessWidget {
           children: [
             Container(
               width: size.width * 0.5,
-              height: size.height * 0.09,
+              height: size.height * 0.08,
               child: Text('Số tiền', style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.regular,),
             ),
             Container(
@@ -116,7 +120,7 @@ class TransactionHistory extends StatelessWidget {
             ),
             Container(
               width: size.width * 0.5,
-              height: size.height * 0.09,
+              height: size.height * 0.1,
               child: Text(title??'', style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.regular,maxLines: 3, overflow: TextOverflow.ellipsis,),
 
             )
@@ -126,7 +130,7 @@ class TransactionHistory extends StatelessWidget {
           children: [
             Container(
               width: size.width * 0.5,
-              height: size.height * 0.09,
+              height: size.height * 0.08,
               child: Text('Thời gian', style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.regular,),
             ),
             Container(

@@ -1,9 +1,14 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/views/screens/statistic/detailed_invoice_screen.dart';
+import 'package:k2dbmoneyapp/views/widgets/ModalBotoomSheet.dart';
+import 'package:k2dbmoneyapp/views/widgets/ModalBotoomSheet.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/dimension.dart';
 import '../../core/constant/text.dart';
@@ -14,16 +19,18 @@ class Transaction_History extends StatelessWidget {
   final String? title;
   final double price;
   final DateTime dateTime;
-  final bool? isBuying;
-  final Function() onTap;
-  const Transaction_History({Key? key, required this.dateTime, this.title, required this.price, this.isBuying, required this.onTap})
+  bool? isBuying;
+  Transaction_History({Key? key, required this.dateTime, this.title, required this.price, this.isBuying})
       : super(key: key);
   getStateIsBuying() => isBuying;
   @override
   Widget build(BuildContext context) {
+    final temp = Random();
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        (isBuying ?? false) ? BottomSheetHelper.showBottomSheet(context):_navigatorToDetailedInvoice(context);
+      },
       child:  Column(
         children: [
           const Divider(
@@ -35,11 +42,11 @@ class Transaction_History extends StatelessWidget {
           const SizedBox(height: k8Margin),
           Row(
             children: [
-              (isBuying??false) ? const Icon(
-                    FontAwesomeIcons.store,
-                    size: kIconSize,
-                    color: ColorsApp.primaryColor,
-                  ) : const SizedBox(width: kIconSize, height: kIconSize),
+              (isBuying = temp.nextBool()) ? const Icon(
+                FontAwesomeIcons.store,
+                size: kIconSize,
+                color: ColorsApp.primaryColor,
+              ) : const SizedBox(width: kIconSize, height: kIconSize),
               const SizedBox(width: k14Padding),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,12 +70,18 @@ class Transaction_History extends StatelessWidget {
                 style: TextStyles.defaultStyle.bold.sizeTitleAndButton.colorRedText,
               ),
               const SizedBox(width: k8Margin / 2),
-              IconTextLink(title: '', onTap: () {}, sizeIcon: kIconSize,)
+              IconTextLink(title: '', onTap: () {
+                (isBuying ?? false) ? BottomSheetHelper.showBottomSheet(context):_navigatorToDetailedInvoice(context);
+              },
+                sizeIcon: kIconSize,)
             ],
           ),
         ],
       ),
     );
+  }
+  void _navigatorToDetailedInvoice(BuildContext context){
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Detailed_Invoice()));
   }
 }
 
