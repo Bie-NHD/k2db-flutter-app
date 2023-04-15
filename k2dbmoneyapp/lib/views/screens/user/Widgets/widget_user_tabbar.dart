@@ -116,8 +116,7 @@ class SecurityTab extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: EdgeInsets.zero,
-      itemBuilder: (context, index) =>
-          const InfoContentItem(title: "a", content: "b"),
+      itemBuilder: (context, index) => Container(),
     );
   }
 }
