@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Widgets/widget_user_info_tab.dart';
+import 'package:k2dbmoneyapp/views/screens/user/Widgets/widget_user_security_tab.dart';
 
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
@@ -64,7 +65,7 @@ class _UserTabBarState extends State<UserTabBar> {
               index: selectedIndex,
               children: [
                 InfoTab(user: widget._user),
-                const SecurityTab(),
+                SecurityTab(user: widget._user),
               ],
             ),
           ],
@@ -102,23 +103,3 @@ class _UserTabBarState extends State<UserTabBar> {
     ];
   }
 }
-
-class SecurityTab extends StatelessWidget {
-  const SecurityTab({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 3,
-      scrollDirection: Axis.vertical,
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) => Container(),
-    );
-  }
-}
-
-List<Widget> securityContent() => [];
