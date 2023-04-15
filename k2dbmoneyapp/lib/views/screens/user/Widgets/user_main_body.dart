@@ -22,7 +22,7 @@ class UserMainBody extends StatefulWidget {
         balanceDisplay = user.userBalance.toFormatMoney(),
         super(key: key);
 
-  final User user;
+  User user;
   bool isShowingBalance;
   final TabController _tabController;
   late String balanceDisplay;
@@ -40,8 +40,7 @@ class _UserMainBodyState extends State<UserMainBody> {
       child: Column(
         children: [
           IntrinsicHeight(
-            child: //Gradient
-                Container(
+            child: Container(
               width: double.infinity,
               height: size.height * 0.32,
               decoration: const BoxDecoration(

@@ -6,95 +6,51 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 class UserEditScreen extends StatefulWidget {
   UserEditScreen({super.key, required this.user});
 
   final User user;
-  // final bool isSaved = true;
-  static const routeName = "/infoEdit_screen";
-
-  // bool get isSaved => _isSaved;
+  late bool isSaved = true;
+  static const routeName = "/Edit_screen";
 
   @override
   State<UserEditScreen> createState() => _UserEditScreenState();
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
-
-  //TODO: Fix Save Buttons Behavior
-  bool isSaved = true;
-  late List<Item> list = [
-    Item(
-      content: widget.user.userName.toString(),
-      icon: FontAwesomeIcons.user,
-      user: widget.user,
-      onChanged: _textField_onChange(),
-      labelText: "Your name",
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late final User user = widget.user;
+  late final List<DropdownMenuItem> genderMenuItem = [
+    const DropdownMenuItem(
+      value: Gender.male,
+      child: Text(Gender.male),
     ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
+    const DropdownMenuItem(
+      value: Gender.female,
+      child: Text(Gender.female),
     ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
+    const DropdownMenuItem(
+      value: Gender.enby,
+      child: Text(Gender.enby),
     ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
-    Item(
-      user: widget.user,
-      icon: FontAwesomeIcons.genderless,
-      content: widget.user.gender.toString(),
-      onChanged: _textField_onChange(),
-    ),
+    const DropdownMenuItem(
+      value: Gender.blank,
+      child: Text("Not identifying"),
+    )
   ];
+  late String dropdownGenderValue = user.gender;
+
+  //TODO: Data passing between screens behaviors
 
   @override
   void initState() {
     super.initState();
-    isSaved = true;
+    widget.isSaved = true;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -106,12 +62,10 @@ class _UserEditScreenState extends State<UserEditScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomCenter,
-          stops: [0.05, 0.45, 0.75, 1],
+          stops: [0.45, 1],
           colors: [
-            ColorsApp.secondaryColor,
             ColorsApp.backgroundLight,
             ColorsApp.statusNoteColor,
-            ColorsApp.primaryColor
           ],
         ),
       ),
@@ -129,7 +83,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
               size: kIconSize,
             ),
             onPressed: () {
-              isSaved
+              widget.isSaved
                   ? Navigator.pop(context)
                   : showDialog(
                       context: context,
@@ -139,8 +93,17 @@ class _UserEditScreenState extends State<UserEditScreen> {
           ),
           actions: [
             TextButton.icon(
+              icon: const Icon(
+                FontAwesomeIcons.solidFloppyDisk,
+                color: ColorsApp.backgroundLight,
+              ),
+              label: Text(
+                "Save",
+                style: TextStyles
+                    .defaultStyle.sizeDefault.colorAppBarText.semiBold,
+              ),
               onPressed: () {
-                if (isSaved) {
+                if (widget.isSaved) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("No changes to save"),
@@ -158,15 +121,6 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   );
                 }
               },
-              icon: const Icon(
-                FontAwesomeIcons.solidFloppyDisk,
-                color: ColorsApp.backgroundLight,
-              ),
-              label: Text(
-                "Save",
-                style: TextStyles
-                    .defaultStyle.sizeDefault.colorAppBarText.semiBold,
-              ),
             ),
             const SizedBox(
               width: k12Padding,
@@ -174,24 +128,142 @@ class _UserEditScreenState extends State<UserEditScreen> {
           ],
         ),
         body: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(
-                horizontal: k24Padding, vertical: k12Padding),
-            physics: const ClampingScrollPhysics(),
-            children: [
-              Text(
-                "Edit your user acount info",
-                style: TextStyles.defaultStyle.semiBold.sizeAppbar,
+          child: Padding(
+            padding: const EdgeInsets.all(k24Padding),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: k24Padding * 3,
+                          backgroundColor: Colors.transparent,
+                          child: Image.asset(
+                            user.userAvatar,
+                            semanticLabel: "User avatar",
+                            // cacheHeight: k24Padding.toInt(),
+                          ),
+                        ),
+                        Positioned(
+                          left: -0.5,
+                          bottom: -0.5,
+                          child: GestureDetector(
+                            onTap: () {
+                              //TODO change user avatar
+                            },
+                            child: const CircleAvatar(
+                              backgroundColor: ColorsApp.backgroundLight,
+                              child: Icon(
+                                FontAwesomeIcons.camera,
+                                color: ColorsApp.primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: k12Margin,
+                  ),
+                  Text(
+                    "User Information",
+                    style: TextStyles
+                        .defaultStyle.colorDeepBlueText.sizeHeading.bold,
+                  ),
+                  const SizedBox(
+                    height: k12Margin,
+                  ),
+                  Text("isSaved = ${widget.isSaved}"),
+
+                  // User name
+                  TextFormField(
+                    initialValue: widget.user.userName,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Username",
+                        style: TextStyles.defaultStyle.colorDeepBlueText.bold
+                            .sizeTitleAndButton,
+                      ),
+                      prefixIcon: const Icon(FontAwesomeIcons.user),
+                      focusColor: ColorsApp.primaryColor,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: ColorsApp.primaryColor, width: 1.5),
+                        borderRadius: BorderRadius.circular(kBorderRadiusMin),
+                      ),
+                    ),
+                    validator: (value) => (value != null && value.isNotEmpty)
+                        ? null
+                        : "Must not be empty",
+                    onSaved: (value) {
+                      user.userName = value!;
+                    },
+                    onChanged: (value) {
+                      _onChanged();
+                    },
+                  ),
+
+                  // Gender Dropdown
+                  DropdownButtonFormField(
+                    items: genderMenuItem,
+                    value: dropdownGenderValue,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Gender",
+                        style: TextStyles.defaultStyle.colorDeepBlueText.bold
+                            .sizeTitleAndButton,
+                      ),
+                      prefixIcon: const Icon(FontAwesomeIcons.genderless),
+                      focusColor: ColorsApp.primaryColor,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: ColorsApp.primaryColor, width: 1.5),
+                        borderRadius: BorderRadius.circular(kBorderRadiusMin),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      dropdownGenderValue = value!;
+                      _onChanged();
+                    },
+                    onSaved: (_) {
+                      setState(() {
+                        user.gender = dropdownGenderValue;
+                      });
+                    },
+                  ),
+                  TextFormField(
+                    initialValue: user.security.phoneNum,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Phone Number",
+                        style: TextStyles.defaultStyle.colorDeepBlueText.bold
+                            .sizeTitleAndButton,
+                      ),
+                      prefixIcon: const Icon(FontAwesomeIcons.phone),
+                      focusColor: ColorsApp.primaryColor,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: ColorsApp.primaryColor, width: 1.5),
+                        borderRadius: BorderRadius.circular(kBorderRadiusMin),
+                      ),
+                    ),
+                    validator: (value) {
+                      Validation.validatePhoneNum(value!);
+                    },
+                    onSaved: (value) {
+                      user.security.phoneNum = value!;
+                    },
+                    onChanged: (_) {
+                      _onChanged();
+                    },
+                  )
+                ],
               ),
-              Text(isSaved.toString()),
-              for (Item index in list) EditItem(item: index)
-              // ListView.builder(
-              //   // physics: const NeverScrollableScrollPhysics(),
-              //   itemCount: list.length,
-              //   // itemExtent: 20,
-              //   itemBuilder: (context, index) => EditItem(item: list[index]),
-              // ),
-            ],
+            ),
           ),
         ),
       ),
@@ -240,9 +312,9 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () async {
-                    await _onSave();
-                    Navigator.of(context, rootNavigator: true).pop();
+                  onPressed: () {
+                    _onSave();
+                    Navigator.of(context, rootNavigator: true).pop(widget.user);
                     Navigator.of(context).pop(widget.user);
 
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -273,109 +345,28 @@ class _UserEditScreenState extends State<UserEditScreen> {
   }
 
   _onSave() {
-    setState(() {
-      _change_isSaved();
-    });
+    final FormState form = formKey.currentState!;
+
+    if (form.validate()) {
+      setState(() {
+        widget.isSaved = !widget.isSaved;
+      });
+      form.save();
+    }
   }
 
-  _change_isSaved() {
-    setState(() {
-      isSaved = !isSaved;
-    });
+  _onChanged() {
+    widget.isSaved = !widget.isSaved;
   }
-
-  _textField_onChange() {
-    isSaved ? _change_isSaved() : null;
-  }
+  //
+  // _change_isSaved() {
+  //   setState(() {
+  //     widget.isSaved = !widget.isSaved;
+  //   });
+  // }
+  //
+  // _textField_onChange() {
+  //   isSaved ? _change_isSaved() : null;
+  // }
   // void callback()
-}
-
-class Item {
-  Item({
-    required this.user,
-    this.labelText,
-    required this.icon,
-    this.onChanged,
-    this.notBlank = false,
-    required this.content,
-  });
-  late final User user;
-  final String? labelText;
-  final IconData icon;
-  bool notBlank;
-  final onChanged;
-  final String content;
-}
-
-class EditItem extends StatefulWidget {
-  EditItem({Key? key, required this.item}) : super(key: key);
-
-  Item item;
-
-  @override
-  State<EditItem> createState() => _EditItemState();
-}
-
-class _EditItemState extends State<EditItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(k8Margin),
-      padding: const EdgeInsets.symmetric(
-          horizontal: k12Padding, vertical: k8Padding),
-      decoration: BoxDecoration(
-        color: ColorsApp.backgroundLight,
-        borderRadius: BorderRadius.circular(kBorderRadiusMin),
-        border: Border.all(color: ColorsApp.primaryColor, width: 1.5),
-        boxShadow: [
-          BoxShadow(
-              color: ColorsApp.statusNoteColor.withOpacity(0.5),
-              offset: const Offset(5, 5),
-              blurRadius: 3,
-              spreadRadius: 5)
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            widget.item.icon,
-            size: kIconSize,
-            color: ColorsApp.defaultTextColor,
-          ),
-          const SizedBox(
-            width: k8Padding,
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: k12Padding, vertical: k8Padding),
-              decoration: BoxDecoration(
-                  color: ColorsApp.tertiaryColors.withOpacity(0.5)),
-              child: TextField(
-                controller: widget.item.content.isEmpty
-                    ? TextEditingController()
-                    : TextEditingController.fromValue(
-                        TextEditingValue(text: widget.item.content),
-                      ),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(k8Padding),
-                  label: Text(
-                    widget.item.labelText ?? "",
-                    style: TextStyles
-                        .defaultStyle.sizeTitleAndButton.colorDefaultText,
-                  ),
-                  helperText: widget.item.notBlank ? "Must not be blank" : null,
-                ),
-                onChanged: (value) {
-                  widget.item.onChanged;
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
