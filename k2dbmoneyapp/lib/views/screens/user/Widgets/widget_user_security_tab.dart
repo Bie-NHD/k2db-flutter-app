@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:k2dbmoneyapp/core/constant/color.dart';
 
 import '../Modal/User.dart';
 
@@ -22,12 +23,12 @@ class SecurityTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 3,
+      itemCount: list.length,
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: EdgeInsets.zero,
-      itemBuilder: (context, index) => Container(),
+      itemBuilder: (context, index) => SecurityTile(info: list[index]),
     );
   }
 
@@ -49,16 +50,31 @@ class SecurityInfo {
   const SecurityInfo({required this.checker, required this.data, this.icon});
 }
 
-class SecurityTile {
+class SecurityTile extends StatelessWidget {
   final SecurityInfo info;
 
-  const SecurityTile({required this.info});
+  const SecurityTile({super.key, required this.info});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: ListTile(
-        title: Text(info.data ?? ""),
+      child: Container(
+        decoration: BoxDecoration(
+            color: info.checker
+                ? ColorsApp.statusSuccessColor
+                : ColorsApp.statusNoteColor),
+        child: ListTile(
+          title: Text(info.data ?? ""),
+          leading: Icon(
+            info.icon,
+            color: info.checker
+                ? ColorsApp.backgroundLight
+                : ColorsApp.secondaryColor,
+          ),
+          textColor: info.checker
+              ? ColorsApp.backgroundLight
+              : ColorsApp.secondaryColor,
+        ),
       ),
     );
   }
