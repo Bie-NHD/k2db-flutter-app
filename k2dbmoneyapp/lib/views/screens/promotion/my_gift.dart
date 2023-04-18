@@ -36,6 +36,8 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
     // TODO: implement build
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      // bottomNavigationBar: null,
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
 
@@ -57,42 +59,42 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
           )
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            color: ColorsApp.primaryColor, // Set the background color here
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: k12Padding,
-                vertical: k12Padding,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(30),
+      body: SizedBox(
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              color: ColorsApp.primaryColor, // Set the background color here
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: k12Padding,
+                  vertical: k12Padding,
                 ),
-                child: Column(
-                  children: [
-                    TextFieldSearch(
-                      fieldText: fieldText,
-                      hintText: "Search Store",
-                    ),
-                  ],
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Column(
+                    children: [
+                      TextFieldSearch(
+                        fieldText: fieldText,
+                        hintText: "Search Store",
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height*0.064,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: k12Padding), // set the desired top and bottom padding here
+            Expanded(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height*0.064,
+                    child: Row(
+                      children: [
+                        Expanded(
                           child: TextButton(
                             onPressed: () {
                               setState(() {
@@ -102,7 +104,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                             style: TextButton.styleFrom(
                               backgroundColor: _showOption1 ? ColorsApp.hintTextColor : ColorsApp.backgroundLight,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(0),
                               ),
                             ),
                             child: SizedBox(
@@ -118,11 +120,8 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 0),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: k12Padding), // set the desired top and bottom padding here
+                        const SizedBox(width: 0),
+                        Expanded(
                           child: TextButton(
                               onPressed: () {
                                 setState(() {
@@ -132,7 +131,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                               style: TextButton.styleFrom(
                                 backgroundColor: !_showOption1 ? ColorsApp.hintTextColor : ColorsApp.backgroundLight,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(0),
                                 ),
                               ),
                               child: SizedBox(// set the desired height here
@@ -147,17 +146,14 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                               )
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Visibility(
-                        visible: _showOption1,
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Visibility(
+                          visible: _showOption1,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
@@ -172,7 +168,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                                         height: size.height*0.2,
                                         width: size.width*0.5,
                                       ),
-                                      const SizedBox(height: k24Padding*2 + 2),
+                                      const SizedBox(height: k24Padding + 2),
                                       Text(
                                         'YOU DON`T HAVE NO PROMOTION',
                                         style: TextStyles.defaultStyle.sizeTitleAndButton.colorTitleText.bold,
@@ -224,42 +220,41 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                             ),
                           ),
                         ),
-                      ),
-                      Visibility(
-                        visible: !_showOption1,
-                          child: SizedBox(
-                            height: size.height*1,
-                            child: GridView.builder(
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 1,
-                                childAspectRatio: 3.2,
-                              ),
+                        Visibility(
+                          visible: !_showOption1,
+                          child: Expanded(
+                            child: ListView.builder(
                               itemCount: 10,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ItemPromotionProgram(
-                                  onTap: () {},
-                                  onTapShare: () {},
-                                  onTapHeart: () {
-                                    setState(() {
-                                      isLiked = !isLiked;
-                                    });
-                                  },
-                                  colorHeart: isLiked ? ColorsApp.statusErrorColor : ColorsApp.backgroundDark,
-                                  textTitle: 'Thanh toán hóa đơn',
-                                  textDescribe: 'Thanh toán hóa đơn - Giảm 50% cho hóa đơn từ 100.000VNĐ tối đa 50.000VNĐ',
-                                  textDate: 'HSD: 31/13/2023',
+                              itemExtent: size.height * 0.165,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: k8Padding),
+                                  child: ItemPromotionProgram(
+                                    onTap: () {},
+                                    onTapShare: () {},
+                                    onTapHeart: () {
+                                      setState(() {
+                                        isLiked = !isLiked; // chỉ thay đổi giá trị isLiked của item được bấm
+                                      });
+                                    },
+                                    colorHeart: isLiked ? ColorsApp.statusErrorColor : ColorsApp.backgroundDark,
+                                    textTitle: 'Thanh toán hóa đơn',
+                                    textDescribe: 'Thanh toán hóa đơn - Giảm 50% cho hóa đơn từ 100.000VNĐ tối đa 50.000VNĐ',
+                                    textDate: 'HSD: 31/13/2023',
+                                  ),
                                 );
                               },
                             ),
                           ),
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
