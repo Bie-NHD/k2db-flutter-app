@@ -138,7 +138,7 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Instructions to accumulate points',
+                      'History of accumulating points',
                       style: TextStyles.defaultStyle.sizeDefault.colorHeadingText.regular,
                     ),
                     InkWell(
