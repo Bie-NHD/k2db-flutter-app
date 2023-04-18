@@ -7,6 +7,7 @@ import 'package:k2dbmoneyapp/views/screens/store/Widgets/widget_card_itemstore.d
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../core/constant/text.dart';
+import 'Widgets/detail_store_screen.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({Key? key}) : super(key: key);
@@ -58,22 +59,22 @@ class _StoreScreenState extends State<StoreScreen> {
               children: [
                 TextFieldSearch(fieldText: fieldText, hintText: "Search Store"),
               const SizedBox(height: k12Padding,),
-            Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
                       SizedBox(width: k12Padding/2,),
                       Text("Cửa hàng gần bạn"
                         ,style: TextStyle(
                           fontSize: k14Padding,
                           fontWeight: FontWeight.bold,
                         ),)]),
-                const SizedBox(height: k12Padding,),
-                Expanded(
-                  child: ListView.builder(
+                  const SizedBox(height: k12Padding,),
+                  Expanded(
+                    child: ListView.builder(
                     itemCount: 2,
                     itemBuilder:  (context,index)=>
                         CardItemStore(
@@ -82,8 +83,7 @@ class _StoreScreenState extends State<StoreScreen> {
                           addressStore: "451 Lê Văn Việt, Tăng Nhơn Phú A, Tp Thủ Đức, Tp Hồ Chí Minh",
                           distanceStore: 0.01,
                           onTap: () {
-                            // Navigator.of(context)
-                            //     .pushNamed(DetailProductScreen.routeName);
+                            Navigator.of(context).pushNamed(DetailStoreScreen.routeName);
                           },
                         ),
                   ),
@@ -109,8 +109,7 @@ class _StoreScreenState extends State<StoreScreen> {
                           addressStore: "451 Lê Văn Việt, Tăng Nhơn Phú A, Tp Thủ Đức, Tp Hồ Chí Minh",
                           distanceStore: 0.01,
                           onTap: () {
-                            // Navigator.of(context)
-                            //     .pushNamed(DetailProductScreen.routeName);
+                             Navigator.of(context).pushNamed(DetailStoreScreen.routeName);
                           },
                         ),
                   ),
