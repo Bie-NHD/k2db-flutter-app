@@ -52,62 +52,74 @@ class _PromotionScreenState extends State<PromotionScreen> {
         child: Column(
           children: <Widget>[
             Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 24, 12, 12),
-                  child: Container(
-                    width: size.width * 1.15,
-                    height: size.height * 0.12,
-                    decoration: BoxDecoration(
-                      color: ColorsApp.primaryColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Container(
-                            width: size.width * 0.453,
-                            height: size.height * 0.06,
-                            decoration: const BoxDecoration(
-                              color: ColorsApp.statusNoteColor,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(70),
-                                bottomRight: Radius.circular(0),
-                                topLeft: Radius.circular(0),
-                                topRight: Radius.circular(12),
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(12, 24, 12, 12),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorsApp.primaryColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: k8Padding),
+                                        child: Text(
+                                          'Accumulated points',
+                                          style: TextStyles.defaultStyle.sizeAppbar.colorAppBarText.semiBold,
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width * 0.453,
+                                        height: size.height * 0.06,
+                                        decoration: const BoxDecoration(
+                                          color: ColorsApp.statusNoteColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(70),
+                                            bottomRight: Radius.circular(0),
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(12),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(k8Padding),
+                                        child: Text(
+                                          "7.000.000.000 Point",
+                                          style: TextStyles.defaultStyle.sizeHeading.colorYellowText.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: k12Padding,
-                          left: k12Padding,
-                          child: Text(
-                            'Accumulated points',
-                            style: TextStyles.defaultStyle.sizeAppbar.colorAppBarText.semiBold,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: k12Padding,
-                          left: k12Padding,
-                          child: Text(
-                            "7.000.000.000 Point",
-                            style: TextStyles.defaultStyle.sizeHeading.colorYellowText.bold,
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: HelperImage.loadFromAsset(
-                              HelperAssets.iconPromotion,
-                              height: 60,
-                              width: 60,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                  ],
+                ),
+                Positioned(
+                  top: k12Padding,
+                  right: 0,
+                  child: HelperImage.loadFromAsset(
+                    HelperAssets.iconPromotion,
+                    height: size.height*0.1,
+                    width: size.height*0.1 + 1,
                   ),
                 ),
               ],
@@ -149,22 +161,21 @@ class _PromotionScreenState extends State<PromotionScreen> {
                 Column(
                   children: [
                     SizedBox(
-                      child: GridView.builder(
+                      child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: 25,
-                        gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          crossAxisSpacing: k20Padding,
-                          mainAxisSpacing: k12Padding,
-                          childAspectRatio: 55/34,
-                        ),
-                        itemBuilder: (context, index) => ItemProductPromotion(
-                          imgProduct: HelperAssets.bannerProductPromotion,
-                          namePromotion: "Giảm đến 45% cho các thiết bị gia dụng",
-                          timePromotion: "Còn 13 ngày nữa hết hạn",
-                          onTap: () {},
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: k12Padding),
+                          child: ItemProductPromotion(
+                            imgProduct: HelperAssets.bannerProductPromotion,
+                            namePromotion: "Giảm đến 45% cho các thiết bị gia dụng",
+                            timePromotion: "Còn 13 ngày nữa hết hạn",
+                            onTap: () {
+                              Navigator.of(context).pushNamed("/detail_gift_screen");
+                              // Navigator.of(context).pushNamed("/my_gift_screen");
+                            },
+                          ),
                         ),
                       ),
                     )
