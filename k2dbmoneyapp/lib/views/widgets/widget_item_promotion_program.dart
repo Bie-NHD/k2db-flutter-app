@@ -34,117 +34,93 @@ class ItemPromotionProgram extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
-      child: Stack(
-        children: [
-          Positioned(
-            top: k12Padding,
-            left: k12Padding,
-            child: Container(
-              width: size.width*0.3,
-              height: size.height*0.13,
-              decoration: const BoxDecoration(
-                color: ColorsApp.backgroundLight,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(0),
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(0),
-                ),
-              ),
-              child: Container(
-                padding: const EdgeInsets.only(top: k8Padding, right: k12Padding, bottom: k8Padding, ),
+      child: Padding(
+        padding: const EdgeInsets.only(right: k12Padding, left: k12Padding, top: k12Padding, bottom: 0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: ColorsApp.backgroundLight,
+            borderRadius: BorderRadius.circular(k12Padding),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: size.width * 0.3,
                 child: HelperImage.loadFromAsset(
                   HelperAssets.iconOff50MyGift,
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            top: k12Padding,
-            right: k12Padding,
-            child: Container(
-              width: size.width*0.67,
-              height: size.height*0.13,
-              decoration: const BoxDecoration(
-                color: ColorsApp.backgroundLight,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(12),
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(12),
-                ),
+              Container(
+                color: ColorsApp.hintTextColor,
+                width: k8Padding/4,
               ),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(k8Padding, k8Padding/2, 0, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(width: k8Padding,),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: k8Padding/2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          textTitle,
-                          style: TextStyles.defaultStyle.colorDefaultText.sizeAppbar.bold,
+                        Expanded(
+                          child: Text(
+                            textTitle,
+                            style: TextStyles.defaultStyle.colorDefaultText.sizeAppbar.bold,
+                          ),
                         ),
-                        const SizedBox(height: k8Padding),
-                        Text(
-                          textDescribe,
-                          style: TextStyles.defaultStyle.colorDefaultText.sizeDefault.regular,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const SizedBox(width: k8Padding),
+                            GestureDetector(
+                              onTap: onTapHeart,
+                              child: Icon(
+                                FontAwesomeIcons.solidHeart,
+                                size: kIconSize - 2,
+                                color: colorHeart,
+                              ),
+                            ),
+                            const SizedBox(width: k8Padding),
+                          ],
                         ),
-                        const SizedBox(height: k8Padding),
+                      ],
+                    ),
+                    const SizedBox(height: k8Padding),
+                    Text(
+                      textDescribe,
+                      style: TextStyles.defaultStyle.colorDefaultText.sizeDefault.regular,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
                           textDate,
                           style: TextStyles.defaultStyle.colorDefaultText.sizeDefault.bold,
                         ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: k8Padding,
-                    right: k8Padding,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: onTapShare,
-                          child: const Icon(
-                            FontAwesomeIcons.shareNodes,
-                            size: kIconSize - 2,
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed("/store_screen");
+                            // Do something when button is pressed
+                          },
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(Colors.transparent),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                        ),
-                        const SizedBox(width: k8Padding),
-                        GestureDetector(
-                          onTap: onTapHeart,
-                          child: Icon(
-                            FontAwesomeIcons.solidHeart,
-                            size: kIconSize - 2,
-                            color: colorHeart,
+                          child: Text(
+                            'Dùng Ngay',
+                            style: TextStyles.defaultStyle.colorDeepBlueText.sizeTitleAndButton.bold,
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: k8Padding/2,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed("/store_screen");
-                        // Do something when button is pressed
-                      },
-                      style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        'Dùng Ngay',
-                        style: TextStyles.defaultStyle.colorDeepBlueText.sizeTitleAndButton.bold,
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       )
     );
   }
