@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
+import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 
 import '../Modal/User.dart';
 
@@ -12,12 +13,14 @@ class SecurityTab extends StatelessWidget {
   late List<SecurityInfo> list = [
     SecurityInfo(
         checker: security.hasValidatedCitizenID,
-        data: security.citizenID,
-        icon: FontAwesomeIcons.idCardClip),
+        contentTrue: security.citizenID,
+        icon: FontAwesomeIcons.idCardClip,
+        screen: Screens.CITIZENID),
     SecurityInfo(
         checker: security.hasPIN,
-        data: _PINCaster(security.PIN),
-        icon: FontAwesomeIcons.lock),
+        contentTrue: _pinCaster(security.PIN),
+        icon: FontAwesomeIcons.lock,
+        screen: Screens.PIN),
   ];
 
   @override
@@ -27,27 +30,35 @@ class SecurityTab extends StatelessWidget {
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.only(top: k12Padding),
       itemBuilder: (context, index) => SecurityTile(info: list[index]),
     );
   }
 
-  String? _PINCaster(String? PIN) {
+  String? _pinCaster(String? PIN) {
     if (PIN == null) {
       return "";
     } else {
       int length = PIN.length;
-      return PIN.replaceRange(0, length, "\u2022");
+      const String symbol = "\u2022";
+      return PIN.replaceRange(0, length, symbol * length);
     }
   }
 }
 
 class SecurityInfo {
   final bool checker;
-  final String? data;
+  final String? contentTrue;
+  final String? contentFalse;
   final IconData? icon;
+  final screen;
 
-  const SecurityInfo({required this.checker, required this.data, this.icon});
+  const SecurityInfo(
+      {required this.checker,
+      required this.contentTrue,
+      this.contentFalse = "",
+      this.icon,
+      required this.screen});
 }
 
 class SecurityTile extends StatelessWidget {
@@ -58,13 +69,45 @@ class SecurityTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        if (info.checker == false) {
+          // TODO initiate screens
+          switch (info.screen) {
+            case Screens.CITIZENID:
+              {
+                // TODO Citizen ID Screen
+                Container();
+                break;
+              }
+
+            case Screens.PIN:
+              {
+                // TODO PIN Screen
+                Container();
+                break;
+              }
+            case Screens.FACIAL:
+              {
+                // TODO facial recognition Screen
+                Container();
+                break;
+              }
+          }
+        }
+      },
       child: Container(
+        margin: const EdgeInsets.symmetric(vertical: k8Margin),
+        padding: const EdgeInsets.symmetric(horizontal: k8Padding),
         decoration: BoxDecoration(
-            color: info.checker
-                ? ColorsApp.statusSuccessColor
-                : ColorsApp.statusNoteColor),
+          color: info.checker
+              ? ColorsApp.statusSuccessColor
+              : ColorsApp.statusNoteColor,
+          borderRadius: BorderRadius.circular(kBorderRadiusMin),
+        ),
         child: ListTile(
-          title: Text(info.data ?? ""),
+          title: Text(info.checker
+              ? info.contentTrue ?? "String Error"
+              : info.contentFalse ?? "String Error"),
           leading: Icon(
             info.icon,
             color: info.checker
@@ -79,3 +122,5 @@ class SecurityTile extends StatelessWidget {
     );
   }
 }
+
+enum Screens { CITIZENID, PIN, FACIAL }
