@@ -79,14 +79,16 @@ class _UserTabBarState extends State<UserTabBar> {
     super.initState();
     tabs = [
       Tab(
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-          Icon(FontAwesomeIcons.circleInfo),
-          SizedBox(
-            width: k8Padding,
-          ),
-          Text("My Account"),
-        ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(FontAwesomeIcons.circleInfo),
+            SizedBox(
+              width: k8Padding,
+            ),
+            Text("My Account"),
+          ],
+        ),
       ),
       Tab(
         child: Row(

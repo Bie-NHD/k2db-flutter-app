@@ -17,6 +17,7 @@ import 'package:k2dbmoneyapp/views/screens/promotion/promotion_main.dart';
 import 'package:k2dbmoneyapp/views/screens/store/Widgets/detail_products_store_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/store/Widgets/detail_store_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/store/store_main.dart';
+import 'package:k2dbmoneyapp/views/screens/user/qr_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/user/user_main.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -38,4 +39,5 @@ final Map<String, WidgetBuilder> routes = {
   ProductsScreen.routeName: (context) => const ProductsScreen(),
   HelpPromotionScreen.routeName: (context) => const HelpPromotionScreen(),
   TopUpScreen.routeName: (context) => const TopUpScreen(),
+  QRScreen.routeName: (context) => const QRScreen(),
 };
