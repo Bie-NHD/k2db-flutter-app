@@ -139,7 +139,53 @@ class _UserMainBodyState extends State<UserMainBody> {
             ),
           ),
           // Buttons
-           const UserHeaderButtons(),
+          Container(
+            padding: const EdgeInsets.all(k12Padding),
+            decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CardItemFunction(
+                    icon: FontAwesomeIcons.wallet,
+                    text: "Balance",
+                    color: ColorsApp.tertiaryColors,
+                  ),
+                  const VerticalDivider(
+                    color: ColorsApp.tertiaryColors,
+                    indent: 3,
+                    endIndent: 3,
+                    thickness: 1.5,
+                  ),
+                  CardItemFunction(
+                      icon: FontAwesomeIcons.qrcode,
+                      text: "QR Scan",
+                      color: ColorsApp.tertiaryColors,
+                      onTap: () {
+                        // Navigator.of(context)
+                        //     .pushNamed(QRScreen.routeName);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => QRScreen(user: user),
+                            ));
+                      }),
+                  const VerticalDivider(
+                    color: ColorsApp.tertiaryColors,
+                    indent: 3,
+                    endIndent: 3,
+                    thickness: 1.5,
+                  ),
+                  const CardItemFunction(
+                    icon: FontAwesomeIcons.wallet,
+                    text: "Balance",
+                    color: ColorsApp.tertiaryColors,
+                  ),
+                ],
+              ),
+            ),
+          ),
           // Main content
           Container(
             color: Colors.white,
@@ -203,17 +249,15 @@ class UserHeader extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(k12Padding),
           decoration: BoxDecoration(
-              color: ColorsApp.backgroundLight,
-              borderRadius:
-                  BorderRadius.circular(kBorderRadiusMin),
-              boxShadow: [
-                BoxShadow(
-                    color:
-                        ColorsApp.primaryColor.withOpacity(0.5),
-                    offset: const Offset(3, 3),
-                    blurRadius: 10,
-                    spreadRadius: 2)
-              ],
+            color: ColorsApp.backgroundLight,
+            borderRadius: BorderRadius.circular(kBorderRadiusMin),
+            boxShadow: [
+              BoxShadow(
+                  color: ColorsApp.primaryColor.withOpacity(0.5),
+                  offset: const Offset(3, 3),
+                  blurRadius: 10,
+                  spreadRadius: 2)
+            ],
           ),
           child: Wrap(
             direction: Axis.horizontal,
@@ -223,10 +267,8 @@ class UserHeader extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: kIconSize * 1.5,
-                child: HelperImage.loadFromAsset(
-                    user.userAvatar,
-                    radius: BorderRadius.circular(
-                        kBorderRadiusIcon)),
+                child: HelperImage.loadFromAsset(user.userAvatar,
+                    radius: BorderRadius.circular(kBorderRadiusIcon)),
               ),
               Wrap(
                 direction: Axis.vertical,
@@ -235,18 +277,15 @@ class UserHeader extends StatelessWidget {
                 spacing: k8Padding,
                 children: [
                   Text(user.userName.toUpperCase(),
-                      style: TextStyles.defaultStyle.semiBold
-                          .sizeHeading.colorDefaultText),
+                      style: TextStyles
+                          .defaultStyle.semiBold.sizeHeading.colorDefaultText),
                   GestureDetector(
                     onTap: () async {
-                      await Clipboard.setData(ClipboardData(
-                          text: user.userID));
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(
+                      await Clipboard.setData(ClipboardData(text: user.userID));
+                      ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           duration: Duration(seconds: 2),
-                          content: Text(
-                              "User ID Copied to Clipboard!"),
+                          content: Text("User ID Copied to Clipboard!"),
                         ),
                       );
                     },
@@ -257,8 +296,7 @@ class UserHeader extends StatelessWidget {
                       children: [
                         Text(
                           user.userID,
-                          style: TextStyles
-                              .defaultStyle.colorHintText,
+                          style: TextStyles.defaultStyle.colorHintText,
                         ),
                         const Icon(
                           FontAwesomeIcons.copy,
@@ -272,59 +310,6 @@ class UserHeader extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class UserHeaderButtons extends StatelessWidget {
-  const UserHeaderButtons({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(k12Padding),
-      decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children:  [
-            const CardItemFunction(
-              icon: FontAwesomeIcons.wallet,
-              text: "Balance",
-              color: ColorsApp.tertiaryColors,
-            ),
-            const VerticalDivider(
-              color: ColorsApp.tertiaryColors,
-              indent: 3,
-              endIndent: 3,
-              thickness: 1.5,
-            ),
-            CardItemFunction(
-              icon: FontAwesomeIcons.qrcode,
-              text: "QR Scan",
-              color: ColorsApp.tertiaryColors,
-              onTap: () {
-                Navigator.of(context)
-                    .pushNamed(QRScreen.routeName);
-              }
-            ),
-            const VerticalDivider(
-              color: ColorsApp.tertiaryColors,
-              indent: 3,
-              endIndent: 3,
-              thickness: 1.5,
-            ),
-            const CardItemFunction(
-              icon: FontAwesomeIcons.wallet,
-              text: "Balance",
-              color: ColorsApp.tertiaryColors,
-            ),
-          ],
         ),
       ),
     );
