@@ -41,6 +41,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
       child: Text("Not identifying"),
     )
   ];
+
   late String dropdownGenderValue = user.gender;
 
   //TODO: Data passing between screens behaviors
@@ -252,7 +253,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                       ),
                     ),
                     validator: (value) {
-                      Validation.validatePhoneNum(value!);
+                      UserController.validatePhoneNum(value!);
                     },
                     onSaved: (value) {
                       user.security.phoneNum = value!;

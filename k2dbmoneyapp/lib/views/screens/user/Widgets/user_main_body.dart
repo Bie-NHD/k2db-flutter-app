@@ -10,6 +10,7 @@ import '../../../../core/constant/text.dart';
 import '../../../../core/helpers/helper_image.dart';
 import '../../../widgets/widget_card_function.dart';
 import '../Modal/User.dart';
+import '../qr_screen.dart';
 import 'widget_user_tabbar.dart';
 
 class UserMainBody extends StatefulWidget {
@@ -35,6 +36,7 @@ class _UserMainBodyState extends State<UserMainBody> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    User user = widget.user;
 
     return SingleChildScrollView(
       child: Column(
@@ -117,8 +119,6 @@ class _UserMainBodyState extends State<UserMainBody> {
                     left: 0,
                     right: 0,
                     child: Container(
-                      // height: size.height * 0.1,
-                      // margin: EdgeInsets.only(top: size.height * 0.2),
                       padding: EdgeInsets.only(top: size.height * 0.25),
                       decoration: const BoxDecoration(
                           color: Colors.white,
@@ -127,90 +127,12 @@ class _UserMainBodyState extends State<UserMainBody> {
                               topRight: Radius.circular(kBorderRadiusMax))),
                     ),
                   ),
-
                   // User Header
                   Positioned(
                     top: size.height * 0.2,
                     left: 0,
                     right: 0,
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.transparent,
-                      child: Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(k12Padding),
-                          decoration: BoxDecoration(
-                              color: ColorsApp.backgroundLight,
-                              borderRadius:
-                                  BorderRadius.circular(kBorderRadiusMin),
-                              boxShadow: [
-                                BoxShadow(
-                                    color:
-                                        ColorsApp.primaryColor.withOpacity(0.5),
-                                    offset: const Offset(3, 3),
-                                    blurRadius: 10,
-                                    spreadRadius: 2)
-                              ]),
-                          child: Wrap(
-                            direction: Axis.horizontal,
-                            alignment: WrapAlignment.center,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            spacing: k8Padding,
-                            children: [
-                              CircleAvatar(
-                                radius: kIconSize * 1.5,
-                                child: HelperImage.loadFromAsset(
-                                    widget.user.userAvatar,
-                                    radius: BorderRadius.circular(
-                                        kBorderRadiusIcon)),
-                              ),
-                              Wrap(
-                                direction: Axis.vertical,
-                                alignment: WrapAlignment.spaceAround,
-                                crossAxisAlignment: WrapCrossAlignment.start,
-                                spacing: k8Padding,
-                                children: [
-                                  Text(widget.user.userName.toUpperCase(),
-                                      style: TextStyles.defaultStyle.semiBold
-                                          .sizeHeading.colorDefaultText),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      await Clipboard.setData(ClipboardData(
-                                          text: widget.user.userID));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          duration: Duration(seconds: 2),
-                                          content: Text(
-                                              "User ID Copied to Clipboard!"),
-                                        ),
-                                      );
-                                    },
-                                    child: Wrap(
-                                      direction: Axis.horizontal,
-                                      alignment: WrapAlignment.spaceBetween,
-                                      spacing: k8Padding / 2,
-                                      children: [
-                                        Text(
-                                          widget.user.userID,
-                                          style: TextStyles
-                                              .defaultStyle.colorHintText,
-                                        ),
-                                        const Icon(
-                                          FontAwesomeIcons.copy,
-                                          size: kIconSize * 0.8,
-                                          color: ColorsApp.defaultTextColor,
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: UserHeader(user: user),
                   ),
                 ],
               ),
@@ -218,37 +140,44 @@ class _UserMainBodyState extends State<UserMainBody> {
           ),
           // Buttons
           Container(
-            // margin: const EdgeInsets.only(top: k12Margin),
             padding: const EdgeInsets.all(k12Padding),
             decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
             child: IntrinsicHeight(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  CardItemFunction(
+                children: [
+                  const CardItemFunction(
                     icon: FontAwesomeIcons.wallet,
                     text: "Balance",
                     color: ColorsApp.tertiaryColors,
                   ),
-                  VerticalDivider(
+                  const VerticalDivider(
                     color: ColorsApp.tertiaryColors,
                     indent: 3,
                     endIndent: 3,
                     thickness: 1.5,
                   ),
                   CardItemFunction(
-                    icon: FontAwesomeIcons.qrcode,
-                    text: "QR Scan",
-                    color: ColorsApp.tertiaryColors,
-                  ),
-                  VerticalDivider(
+                      icon: FontAwesomeIcons.qrcode,
+                      text: "QR Scan",
+                      color: ColorsApp.tertiaryColors,
+                      onTap: () {
+                        // Navigator.of(context)
+                        //     .pushNamed(QRScreen.routeName);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => QRScreen(user: user),
+                            ));
+                      }),
+                  const VerticalDivider(
                     color: ColorsApp.tertiaryColors,
                     indent: 3,
                     endIndent: 3,
                     thickness: 1.5,
                   ),
-                  CardItemFunction(
+                  const CardItemFunction(
                     icon: FontAwesomeIcons.wallet,
                     text: "Balance",
                     color: ColorsApp.tertiaryColors,
@@ -298,6 +227,90 @@ class _UserMainBodyState extends State<UserMainBody> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class UserHeader extends StatelessWidget {
+  const UserHeader({
+    super.key,
+    required this.user,
+  });
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Colors.transparent,
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.all(k12Padding),
+          decoration: BoxDecoration(
+            color: ColorsApp.backgroundLight,
+            borderRadius: BorderRadius.circular(kBorderRadiusMin),
+            boxShadow: [
+              BoxShadow(
+                  color: ColorsApp.primaryColor.withOpacity(0.5),
+                  offset: const Offset(3, 3),
+                  blurRadius: 10,
+                  spreadRadius: 2)
+            ],
+          ),
+          child: Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: k8Padding,
+            children: [
+              CircleAvatar(
+                radius: kIconSize * 1.5,
+                child: HelperImage.loadFromAsset(user.userAvatar,
+                    radius: BorderRadius.circular(kBorderRadiusIcon)),
+              ),
+              Wrap(
+                direction: Axis.vertical,
+                alignment: WrapAlignment.spaceAround,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                spacing: k8Padding,
+                children: [
+                  Text(user.userName.toUpperCase(),
+                      style: TextStyles
+                          .defaultStyle.semiBold.sizeHeading.colorDefaultText),
+                  GestureDetector(
+                    onTap: () async {
+                      await Clipboard.setData(ClipboardData(text: user.userID));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text("User ID Copied to Clipboard!"),
+                        ),
+                      );
+                    },
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.spaceBetween,
+                      spacing: k8Padding / 2,
+                      children: [
+                        Text(
+                          user.userID,
+                          style: TextStyles.defaultStyle.colorHintText,
+                        ),
+                        const Icon(
+                          FontAwesomeIcons.copy,
+                          size: kIconSize * 0.8,
+                          color: ColorsApp.defaultTextColor,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
