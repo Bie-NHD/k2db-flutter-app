@@ -119,6 +119,7 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
                     ),
                     InkWell(
                       onTap: () {
+                        Navigator.of(context).pushNamed("/help_promotion_screen");
                         // Do something when button is pressed
                       },
                       child: const Icon(
@@ -143,6 +144,7 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
                     ),
                     InkWell(
                       onTap: () {
+                        Navigator.of(context).pushNamed("/help_promotion_screen");
                         // Do something when button is pressed
                       },
                       child: const Icon(
@@ -161,7 +163,7 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
             height: k8Padding/2 -1,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: k8Padding, right: k8Padding, top: k8Padding),
+            padding: const EdgeInsets.only(left: k12Padding, right: k12Padding, top: k8Padding),
             child: Column(
               children: [
                 Text(
@@ -185,7 +187,7 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
                   nameGift: 'Thịt Heo siêu nạt',
                   priceGift: '10000 Point',
                       onTap: () {
-                        Navigator.of(context).pushNamed("/help_promotion_screen");
+                        Navigator.of(context).pushNamed("/detail_exchange_gift_screen");
                       },
                 ),
               ),

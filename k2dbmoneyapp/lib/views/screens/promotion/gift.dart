@@ -22,83 +22,100 @@ class _DetailGiftScreenState extends State<DetailGiftScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorsApp.primaryColor,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: ListView(
-        children: [
-          Image.asset(
-            HelperAssets.bannerProductPromotion,
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-          ),
-          const CardGift(
-            titleGift:
-            "Giảm giá mỗi ngày - Giảm lên đến 50%  + Freeship",
-            timeGift: "Thời gian: 31/13/2023 - 32/13/2023",
-            giftDetailTime:
-            "Thời gian: Từ  7h00 ngày 31/13/2023 đến 17h00 ngày 32/13/2023",
-            giftDetailObject:
-            "Đối tượng: Khách hàng lần đầu thanh toán hóa đươn bằng AmazonPay",
-            giftDetailGift:
-            "Quà tặng: Gói ưu đãi giảm giá lên đến 50% tối đa 100.000đ cho đơn hàng từ 100.000đ + FreeShip ",
-            giftDescription:
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            usingGift:
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: ColorsApp.backgroundLight, // màu của chân trang
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed("/help_promotion_screen");
-                // xử lý sự kiện khi nhấn nút bấm
-              },
-              child: Container(
-                height: size.height* 0.05,
-                // margin: const EdgeInsets.symmetric(horizontal: 0, vertical: k8Margin/2),
-                padding: const EdgeInsets.symmetric(horizontal: k24Padding*3, vertical: k8Padding),
-                decoration: BoxDecoration(
-                  color: ColorsApp.secondaryColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  "USE",
-                  style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
-                  textAlign: TextAlign.center,
+    return SafeArea(
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(size.height*0.25), // Chiều cao tùy chỉnh của AppBar
+            child: AppBar(
+              backgroundColor: Colors.transparent, // Cho phép hiển thị ảnh nền
+              elevation: 0, // Không có đường viền bóng ở phía dưới của AppBar
+              flexibleSpace: Image.asset(
+                HelperAssets.bannerProductPromotion,
+                fit: BoxFit.cover,
+              ),
+              leading: Padding(
+                padding: const EdgeInsets.only(left: k12Padding, top: k12Padding),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30), // độ cong của border
+                    border: Border.all(color: ColorsApp.backgroundDark, width: 1),
+                    color: ColorsApp.backgroundLight,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.arrowLeft,
+                      size: kIconSize - 2,
+                    ),
+                    color: ColorsApp.backgroundDark,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ),
             ),
-          ],
+          ),
+          body: ListView(
+            children: const [
+              CardGift(
+                titleGift:
+                "Giảm đến 45% cho các thiết bị gia dụng",
+                timeGift: "Thời gian: 31/13/2023 - 32/13/2023",
+                giftDetailTime:
+                "Thời gian: Từ  7h00 ngày 31/13/2023 đến 17h00 ngày 32/13/2023",
+                giftDetailObject:
+                "Đối tượng: Khách hàng lần đầu thanh toán hóa đươn bằng AmazonPay",
+                giftDetailGift:
+                "Quà tặng: Gói ưu đãi giảm giá lên đến 50% tối đa 100.000đ cho đơn hàng từ 100.000đ + FreeShip ",
+                giftDescription: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                usingGift: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              ),
+            ],
+          ),
+          bottomNavigationBar: BottomAppBar(
+            color: ColorsApp.backgroundLight, // màu của chân trang
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/help_promotion_screen");
+                    // xử lý sự kiện khi nhấn nút bấm
+                  },
+                  child: Container(
+                    height: size.height* 0.05,
+                    // margin: const EdgeInsets.symmetric(horizontal: 0, vertical: k8Margin/2),
+                    padding: const EdgeInsets.symmetric(horizontal: k24Padding*3, vertical: k8Padding),
+                    decoration: BoxDecoration(
+                      color: ColorsApp.secondaryColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "USE",
+                      style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, // vị trí của nút bấm
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, // vị trí của nút bấm
     );
   }
 }

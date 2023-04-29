@@ -43,11 +43,12 @@ class CardGift extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 titleGift,
                 style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
+                textAlign: TextAlign.center,
               ),
               const Divider(
                 color: ColorsApp.hintTextColor,
@@ -65,7 +66,7 @@ class CardGift extends StatelessWidget {
           width: size.width * 1,
           margin: const EdgeInsets.only(
               left: k12Padding, right: k12Padding),
-          padding: const EdgeInsets.all(k12Padding),
+          padding: const EdgeInsets.all(k8Padding),
           decoration: BoxDecoration(
             color: ColorsApp.backgroundLight,
             borderRadius: BorderRadius.circular(8),
