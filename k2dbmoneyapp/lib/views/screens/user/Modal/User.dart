@@ -110,7 +110,7 @@ class IDGenerator {
           .toString();
 }
 
-class Validation {
+class UserController {
   static const phonePrefix = <int>[
     32,
     33,
