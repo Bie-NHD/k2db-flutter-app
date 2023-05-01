@@ -225,23 +225,19 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                           child: Expanded(
                             child: ListView.builder(
                               itemCount: 10,
-                              itemExtent: size.height * 0.165,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: k8Padding),
-                                  child: ItemPromotionProgram(
-                                    onTap: () {},
-                                    onTapShare: () {},
-                                    onTapHeart: () {
-                                      setState(() {
-                                        isLiked = !isLiked; // chỉ thay đổi giá trị isLiked của item được bấm
-                                      });
-                                    },
-                                    colorHeart: isLiked ? ColorsApp.statusErrorColor : ColorsApp.backgroundDark,
-                                    textTitle: 'Thanh toán hóa đơn',
-                                    textDescribe: 'Thanh toán hóa đơn - Giảm 50% cho hóa đơn từ 100.000VNĐ tối đa 50.000VNĐ',
-                                    textDate: 'HSD: 31/13/2023',
-                                  ),
+                                return ItemPromotionProgram(
+                                  onTap: () {},
+                                  onTapShare: () {},
+                                  onTapHeart: () {
+                                    setState(() {
+                                      isLiked = !isLiked; // chỉ thay đổi giá trị isLiked của item được bấm
+                                    });
+                                  },
+                                  colorHeart: isLiked ? ColorsApp.statusErrorColor : ColorsApp.backgroundDark,
+                                  textTitle: 'Thanh toán hóa đơn',
+                                  textDescribe: 'Thanh toán hóa đơn - Giảm 50% cho hóa đơn từ 100.000VNĐ tối đa 50.000VNĐ',
+                                  textDate: 'HSD: 31/13/2023',
                                 );
                               },
                             ),
