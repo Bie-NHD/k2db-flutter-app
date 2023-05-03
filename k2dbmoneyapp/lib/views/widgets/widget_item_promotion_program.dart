@@ -35,7 +35,7 @@ class ItemPromotionProgram extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: k12Padding, left: k12Padding, top: k12Padding, bottom: 0),
+        padding: const EdgeInsets.only(right: k12Padding, left: k12Padding, top: k12Padding),
         child: Container(
           decoration: BoxDecoration(
             color: ColorsApp.backgroundLight,
@@ -44,8 +44,11 @@ class ItemPromotionProgram extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              Container(
                 width: size.width * 0.3,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(k12Padding),
+                ),
                 child: HelperImage.loadFromAsset(
                   HelperAssets.iconOff50MyGift,
                 ),
