@@ -6,8 +6,9 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
-import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
+
+import '../../../core/helpers/helper_validation.dart';
 
 class UserEditScreen extends StatefulWidget {
   UserEditScreen({super.key, required this.user});
@@ -253,7 +254,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                       ),
                     ),
                     validator: (value) {
-                      UserController.validatePhoneNum(value!);
+                      HelperValidation.isPhoneNum(value!);
                     },
                     onSaved: (value) {
                       user.security.phoneNum = value!;

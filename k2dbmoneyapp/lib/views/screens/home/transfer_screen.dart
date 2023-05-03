@@ -9,6 +9,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import '../../../core/constant/text.dart';
 import '../../../core/widgets/widget_itembutton.dart';
 import '../user/Modal/User.dart';
+import 'package:k2dbmoneyapp/core/helpers/helper_validation.dart';
 
 class TransferScreen extends StatefulWidget {
   const TransferScreen({Key? key, required this.user}) : super(key: key);
@@ -58,7 +59,7 @@ class _TransferScreenState extends State<TransferScreen> {
                 [
                   Form(
                     key: formKey,
-                    onChanged: onChanged,
+                    onChanged: _onChanged,
                     child: Column(
                       children: [
                         Padding(
@@ -96,7 +97,7 @@ class _TransferScreenState extends State<TransferScreen> {
                           hintText: "09XXXXXXX",
                           keyboardType: TextInputType.number,
                           hideCounter: true,
-                          validator: validatePhoneNum,
+                          validator: HelperValidation.validatePhoneNum,
                         ),
                         TransferTextField(
                           controller: controllers['name'],
@@ -105,7 +106,7 @@ class _TransferScreenState extends State<TransferScreen> {
                           helperText: "The recipient's name",
                           enabled: enableUserName,
                           hideCounter: true,
-                          validator: validateName,
+                          validator: _validateName,
                         ),
                         TransferTextField(
                           controller: controllers['amount'],
@@ -114,7 +115,10 @@ class _TransferScreenState extends State<TransferScreen> {
                           helperText: "The recipient's name",
                           keyboardType: TextInputType.number,
                           hideCounter: true,
-                          validator: validateAmount,
+                          validator: (value) {
+                            return HelperValidation.validateAmount(value,
+                                userBalance: user.userBalance);
+                          },
                         ),
                         TransferTextField(
                           controller: controllers['message'],
@@ -157,28 +161,11 @@ class _TransferScreenState extends State<TransferScreen> {
     );
   }
 
-  void onChanged() {
+  void _onChanged() {
     formKey.currentState!.validate();
   }
 
-  String? validatePhoneNum(String? value) {
-    if (UserController.validatePhoneNum(value!) == false) {
-      return "Wrong phone number format";
-    }
-    return null;
-  }
-
-  String? validateAmount(String? value) {
-    if (value == null || value == "") {
-      return "Amount must be filled";
-    }
-    if (double.parse(value) > user.userBalance) {
-      return "Amount exceeds current balance";
-    }
-    return null;
-  }
-
-  String? validateName(String? value) {
+  String? _validateName(String? value) {
     if (!enableUserName) return null;
     if (value == null || value == "") {
       return "Name must be filled";
