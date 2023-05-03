@@ -10,6 +10,7 @@ import '../../core/widgets/widget_itembutton.dart';
 class HorizontalButtonLinkOutline extends ButtonOutline {
   final IconData? icon;
   final Alignment? alignment;
+
   const HorizontalButtonLinkOutline(
       {Key? key,
       this.icon,
@@ -65,25 +66,29 @@ class HorizontalButtonLinkOutline extends ButtonOutline {
 }
 
 class HorizontalButtonLinkFill extends ButtonFill {
-  final IconData? icon;
+  final Icon? prefixIcon;
   final Alignment? alignment;
+  final Color? textColor;
+  final bool hasAngleSymbol;
+  final bool centerText;
 
   const HorizontalButtonLinkFill(
       {Key? key,
-      this.icon,
+      this.prefixIcon,
       required super.text,
+      this.textColor,
       super.color,
       required super.onTap,
       super.width,
-      this.alignment})
+      this.alignment,
+      this.hasAngleSymbol = true,
+      this.centerText = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap;
-      },
+      onTap: onTap,
       child: Container(
         width: width ?? MediaQuery.of(context).size.width - 24,
         margin: const EdgeInsets.only(top: k12Margin),
@@ -94,26 +99,26 @@ class HorizontalButtonLinkFill extends ButtonFill {
             color: color ?? ColorsApp.tertiaryColors,
             borderRadius: BorderRadius.circular(kBorderRadiusMin)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment:
+              centerText ? MainAxisAlignment.center : MainAxisAlignment.start,
           children: [
-            Icon(
-              icon,
-              color: ColorsApp.defaultTextColor,
-              size: kIconSize,
-            ),
+            prefixIcon ?? const SizedBox.shrink(),
             Padding(
               padding: const EdgeInsets.only(left: k8Padding),
               child: Text(
                 text,
-                style: TextStyles.defaultStyle.semiBold.sizeTitleAndButton,
+                style: TextStyles.defaultStyle.semiBold.sizeTitleAndButton
+                    .copyWith(color: textColor),
               ),
             ),
-            const Spacer(),
-            const Icon(
-              FontAwesomeIcons.angleRight,
-              size: kIconSize,
-              color: ColorsApp.appBarTextColor,
-            )
+            hasAngleSymbol ? const Spacer() : const SizedBox.shrink(),
+            hasAngleSymbol
+                ? Icon(
+                    FontAwesomeIcons.angleRight,
+                    size: kIconSize,
+                    color: textColor ?? ColorsApp.backgroundLight,
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ),
