@@ -13,11 +13,9 @@ class UserPaymentQR extends StatelessWidget {
   const UserPaymentQR({
     super.key,
     required this.user,
-    required this.height,
   });
 
   final User user;
-  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class UserPaymentQR extends StatelessWidget {
                 children: [
                   Center(
                     child: HelperImage.loadFromAsset(user.userAvatar,
-                        height: height! * 0.1),
+                        height: MediaQuery.of(context).size.height * 0.1),
                   ),
                   Text(
                     user.userName.toUpperCase(),

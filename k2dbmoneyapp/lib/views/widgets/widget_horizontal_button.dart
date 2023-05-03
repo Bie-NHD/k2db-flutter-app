@@ -88,9 +88,7 @@ class HorizontalButtonLinkFill extends ButtonFill {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap;
-      },
+      onTap: onTap,
       child: Container(
         width: width ?? MediaQuery.of(context).size.width - 24,
         margin: const EdgeInsets.only(top: k12Margin),

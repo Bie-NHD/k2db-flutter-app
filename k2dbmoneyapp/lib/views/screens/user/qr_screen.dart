@@ -24,15 +24,15 @@ class QRScreen extends StatefulWidget {
 
 class _QRScreenState extends State<QRScreen>
     with SingleTickerProviderStateMixin {
-  late User user = widget.user;
-  QRViewController? qrViewController;
+  late final User user = widget.user;
+  late final QRViewController? qrViewController;
+  final PageController _pageController = PageController();
 
   int _currentIndex = 0;
+  List<int> loadedPages = [0];
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: ColorsApp.backgroundLight,
       resizeToAvoidBottomInset: true,
@@ -74,14 +74,14 @@ class _QRScreenState extends State<QRScreen>
           ),
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
         children: [
-          UserPaymentQR(user: user, height: size.height * 4 / 5),
-          // QRScanView(
-          //   qrViewController: qrViewController,
-          // ),
-          Container(),
+          UserPaymentQR(user: user),
+          QRScanView(
+            qrViewController: qrViewController,
+          ),
           TransferScreen(
             user: user,
           ),
@@ -91,13 +91,14 @@ class _QRScreenState extends State<QRScreen>
   }
 
   void _onTabChange(int index) {
+    _pageController.jumpToPage(index);
+    setState(() {
+      _currentIndex = index;
+    });
     if (index != 1) {
       qrViewController?.pauseCamera();
     } else {
       qrViewController?.resumeCamera();
     }
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }

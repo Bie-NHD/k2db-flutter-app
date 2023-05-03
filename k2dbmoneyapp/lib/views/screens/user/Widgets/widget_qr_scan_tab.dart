@@ -112,6 +112,4 @@ class _QRScanViewState extends State<QRScanView>
       });
     });
   }
-
-  static void pauseCamera() {}
 }
