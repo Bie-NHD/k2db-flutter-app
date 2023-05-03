@@ -25,7 +25,7 @@ class QRScreen extends StatefulWidget {
 class _QRScreenState extends State<QRScreen>
     with SingleTickerProviderStateMixin {
   late final User user = widget.user;
-  late final QRViewController? qrViewController;
+  QRViewController? qrViewController;
   final PageController _pageController = PageController();
 
   int _currentIndex = 0;

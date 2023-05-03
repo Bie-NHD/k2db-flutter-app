@@ -201,7 +201,9 @@ class _TransferScreenState extends State<TransferScreen> {
               case ('message'):
                 if (e.value.text.isEmpty) return "None";
             }
-            return e.value.text;
+            return (e.value.text.length > 15)
+                ? '${e.value.text.substring(0, 12)}...'
+                : e.value.text;
           }
 
           return BackdropFilter(
