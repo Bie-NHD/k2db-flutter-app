@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -7,8 +6,8 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
-import 'package:k2dbmoneyapp/views/widgets/widget_horizontal_button.dart';
 import '../../../core/constant/text.dart';
+import '../../../core/widgets/widget_itembutton.dart';
 import '../user/Modal/User.dart';
 
 class TransferScreen extends StatefulWidget {
@@ -24,18 +23,19 @@ class TransferScreen extends StatefulWidget {
 class _TransferScreenState extends State<TransferScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late User user = widget.user;
+  late final User user = widget.user;
 
   // If user phone num found in db -> auto fill name and disable text-field
   bool enableUserName = true;
 
   // VALUES
-  // final Map<String, TextEditingController> controllers = {
-  //   'phone number': TextEditingController(),
-  //   'name': TextEditingController(),
-  //   'amount': TextEditingController(),
-  //   'message': TextEditingController(),
-  // };
+  late final Map<String, TextEditingController> controllers = {
+    'phone number': TextEditingController(),
+    'name': TextEditingController(),
+    'amount': TextEditingController(),
+    'message': TextEditingController.fromValue(
+        TextEditingValue(text: "${user.userName.toUpperCase()} chuyen tien")),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class _TransferScreenState extends State<TransferScreen> {
                           ),
                         ),
                         TransferTextField(
-                          // controller: controllers['phone number'],
+                          controller: controllers['phone number'],
                           labelText: "Phone Number",
                           helperText: "The recipient's phone number",
                           hintText: "09XXXXXXX",
@@ -99,16 +99,16 @@ class _TransferScreenState extends State<TransferScreen> {
                           validator: validatePhoneNum,
                         ),
                         TransferTextField(
-                          // controller: controllers['name'],
+                          controller: controllers['name'],
                           labelText: "Name",
                           hintText: user.userName.toUpperCase(),
                           helperText: "The recipient's name",
                           enabled: enableUserName,
                           hideCounter: true,
-                          validator: (value) {},
+                          validator: validateName,
                         ),
                         TransferTextField(
-                          // controller: controllers['amount'],
+                          controller: controllers['amount'],
                           labelText: "Amount",
                           hintText: 20000.0.toFormatMoney(),
                           helperText: "The recipient's name",
@@ -117,13 +117,13 @@ class _TransferScreenState extends State<TransferScreen> {
                           validator: validateAmount,
                         ),
                         TransferTextField(
-                          // controller: controllers['message'],
+                          controller: controllers['message'],
                           labelText: "Message",
                           hintText: user.userName.toUpperCase(),
                           helperText: "Message to the recipient",
-                          initialValue:
-                              "${user.userName.toUpperCase()} chuyen tien",
-                          validator: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
                         ),
                       ],
                     ),
@@ -139,17 +139,13 @@ class _TransferScreenState extends State<TransferScreen> {
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(k12Padding),
-                  child: HorizontalButtonLinkFill(
+                  child: ButtonFill(
                     text: 'Confirm',
                     color: ColorsApp.primaryColor,
-                    textColor: ColorsApp.backgroundLight,
-                    hasAngleSymbol: false,
-                    centerText: true,
                     onTap: () {
-                      // showDialog(
-                      //   context: context,
-                      //   builder: ((context) => showConfirmDialog(context)),
-                      // );
+                      if (formKey.currentState!.validate()) {
+                        _showConfirmDialog(context);
+                      }
                     },
                   ),
                 ),
@@ -179,39 +175,116 @@ class _TransferScreenState extends State<TransferScreen> {
     if (double.parse(value) > user.userBalance) {
       return "Amount exceeds current balance";
     }
-
     return null;
   }
 
-  // showConfirmDialog(BuildContext context) {
-  //   return BackdropFilter(
-  //     filter: ImageFilter.blur(
-  //       sigmaX: 5,
-  //       sigmaY: 5,
-  //     ),
-  //     child: SimpleDialog(
-  //       backgroundColor: ColorsApp.backgroundLight,
-  //       shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(kBorderRadiusMax)),
-  //       title: Column(
-  //         children: const [
-  //           Text("Confirmation"),
-  //           Text("Please review your transaction info")
-  //         ],
-  //       ),
-  //       children: [
-  //         for (MapEntry e in controllers.entries)
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               Text("${e.key.toUpperCase()}: "),
-  //               Text(e.value?.text ?? ""),
-  //             ],
-  //           )
-  //       ],
-  //     ),
-  //   );
-  // }
+  String? validateName(String? value) {
+    if (!enableUserName) return null;
+    if (value == null || value == "") {
+      return "Name must be filled";
+    }
+    return null;
+  }
+
+  Future _showConfirmDialog(BuildContext context) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          String content(MapEntry<String, TextEditingController> e) {
+            switch (e.key) {
+              case ('phone number'):
+                return paddingPhoneNum(e.value.text)!;
+              case ('name'):
+                return e.value.text.toUpperCase();
+              case ('amount'):
+                return double.parse(e.value.text).toFormatMoney();
+              case ('message'):
+                if (e.value.text.isEmpty) return "None";
+            }
+            return e.value.text;
+          }
+
+          return BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 5,
+                sigmaY: 5,
+              ),
+              child: SimpleDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kBorderRadiusMin)),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("CONFIRMATION"),
+                      Text(
+                        "Please review your transaction info",
+                        style: TextStyles.defaultStyle.sizeMin,
+                      )
+                    ],
+                  ),
+                  children: [
+                    for (MapEntry<String, TextEditingController> e
+                        in controllers.entries)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: k16Padding, vertical: k8Padding),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${e.key.toUpperCase()}: ",
+                              style: TextStyles.defaultStyle.semiBold,
+                            ),
+                            Text(content(e)),
+                          ],
+                        ),
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(k12Padding),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context, rootNavigator: true).pop();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(k12Padding),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: ColorsApp.backgroundDark),
+                                  borderRadius:
+                                      BorderRadius.circular(kBorderRadiusMin)),
+                              child: const Text("Cancel"),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              //TODO Navigate to transaction screen
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(k12Padding),
+                              decoration: BoxDecoration(
+                                color: ColorsApp.secondaryColor,
+                                borderRadius:
+                                    BorderRadius.circular(kBorderRadiusMin),
+                              ),
+                              child: Text(
+                                "Confirm",
+                                style: TextStyles.defaultStyle.colorAppBarText,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ]));
+        });
+  }
+
+  String? paddingPhoneNum(String? str) {
+    return str?.replaceRange(4, str.length, "*" * (str.length - 4));
+  }
 }
 
 class TransferTextField extends StatelessWidget {
@@ -220,7 +293,7 @@ class TransferTextField extends StatelessWidget {
       this.hintText,
       required this.labelText,
       this.helperText,
-      this.initialValue,
+      // this.initialValue,
       this.keyboardType,
       this.validator,
       this.enabled = true,
@@ -230,7 +303,6 @@ class TransferTextField extends StatelessWidget {
   final String? hintText;
   final String labelText;
   final String? helperText;
-  final String? initialValue;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final bool enabled;
@@ -246,7 +318,6 @@ class TransferTextField extends StatelessWidget {
         maxLength: 100,
         enabled: enabled,
         validator: validator,
-        initialValue: initialValue ?? "",
         keyboardType: keyboardType,
         decoration: InputDecoration(
           helperText: helperText ?? "",
