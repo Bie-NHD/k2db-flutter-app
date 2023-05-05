@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/widgets/widget-text-field-search.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
+import 'package:k2dbmoneyapp/views/screens/store/Widgets/map_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/store/Widgets/widget_card_itemstore.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
@@ -42,7 +43,9 @@ class _StoreScreenState extends State<StoreScreen> {
             actions: [
               IconButton(
                 padding: const EdgeInsets.all(k12Padding),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(MapScreen.routeName);
+                },
                 icon: const Icon(
                   FontAwesomeIcons.map,
                   size: kIconSize - 2,

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:k2dbmoneyapp/core/services/web_socket.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/main_page.dart';
@@ -14,6 +15,7 @@ import 'package:k2dbmoneyapp/views/screens/promotion/gift.dart';
 import 'package:k2dbmoneyapp/views/screens/promotion/help_promotion.dart';
 import 'package:k2dbmoneyapp/views/screens/promotion/my_gift.dart';
 import 'package:k2dbmoneyapp/views/screens/promotion/promotion_main.dart';
+import 'package:k2dbmoneyapp/views/screens/store/Widgets/map_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/store/Widgets/detail_products_store_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/store/Widgets/detail_store_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/store/store_main.dart';
@@ -29,6 +31,7 @@ final Map<String, WidgetBuilder> routes = {
   UserScreen.routeName: (context) => const UserScreen(),
   PromotionScreen.routeName: (context) => const PromotionScreen(),
   StoreScreen.routeName: (context) => const StoreScreen(),
+  MapScreen.routeName: (context) => const MapScreen(),
   DetailStoreScreen.routeName: (context) => const DetailStoreScreen(),
   DetailProductsStoreScreen.routeName: (context) =>
       const DetailProductsStoreScreen(),
