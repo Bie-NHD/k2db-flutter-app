@@ -5,8 +5,9 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
-import '../Modal/User.dart';
-import '../user_edit_screen.dart';
+
+import '../screens/user/Modal/User.dart';
+import '../screens/user/user_edit_screen.dart';
 
 class InfoTab extends StatefulWidget {
   InfoTab({
@@ -22,17 +23,18 @@ class InfoTab extends StatefulWidget {
 
 class _InfoTabState extends State<InfoTab> {
   late User user = widget.user;
-  List<Info> infoContent() => [
-        Info(
+
+  List<InfoItem> infoContent() => [
+        InfoItem(
           icon: FontAwesomeIcons.user,
           title: "Name",
           content: user.userName,
         ),
-        Info(
+        InfoItem(
           title: "Gender",
           content: user.gender,
         ),
-        Info(
+        InfoItem(
           title: "Phone",
           content: user.security.phoneNum,
         ),
@@ -50,15 +52,12 @@ class _InfoTabState extends State<InfoTab> {
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: () async {
-                // final User new_user = await
+                // TODO Catch data
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => UserEditScreen(user: user),
                     ));
-                // setState(() {
-                //   user = new_user;
-                // });
               },
               child: Wrap(
                 direction: Axis.horizontal,
@@ -88,28 +87,25 @@ class _InfoTabState extends State<InfoTab> {
           scrollDirection: Axis.vertical,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (context, index) => InfoItem(info: infoContent()[index]),
+          itemBuilder: (context, index) => InfoTile(info: infoContent()[index]),
         ),
       ],
     );
   }
 }
 
-class Info {
+class InfoItem {
   final IconData? icon;
   final String title;
   final String content;
 
-  Info({this.icon, required this.title, required this.content});
+  InfoItem({this.icon, required this.title, required this.content});
 }
 
-class InfoItem extends StatelessWidget {
-  // final IconData? icon;
-  // final String title;
-  // final String content;
-  final Info info;
+class InfoTile extends StatelessWidget {
+  final InfoItem info;
 
-  const InfoItem({
+  const InfoTile({
     super.key,
     required this.info,
   });

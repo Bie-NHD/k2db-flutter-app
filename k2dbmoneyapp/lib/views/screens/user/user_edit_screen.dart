@@ -6,9 +6,11 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/views/screens/home/transfer_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 import '../../../core/helpers/helper_validation.dart';
+import '../../widgets/widget_custom_textformfield.dart';
 
 class UserEditScreen extends StatefulWidget {
   UserEditScreen({super.key, required this.user});
@@ -55,220 +57,184 @@ class _UserEditScreenState extends State<UserEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomCenter,
-          stops: [0.45, 1],
-          colors: [
-            ColorsApp.backgroundLight,
-            ColorsApp.statusNoteColor,
-          ],
+    return Scaffold(
+      backgroundColor: ColorsApp.backgroundLight,
+      appBar: AppBar(
+        backgroundColor: ColorsApp.primaryColor,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(
+            FontAwesomeIcons.arrowLeft,
+            color: Colors.white,
+            size: kIconSize,
+          ),
+          onPressed: () {
+            widget.isSaved
+                ? Navigator.pop(context)
+                : showDialog(
+                    context: context,
+                    builder: ((context) => showExitDialog(context)),
+                  );
+          },
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: ColorsApp.backgroundLight.withOpacity(0.5),
-        appBar: AppBar(
-          backgroundColor: ColorsApp.primaryColor,
-          elevation: 0,
-          shadowColor: Colors.transparent,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
+        actions: [
+          TextButton.icon(
             icon: const Icon(
-              FontAwesomeIcons.arrowLeft,
-              color: Colors.white,
-              size: kIconSize,
+              FontAwesomeIcons.solidFloppyDisk,
+              color: ColorsApp.backgroundLight,
+            ),
+            label: Text(
+              "Save",
+              style:
+                  TextStyles.defaultStyle.sizeDefault.colorAppBarText.semiBold,
             ),
             onPressed: () {
-              widget.isSaved
-                  ? Navigator.pop(context)
-                  : showDialog(
-                      context: context,
-                      builder: ((context) => showExitDialog(context)),
-                    );
+              if (widget.isSaved) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("No changes to save"),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              } else {
+                _onSave();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Changes Saved Successfully!"),
+                    duration: Duration(seconds: 2),
+                    backgroundColor: ColorsApp.statusSuccessColor,
+                  ),
+                );
+              }
             },
           ),
-          actions: [
-            TextButton.icon(
-              icon: const Icon(
-                FontAwesomeIcons.solidFloppyDisk,
-                color: ColorsApp.backgroundLight,
-              ),
-              label: Text(
-                "Save",
-                style: TextStyles
-                    .defaultStyle.sizeDefault.colorAppBarText.semiBold,
-              ),
-              onPressed: () {
-                if (widget.isSaved) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("No changes to save"),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                } else {
-                  _onSave();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Changes Saved Successfully!"),
-                      duration: Duration(seconds: 2),
-                      backgroundColor: ColorsApp.statusSuccessColor,
-                    ),
-                  );
-                }
-              },
-            ),
-            const SizedBox(
-              width: k12Padding,
-            )
-          ],
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(k24Padding),
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: k24Padding * 3,
-                          backgroundColor: Colors.transparent,
-                          child: Image.asset(
-                            user.userAvatar,
-                            semanticLabel: "User avatar",
-                            // cacheHeight: k24Padding.toInt(),
-                          ),
-                        ),
-                        Positioned(
-                          left: -0.5,
-                          bottom: -0.5,
-                          child: GestureDetector(
-                            onTap: () {
-                              //TODO change user avatar
-                            },
-                            child: const CircleAvatar(
-                              backgroundColor: ColorsApp.backgroundLight,
-                              child: Icon(
-                                FontAwesomeIcons.camera,
-                                color: ColorsApp.primaryColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: k12Margin,
-                  ),
-                  Text(
-                    "User Information",
-                    style: TextStyles
-                        .defaultStyle.colorDeepBlueText.sizeHeading.bold,
-                  ),
-                  const SizedBox(
-                    height: k12Margin,
-                  ),
-                  Text("isSaved = ${widget.isSaved}"),
-
-                  // User name
-                  TextFormField(
-                    initialValue: widget.user.userName,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Username",
-                        style: TextStyles.defaultStyle.colorDeepBlueText.bold
-                            .sizeTitleAndButton,
-                      ),
-                      prefixIcon: const Icon(FontAwesomeIcons.user),
-                      focusColor: ColorsApp.primaryColor,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: ColorsApp.primaryColor, width: 1.5),
-                        borderRadius: BorderRadius.circular(kBorderRadiusMin),
-                      ),
-                    ),
-                    validator: (value) => (value != null && value.isNotEmpty)
-                        ? null
-                        : "Must not be empty",
-                    onSaved: (value) {
-                      user.userName = value!;
-                    },
-                    onChanged: (value) {
-                      _onChanged();
-                    },
-                  ),
-
-                  // Gender Dropdown
-                  DropdownButtonFormField(
-                    items: genderMenuItem,
-                    value: dropdownGenderValue,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Gender",
-                        style: TextStyles.defaultStyle.colorDeepBlueText.bold
-                            .sizeTitleAndButton,
-                      ),
-                      prefixIcon: const Icon(FontAwesomeIcons.genderless),
-                      focusColor: ColorsApp.primaryColor,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: ColorsApp.primaryColor, width: 1.5),
-                        borderRadius: BorderRadius.circular(kBorderRadiusMin),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      dropdownGenderValue = value!;
-                      _onChanged();
-                    },
-                    onSaved: (_) {
-                      setState(() {
-                        user.gender = dropdownGenderValue;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    initialValue: user.security.phoneNum,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Phone Number",
-                        style: TextStyles.defaultStyle.colorDeepBlueText.bold
-                            .sizeTitleAndButton,
-                      ),
-                      prefixIcon: const Icon(FontAwesomeIcons.phone),
-                      focusColor: ColorsApp.primaryColor,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: ColorsApp.primaryColor, width: 1.5),
-                        borderRadius: BorderRadius.circular(kBorderRadiusMin),
-                      ),
-                    ),
-                    validator: (value) {
-                      HelperValidation.isPhoneNum(value!);
-                    },
-                    onSaved: (value) {
-                      user.security.phoneNum = value!;
-                    },
-                    onChanged: (_) {
-                      _onChanged();
-                    },
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+          const SizedBox(
+            width: k12Padding,
+          )
+        ],
       ),
+      body: CustomScrollView(slivers: [
+        SliverSafeArea(
+            sliver: SliverPadding(
+          padding: const EdgeInsets.all(k24Padding),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate([
+              Center(
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                        radius: k24Padding * 3,
+                        backgroundColor: Colors.transparent,
+                        child: Image.asset(
+                          user.userAvatar,
+                          semanticLabel: "User avatar",
+                        )),
+                    Positioned(
+                      left: -0.5,
+                      bottom: -0.5,
+                      child: GestureDetector(
+                        onTap: () {
+                          //TODO change user avatar
+                        },
+                        child: const CircleAvatar(
+                          backgroundColor: ColorsApp.backgroundLight,
+                          child: Icon(
+                            FontAwesomeIcons.camera,
+                            color: ColorsApp.primaryColor,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: k12Margin,
+              ),
+              Text(
+                "User Information",
+                style:
+                    TextStyles.defaultStyle.colorDeepBlueText.sizeHeading.bold,
+              ),
+              const SizedBox(
+                height: k12Margin,
+              ),
+              Text("isSaved = ${widget.isSaved}"),
+              Form(
+                key: formKey,
+                onChanged: _onChanged,
+                child: Column(
+                  children: [
+                    CustomTextFormField(
+                      labelText: "Username",
+                      controller: TextEditingController.fromValue(
+                          TextEditingValue(text: user.userName)),
+                      validator: (value) =>
+                          HelperValidation.validateTextField(value),
+                      prefixIcon: FontAwesomeIcons.user,
+                      onSaved: (value) {
+                        user.userName = value!;
+                      },
+                    ),
+                    // Gender Dropdown
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: k20Padding),
+                      child: DropdownButtonFormField(
+                        items: genderMenuItem,
+                        value: dropdownGenderValue,
+                        decoration: InputDecoration(
+                          label: Text(
+                            "Gender",
+                            style: TextStyles.defaultStyle.colorDeepBlueText
+                                .bold.sizeTitleAndButton,
+                          ),
+                          prefixIcon: const Icon(FontAwesomeIcons.genderless),
+                          focusColor: ColorsApp.primaryColor,
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: ColorsApp.tertiaryColors),
+                            borderRadius:
+                                BorderRadius.circular(kBorderRadiusMin),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: ColorsApp.primaryColor, width: 2),
+                            borderRadius:
+                                BorderRadius.circular(kBorderRadiusMin),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          dropdownGenderValue = value!;
+                          _onChanged();
+                        },
+                        onSaved: (_) {
+                          setState(() {
+                            user.gender = dropdownGenderValue;
+                          });
+                        },
+                      ),
+                    ),
+
+                    CustomTextFormField(
+                      labelText: "Phone Number",
+                      prefixIcon: FontAwesomeIcons.phone,
+                      controller: TextEditingController.fromValue(
+                          TextEditingValue(text: user.security.phoneNum)),
+                      validator: (value) =>
+                          HelperValidation.validatePhoneNum(value),
+                      onSaved: (value) {
+                        user.security.phoneNum = value!;
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ),
+        ))
+      ]),
     );
   }
 
@@ -346,29 +312,16 @@ class _UserEditScreenState extends State<UserEditScreen> {
     );
   }
 
-  _onSave() {
-    final FormState form = formKey.currentState!;
-
-    if (form.validate()) {
-      setState(() {
-        widget.isSaved = !widget.isSaved;
-      });
-      form.save();
-    }
+  _onSave() async {
+    await _onChanged();
+    formKey.currentState!.save();
   }
 
   _onChanged() {
-    widget.isSaved = !widget.isSaved;
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        widget.isSaved = !widget.isSaved;
+      });
+    }
   }
-  //
-  // _change_isSaved() {
-  //   setState(() {
-  //     widget.isSaved = !widget.isSaved;
-  //   });
-  // }
-  //
-  // _textField_onChange() {
-  //   isSaved ? _change_isSaved() : null;
-  // }
-  // void callback()
 }

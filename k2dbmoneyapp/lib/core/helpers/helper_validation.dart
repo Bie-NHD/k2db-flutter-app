@@ -86,4 +86,12 @@ class HelperValidation {
     }
     return null;
   }
+
+  static String? validateTextField(String? value,
+      {String message = "Field must not be blank"}) {
+    if (value == null || value == "") {
+      return message;
+    }
+    return null;
+  }
 }
