@@ -32,31 +32,35 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      key: key,
-      controller: controller,
-      maxLength: 100,
-      enabled: enabled,
-      validator: validator,
-      onSaved: onSaved,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        helperText: helperText ?? "",
-        hintText: hintText ?? "",
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorsApp.tertiaryColors),
-          borderRadius: BorderRadius.circular(kBorderRadiusMin),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: k8Padding),
+      child: TextFormField(
+        key: key,
+        controller: controller,
+        maxLength: 100,
+        enabled: enabled,
+        validator: validator,
+        onSaved: onSaved,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+          helperText: helperText ?? "",
+          hintText: hintText ?? "",
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: ColorsApp.tertiaryColors),
+            borderRadius: BorderRadius.circular(kBorderRadiusMin),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                const BorderSide(color: ColorsApp.primaryColor, width: 2),
+            borderRadius: BorderRadius.circular(kBorderRadiusMin),
+          ),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle:
+              TextStyles.defaultStyle.bold.sizeTitleAndButton.colorDeepBlueText,
+          counter: showCounter ? null : const SizedBox.shrink(),
+          prefixIcon: Icon(prefixIcon),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorsApp.primaryColor, width: 2),
-          borderRadius: BorderRadius.circular(kBorderRadiusMin),
-        ),
-        labelText: labelText,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelStyle:
-            TextStyles.defaultStyle.bold.sizeTitleAndButton.colorDeepBlueText,
-        counter: showCounter ? null : const SizedBox.shrink(),
-        prefixIcon: Icon(prefixIcon!),
       ),
     );
   }
