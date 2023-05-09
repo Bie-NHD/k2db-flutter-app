@@ -55,79 +55,82 @@ class _TransferScreenState extends State<TransferScreen> {
       body: CustomScrollView(
         slivers: [
           SliverSafeArea(
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Form(
-                    key: formKey,
-                    onChanged: _onChanged,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(k12Padding),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.only(
-                                    top: 2, left: 2, bottom: 2),
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorsApp.secondaryColor),
-                                child: const Center(
-                                  child: Icon(
-                                    FontAwesomeIcons.exclamation,
-                                    color: ColorsApp.backgroundLight,
-                                    size: kIconSize,
+            sliver: SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Form(
+                      key: formKey,
+                      onChanged: _onChanged,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(k12Padding),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 2, left: 2, bottom: 2),
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorsApp.secondaryColor),
+                                  child: const Center(
+                                    child: Icon(
+                                      FontAwesomeIcons.exclamation,
+                                      color: ColorsApp.backgroundLight,
+                                      size: kIconSize,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: k8Padding,
-                              ),
-                              const Text(
-                                "Please check information before confirm",
-                                style: TextStyles.defaultStyle,
-                              ),
-                            ],
+                                const SizedBox(
+                                  width: k8Padding,
+                                ),
+                                const Text(
+                                  "Please check information before confirm",
+                                  style: TextStyles.defaultStyle,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        CustomTextFormField(
-                          controller: controllers['phone number'],
-                          labelText: "Phone Number",
-                          helperText: "The recipient's phone number",
-                          hintText: "09XXXXXXX",
-                          keyboardType: TextInputType.number,
-                          validator: (value) =>
-                              HelperValidation.validatePhoneNum(value),
-                        ),
-                        CustomTextFormField(
-                            controller: controllers['name'],
-                            labelText: "Name",
-                            hintText: user.userName.toUpperCase(),
-                            helperText: "The recipient's name",
-                            enabled: enableUserName,
-                            validator: (value) =>
-                                HelperValidation.validateTextField(value,
-                                    message: "Name must be filled")),
-                        CustomTextFormField(
-                            controller: controllers['amount'],
-                            labelText: "Amount",
-                            hintText: 20000.0.toFormatMoney(),
-                            helperText: "The recipient's name",
+                          CustomTextFormField(
+                            controller: controllers['phone number'],
+                            labelText: "Phone Number",
+                            helperText: "The recipient's phone number",
+                            hintText: "09XXXXXXX",
                             keyboardType: TextInputType.number,
                             validator: (value) =>
-                                HelperValidation.validateAmount(value,
-                                    userBalance: user.userBalance)),
-                        CustomTextFormField(
-                          controller: controllers['message'],
-                          labelText: "Message",
-                          hintText: user.userName.toUpperCase(),
-                          helperText: "Message to the recipient",
-                        ),
-                      ],
+                                HelperValidation.validatePhoneNum(value),
+                          ),
+                          CustomTextFormField(
+                              controller: controllers['name'],
+                              labelText: "Name",
+                              hintText: user.userName.toUpperCase(),
+                              helperText: "The recipient's name",
+                              enabled: enableUserName,
+                              validator: (value) =>
+                                  HelperValidation.validateTextField(value,
+                                      message: "Name must be filled")),
+                          CustomTextFormField(
+                              controller: controllers['amount'],
+                              labelText: "Amount",
+                              hintText: 20000.0.toFormatMoney(),
+                              helperText: "The recipient's name",
+                              keyboardType: TextInputType.number,
+                              validator: (value) =>
+                                  HelperValidation.validateAmount(value,
+                                      userBalance: user.userBalance)),
+                          CustomTextFormField(
+                            controller: controllers['message'],
+                            labelText: "Message",
+                            hintText: user.userName.toUpperCase(),
+                            helperText: "Message to the recipient",
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
