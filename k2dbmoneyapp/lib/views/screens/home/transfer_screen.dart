@@ -8,6 +8,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import '../../../core/constant/text.dart';
 import '../../../core/widgets/widget_itembutton.dart';
+import '../../widgets/widget_custom_textformfield.dart';
 import '../user/Modal/User.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_validation.dart';
 
@@ -83,51 +84,45 @@ class _TransferScreenState extends State<TransferScreen> {
                               const SizedBox(
                                 width: k8Padding,
                               ),
-                              Text(
+                              const Text(
                                 "Please check information before confirm",
-                                style: TextStyles.defaultStyle.colorGrayText,
+                                style: TextStyles.defaultStyle,
                               ),
                             ],
                           ),
                         ),
-                        TransferTextField(
+                        CustomTextFormField(
                           controller: controllers['phone number'],
                           labelText: "Phone Number",
                           helperText: "The recipient's phone number",
                           hintText: "09XXXXXXX",
                           keyboardType: TextInputType.number,
-                          hideCounter: true,
-                          validator: HelperValidation.validatePhoneNum,
+                          validator: (value) =>
+                              HelperValidation.validatePhoneNum(value),
                         ),
-                        TransferTextField(
-                          controller: controllers['name'],
-                          labelText: "Name",
-                          hintText: user.userName.toUpperCase(),
-                          helperText: "The recipient's name",
-                          enabled: enableUserName,
-                          hideCounter: true,
-                          validator: _validateName,
-                        ),
-                        TransferTextField(
-                          controller: controllers['amount'],
-                          labelText: "Amount",
-                          hintText: 20000.0.toFormatMoney(),
-                          helperText: "The recipient's name",
-                          keyboardType: TextInputType.number,
-                          hideCounter: true,
-                          validator: (value) {
-                            return HelperValidation.validateAmount(value,
-                                userBalance: user.userBalance);
-                          },
-                        ),
-                        TransferTextField(
+                        CustomTextFormField(
+                            controller: controllers['name'],
+                            labelText: "Name",
+                            hintText: user.userName.toUpperCase(),
+                            helperText: "The recipient's name",
+                            enabled: enableUserName,
+                            validator: (value) =>
+                                HelperValidation.validateTextField(value,
+                                    message: "Name must be filled")),
+                        CustomTextFormField(
+                            controller: controllers['amount'],
+                            labelText: "Amount",
+                            hintText: 20000.0.toFormatMoney(),
+                            helperText: "The recipient's name",
+                            keyboardType: TextInputType.number,
+                            validator: (value) =>
+                                HelperValidation.validateAmount(value,
+                                    userBalance: user.userBalance)),
+                        CustomTextFormField(
                           controller: controllers['message'],
                           labelText: "Message",
                           hintText: user.userName.toUpperCase(),
                           helperText: "Message to the recipient",
-                          validator: (value) {
-                            return null;
-                          },
                         ),
                       ],
                     ),
@@ -166,7 +161,6 @@ class _TransferScreenState extends State<TransferScreen> {
   }
 
   String? _validateName(String? value) {
-    if (!enableUserName) return null;
     if (value == null || value == "") {
       return "Name must be filled";
     }
@@ -273,59 +267,5 @@ class _TransferScreenState extends State<TransferScreen> {
 
   String? paddingPhoneNum(String? str) {
     return str?.replaceRange(4, str.length, "*" * (str.length - 4));
-  }
-}
-
-class TransferTextField extends StatelessWidget {
-  const TransferTextField(
-      {super.key,
-      this.hintText,
-      required this.labelText,
-      this.helperText,
-      // this.initialValue,
-      this.keyboardType,
-      this.validator,
-      this.enabled = true,
-      this.hideCounter = false,
-      this.controller});
-
-  final String? hintText;
-  final String labelText;
-  final String? helperText;
-  final TextInputType? keyboardType;
-  final String? Function(String?)? validator;
-  final bool enabled;
-  final bool hideCounter;
-  final TextEditingController? controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(k12Padding),
-      child: TextFormField(
-        controller: controller,
-        maxLength: 100,
-        enabled: enabled,
-        validator: validator,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          helperText: helperText ?? "",
-          hintText: hintText ?? "",
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: ColorsApp.tertiaryColors),
-            borderRadius: BorderRadius.circular(kBorderRadiusMin),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide:
-                const BorderSide(color: ColorsApp.primaryColor, width: 2),
-            borderRadius: BorderRadius.circular(kBorderRadiusMin),
-          ),
-          labelText: labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: TextStyles.defaultStyle.bold.sizeTitleAndButton,
-          counter: hideCounter ? const SizedBox.shrink() : null,
-        ),
-      ),
-    );
   }
 }

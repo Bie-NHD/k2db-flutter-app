@@ -3,20 +3,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 
-import '../Modal/User.dart';
+import '../screens/user/Modal/User.dart';
 
 class SecurityTab extends StatelessWidget {
-  SecurityTab({super.key, required this.user}) : security = user.security;
+  SecurityTab({super.key, required User user}) : security = user.security;
 
-  User user;
-  late Security security;
-  late List<SecurityInfo> list = [
-    SecurityInfo(
+  Security security;
+  late List<SecurityItem> list = [
+    SecurityItem(
         checker: security.hasValidatedCitizenID,
         contentTrue: security.citizenID,
         icon: FontAwesomeIcons.idCardClip,
         screen: Screens.CITIZENID),
-    SecurityInfo(
+    SecurityItem(
         checker: security.hasPIN,
         contentTrue: _pinCaster(security.PIN),
         icon: FontAwesomeIcons.lock,
@@ -46,14 +45,14 @@ class SecurityTab extends StatelessWidget {
   }
 }
 
-class SecurityInfo {
+class SecurityItem {
   final bool checker;
   final String? contentTrue;
   final String? contentFalse;
   final IconData? icon;
   final screen;
 
-  const SecurityInfo(
+  const SecurityItem(
       {required this.checker,
       required this.contentTrue,
       this.contentFalse = "",
@@ -62,7 +61,7 @@ class SecurityInfo {
 }
 
 class SecurityTile extends StatelessWidget {
-  final SecurityInfo info;
+  final SecurityItem info;
 
   const SecurityTile({super.key, required this.info});
 
