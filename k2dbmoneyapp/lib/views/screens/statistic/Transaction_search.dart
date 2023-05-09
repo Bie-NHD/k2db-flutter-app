@@ -145,11 +145,28 @@ class _Transaction_searchState extends State<Transaction_search> {
                 ],
               ),
             ),
-            SizedBox(height: size.height * 0.4,),
-            ButtonOutline(
-              text: 'Tìm kiếm',
-              onTap: () {},
-            )
+            Expanded(
+              child: CustomScrollView(
+                  slivers: [ SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      children: [
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(k24Padding),
+                          child: ButtonFill(
+                            text: 'Search',
+                            color: ColorsApp.primaryColor,
+                            onTap: () {
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ]
+              ),
+            ),
           ],
         ),
       ),
