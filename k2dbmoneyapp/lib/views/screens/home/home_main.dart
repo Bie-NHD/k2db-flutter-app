@@ -3,8 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
+import 'package:k2dbmoneyapp/views/screens/home/notfication_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/products_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/top-up/top_up_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/user/user_main.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
@@ -36,10 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
         leadingWidth: k20Padding * 2.7,
         leading: Padding(
           padding: const EdgeInsets.only(left: k12Padding),
-          child: CircleAvatar(
-            child: HelperImage.loadFromAsset(
-              HelperAssets.imageAvt,
-              radius: BorderRadius.circular(kBorderRadiusMax * 2),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, UserScreen.routeName);
+            },
+            child: CircleAvatar(
+              child: HelperImage.loadFromAsset(
+                HelperAssets.imageAvt,
+                radius: BorderRadius.circular(kBorderRadiusMax * 2),
+              ),
             ),
           ),
         ),
@@ -58,7 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, NotificationScreen.routeName);
+            },
             icon: const Icon(
               FontAwesomeIcons.solidBell,
               size: kIconSize - 2,
