@@ -29,7 +29,7 @@ class Transaction_History extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        (isBuying ?? false) ? BottomSheetHelper.showBottomSheet(context):_navigatorToDetailedInvoice(context);
+        (isBuying ?? false) ? _navigatorToDetailedInvoice(context):BottomSheetHelper.showBottomSheet(context);
       },
       child:  Column(
         children: [
@@ -71,7 +71,7 @@ class Transaction_History extends StatelessWidget {
               ),
               const SizedBox(width: k8Margin / 2),
               IconTextLink(title: '', onTap: () {
-                (isBuying ?? false) ? BottomSheetHelper.showBottomSheet(context):_navigatorToDetailedInvoice(context);
+                (isBuying ?? false) ? _navigatorToDetailedInvoice(context):BottomSheetHelper.showBottomSheet(context);
               },
                 sizeIcon: kIconSize,)
             ],
