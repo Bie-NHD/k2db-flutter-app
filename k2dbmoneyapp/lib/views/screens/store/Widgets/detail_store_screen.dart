@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
@@ -45,7 +47,7 @@ class _DetailStoreScreenState extends State<DetailStoreScreen> {
                     ),
                   Positioned(
                     top: k20Padding,
-                    right: k12Padding,
+                    left: k12Padding,
                       child: Container(
                         decoration: BoxDecoration(
                         color: ColorsApp.backgroundDark.withOpacity(0.5),
@@ -176,9 +178,21 @@ class ItemDetailStore extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: k12Padding),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(
+                  height: 50,
+                  width: 50,
+                  child:Container(
+                    child : HelperImage.loadFromAsset(
+                      HelperAssets.logoBrandStore,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+              ),
+              const SizedBox(width: k8Padding*5/4,),
               Text("$nameStore: "),
+              const SizedBox(width: k24Padding*2,),
               Text("Giờ mở cửa : $timeStart - $timeEnd"),
             ],
           ),
@@ -187,7 +201,28 @@ class ItemDetailStore extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.add_location_sharp),
           title: Text(addressStore.length<=82? "$addressStore" : addressStore.substring(0,81).padRight(82+3,'.')),
-          onTap:  () { },
+          onTap: () async {
+            await FlutterClipboard.copy(addressStore);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                duration: Duration(seconds: 2),
+                content: Text("Copied to Clipboard!"),
+              ),
+            );
+
+            String searchUrl = Uri.encodeFull('https://www.google.com/maps/search/?api=1&query=$addressStore');
+            if (await canLaunch(searchUrl)) {
+              await launch(searchUrl);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  duration: Duration(seconds: 2),
+                  content: Text("Could not open Google Maps!"),
+                ),
+              );
+            }
+          },
+
         ),
         const Divider(
           indent: k12Padding,
@@ -195,7 +230,7 @@ class ItemDetailStore extends StatelessWidget {
           height: k24Padding,
           thickness: 1,
         ),
-        const MyListTile(),
+        MyListTile(),
         const Divider(
           indent: k12Padding,
           endIndent: k12Padding,
@@ -237,19 +272,30 @@ class MyListTile extends StatefulWidget {
 
 class _MyListTileState extends State<MyListTile> {
   bool _isFavorite = false;
+  Color _heartColor = Colors.grey;
 
   void _toggleFavorite() {
     setState(() {
       _isFavorite = !_isFavorite;
+      _heartColor = _isFavorite ? Colors.red : Colors.grey;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(_isFavorite ? Icons.favorite : Icons.add_circle),
-      title: Text(_isFavorite ? "Đã thêm vào danh sách ưu thích" : "Thêm vào danh sách ưu thích"),
-      onTap: _toggleFavorite,
+      leading: InkWell(
+        onTap: _toggleFavorite,
+        child: Icon(
+          Icons.favorite,
+          color: _heartColor,
+        ),
+      ),
+      title: GestureDetector(
+        onTap: _toggleFavorite,
+        child: Text(_isFavorite ? "Đã thêm vào danh sách yêu thích" : "Thêm vào danh sách yêu thích"),
+      ),
     );
   }
 }
+
