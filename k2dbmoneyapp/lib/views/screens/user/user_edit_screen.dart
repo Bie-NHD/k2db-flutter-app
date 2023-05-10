@@ -16,7 +16,6 @@ class UserEditScreen extends StatefulWidget {
   UserEditScreen({super.key, required this.user});
 
   final User user;
-  late bool isSaved = true;
   static const routeName = "/Edit_screen";
 
   @override
@@ -24,8 +23,9 @@ class UserEditScreen extends StatefulWidget {
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late final User user = widget.user;
+  bool isSaved = true;
+  FormState? formState;
+  late User user = widget.user;
   late final List<DropdownMenuItem> genderMenuItem = [
     const DropdownMenuItem(
       value: Gender.male,
@@ -47,13 +47,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
 
   late String dropdownGenderValue = user.gender;
 
-  //TODO: Data passing between screens behaviors
+  late Map<String, TextEditingController> controllers = {
+    'phone num': TextEditingController.fromValue(
+        TextEditingValue(text: user.security.phoneNum)),
+    'name':
+        TextEditingController.fromValue(TextEditingValue(text: user.userName))
+  };
 
-  @override
-  void initState() {
-    super.initState();
-    widget.isSaved = true;
-  }
+  //TODO: Data passing between screens behaviors
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
             size: kIconSize,
           ),
           onPressed: () {
-            widget.isSaved
+            isSaved
                 ? Navigator.pop(context)
                 : showDialog(
                     context: context,
@@ -91,7 +92,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   TextStyles.defaultStyle.sizeDefault.colorAppBarText.semiBold,
             ),
             onPressed: () {
-              if (widget.isSaved) {
+              if (isSaved) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("No changes to save"),
@@ -161,75 +162,79 @@ class _UserEditScreenState extends State<UserEditScreen> {
               const SizedBox(
                 height: k12Margin,
               ),
-              Text("isSaved = ${widget.isSaved}"),
+              Text("isSaved = ${isSaved}"),
               Form(
-                key: formKey,
-                onChanged: _onChanged,
-                child: Column(
-                  children: [
-                    CustomTextFormField(
-                      labelText: "Username",
-                      controller: TextEditingController.fromValue(
-                          TextEditingValue(text: user.userName)),
-                      validator: (value) =>
-                          HelperValidation.validateTextField(value),
-                      prefixIcon: FontAwesomeIcons.user,
-                      onSaved: (value) {
-                        user.userName = value!;
-                      },
-                    ),
-                    // Gender Dropdown
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: k20Padding),
-                      child: DropdownButtonFormField(
-                        items: genderMenuItem,
-                        value: dropdownGenderValue,
-                        decoration: InputDecoration(
-                          label: Text(
-                            "Gender",
-                            style: TextStyles.defaultStyle.colorDeepBlueText
-                                .bold.sizeTitleAndButton,
-                          ),
-                          prefixIcon: const Icon(FontAwesomeIcons.genderless),
-                          focusColor: ColorsApp.primaryColor,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: ColorsApp.tertiaryColors),
-                            borderRadius:
-                                BorderRadius.circular(kBorderRadiusMin),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: ColorsApp.primaryColor, width: 2),
-                            borderRadius:
-                                BorderRadius.circular(kBorderRadiusMin),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          dropdownGenderValue = value!;
-                          _onChanged();
-                        },
-                        onSaved: (_) {
-                          setState(() {
-                            user.gender = dropdownGenderValue;
-                          });
+                onChanged: () {
+                  setState(() {
+                    isSaved = false;
+                  });
+                },
+                child: Builder(builder: (context) {
+                  formState = Form.maybeOf(context);
+                  return Column(
+                    children: [
+                      CustomTextFormField(
+                        labelText: "Username",
+                        controller: controllers['name'],
+                        validator: (value) =>
+                            HelperValidation.validateTextField(value),
+                        prefixIcon: FontAwesomeIcons.user,
+                        onSaved: (value) {
+                          user.userName = value!;
                         },
                       ),
-                    ),
+                      // Gender Dropdown
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: k20Padding),
+                        child: DropdownButtonFormField(
+                          items: genderMenuItem,
+                          value: dropdownGenderValue,
+                          decoration: InputDecoration(
+                            label: Text(
+                              "Gender",
+                              style: TextStyles.defaultStyle.colorDeepBlueText
+                                  .bold.sizeTitleAndButton,
+                            ),
+                            prefixIcon: const Icon(FontAwesomeIcons.genderless),
+                            focusColor: ColorsApp.primaryColor,
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: ColorsApp.tertiaryColors),
+                              borderRadius:
+                                  BorderRadius.circular(kBorderRadiusMin),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: ColorsApp.primaryColor, width: 2),
+                              borderRadius:
+                                  BorderRadius.circular(kBorderRadiusMin),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            dropdownGenderValue = value!;
+                            _onChanged();
+                          },
+                          onSaved: (_) {
+                            setState(() {
+                              user.gender = dropdownGenderValue;
+                            });
+                          },
+                        ),
+                      ),
 
-                    CustomTextFormField(
-                      labelText: "Phone Number",
-                      prefixIcon: FontAwesomeIcons.phone,
-                      controller: TextEditingController.fromValue(
-                          TextEditingValue(text: user.security.phoneNum)),
-                      validator: (value) =>
-                          HelperValidation.validatePhoneNum(value),
-                      onSaved: (value) {
-                        user.security.phoneNum = value!;
-                      },
-                    ),
-                  ],
-                ),
+                      CustomTextFormField(
+                        labelText: "Phone Number",
+                        prefixIcon: FontAwesomeIcons.phone,
+                        controller: controllers['phone num'],
+                        validator: (value) =>
+                            HelperValidation.validatePhoneNum(value),
+                        onSaved: (value) {
+                          user.security.phoneNum = value!;
+                        },
+                      ),
+                    ],
+                  );
+                }),
               ),
             ]),
           ),
@@ -312,15 +317,19 @@ class _UserEditScreenState extends State<UserEditScreen> {
     );
   }
 
-  _onSave() async {
-    await _onChanged();
-    formKey.currentState!.save();
+  _onSave() {
+    if (formState!.validate()) {
+      print("Form validated!");
+      formState?.save();
+      print("\nForm saved successfully");
+    }
   }
 
   _onChanged() {
-    if (formKey.currentState!.validate()) {
+    // if (formKey.currentState!.validate()) {
+    if (formState!.validate()) {
       setState(() {
-        widget.isSaved = !widget.isSaved;
+        isSaved = true;
       });
     }
   }
