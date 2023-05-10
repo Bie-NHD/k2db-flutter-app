@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/core/constant/text.dart';
+import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 
-import '../../../core/helpers/helper_asset.dart';
-import '../../widgets/widget_card_gift.dart';
+import 'package:k2dbmoneyapp/views/widgets/widget_card_gift.dart';
 
 class DetailGiftScreen extends StatefulWidget {
   const DetailGiftScreen({Key? key}) : super(key: key);
@@ -67,54 +65,11 @@ class _DetailGiftScreenState extends State<DetailGiftScreen> {
                 "Đối tượng: Khách hàng lần đầu thanh toán hóa đươn bằng AmazonPay",
                 giftDetailGift:
                 "Quà tặng: Gói ưu đãi giảm giá lên đến 50% tối đa 100.000đ cho đơn hàng từ 100.000đ + FreeShip ",
-                giftDescription: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                usingGift: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                giftDescription: "Quà tặng của chương trình khuyến mãi là gói ưu đãi giảm giá lên đến 50% tối đa 100.000đ cho đơn hàng từ 100.000đ. Đây là cơ hội tuyệt vời để khách hàng tiết kiệm chi phí mua sắm và trải nghiệm sản phẩm chất lượng từ cửa hàng của chúng tôi. Đồng thời, chúng tôi cũng muốn gửi tới khách hàng những lời cảm ơn chân thành vì đã tin tưởng và lựa chọn sản phẩm của chúng tôi.",
+                usingGift: "Để sử dụng khuyên mãi.Bạn hãy đến cửa hàng và chọn sản phẩm bạn muốn mua có hỗ trợ áp dụng ưu đãi. Giá sản phẩm sẽ tự động được giảm theo chương trình khuyến mãi của cửa hàng mà không cần thông báo cho nhân viên.",
               ),
             ],
           ),
-          bottomNavigationBar: BottomAppBar(
-            color: ColorsApp.backgroundLight, // màu của chân trang
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/help_promotion_screen");
-                    // xử lý sự kiện khi nhấn nút bấm
-                  },
-                  child: Container(
-                    height: size.height* 0.05,
-                    // margin: const EdgeInsets.symmetric(horizontal: 0, vertical: k8Margin/2),
-                    padding: const EdgeInsets.symmetric(horizontal: k24Padding*3, vertical: k8Padding),
-                    decoration: BoxDecoration(
-                      color: ColorsApp.secondaryColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      "USE",
-                      style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, // vị trí của nút bấm
         ),
     );
   }

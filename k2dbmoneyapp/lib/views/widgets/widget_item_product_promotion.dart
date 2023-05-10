@@ -73,7 +73,7 @@ class ItemProductPromotion extends StatelessWidget {
                       height: k8Padding / 2,
                     ),
                     Text(
-                      timePromotion,
+                      "Còn $timePromotion ngày nữa hết hạn",
                       style: TextStyles.defaultStyle.sizeMin.colorHintText,
                       overflow: TextOverflow.ellipsis,
                     ),

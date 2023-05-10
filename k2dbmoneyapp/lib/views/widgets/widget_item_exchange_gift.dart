@@ -21,67 +21,60 @@ class ItemExchangeGift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        color: ColorsApp.backgroundLight,
-        borderRadius: BorderRadius.circular(kBorderRadiusMin),
-        border: Border.all(color: ColorsApp.hintTextColor, width: 0.2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            imgGift,
-            width: double.maxFinite,
-            height: 120,
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: k8Padding, right: k8Padding, top: k8Padding),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      nameGift,
-                      style: TextStyles.defaultStyle.semiBold,
-                      // overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(
-                      height: k8Padding / 2,
-                    ),
-                    Text(
-                      priceGift,
-                      style: TextStyles.defaultStyle.colorYellowText.bold,
-                      maxLines: 3,
-                      // overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: onTap,
-                      child: const Icon(
-                        FontAwesomeIcons.chevronRight,
-                        size: k24Padding,
+    return GestureDetector(
+      onTap: onTap, // replace onTap with your function
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: ColorsApp.backgroundLight,
+          borderRadius: BorderRadius.circular(kBorderRadiusMin),
+          border: Border.all(color: ColorsApp.hintTextColor, width: 0.2),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              imgGift,
+              width: double.maxFinite,
+              height: 120,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: k8Padding, right: k8Padding, top: k8Padding),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            nameGift,
+                            style: TextStyles.defaultStyle.semiBold,
+                            // overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(
+                            height: k8Padding / 2,
+                          ),
+                          Text(
+                            "$priceGift Point",
+                            style: TextStyles.defaultStyle.colorYellowText.bold,
+                            maxLines: 3,
+                            // overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: Container(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

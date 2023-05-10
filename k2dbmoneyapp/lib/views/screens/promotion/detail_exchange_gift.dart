@@ -70,8 +70,43 @@ class _DetailExchangeGiftScreenState extends State<DetailExchangeGiftScreen> {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed("/help_promotion_screen");
-                  // xử lý sự kiện khi nhấn nút bấm
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Stack(
+                        children: [
+                          Opacity(
+                            opacity: 0.7,
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              color: Colors.black,
+                            ),
+                          ),
+                          AlertDialog(
+                            backgroundColor: Colors.white,
+                            title: Text(
+                              'Successfully redeem points',
+                              style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.bold,
+                            ),
+                            content: Text(
+                              'You have successfully redeemed your points! Your points will be deducted once you have picked up the item at the store and will not incur any further costs for you once you have done so. Thank you for using our shopping service at our store! Thank you! See you again!',
+                              style: TextStyles.defaultStyle.sizeDefault.colorDefaultText.regular,
+                              textAlign: TextAlign.justify,
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: Container(
                   height: size.height* 0.05,
