@@ -77,8 +77,7 @@ class CardGift extends StatelessWidget {
             children: [
               Text(
                 'Chi tiết chương trình',
-                style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText
-                    .bold,
+                style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
               ),
               const Divider(
                 color: ColorsApp.hintTextColor,
@@ -144,23 +143,21 @@ class CardGift extends StatelessWidget {
               ),
               Text(
                 'Quà tặng',
-                style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText
-                    .bold,
+                style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
               ),
               Text(
                 giftDescription,
-                style: TextStyles.defaultStyle.sizeDefault
-                    .colorDefaultText.regular,
+                style: TextStyles.defaultStyle.sizeDefault.colorDefaultText.regular,
+                textAlign: TextAlign.justify,
               ),
               Text(
                 'Hướng dẫn sử dụng ưu đãi',
-                style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText
-                    .bold,
+                style: TextStyles.defaultStyle.sizeAppbar.colorDefaultText.bold,
               ),
               Text(
                 usingGift,
-                style: TextStyles.defaultStyle.sizeDefault
-                    .colorDefaultText.regular,
+                style: TextStyles.defaultStyle.sizeDefault.colorDefaultText.regular,
+                textAlign: TextAlign.justify,
               ),
             ],
           ),

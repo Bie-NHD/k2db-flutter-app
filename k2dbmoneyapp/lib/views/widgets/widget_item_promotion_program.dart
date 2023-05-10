@@ -10,7 +10,6 @@ import '../../core/helpers/helper_image.dart';
 
 class ItemPromotionProgram extends StatelessWidget {
   final Function() onTap;
-  final Function() onTapShare;
   final Function() onTapHeart;
   final String textTitle;
   final String textDescribe;
@@ -20,7 +19,6 @@ class ItemPromotionProgram extends StatelessWidget {
   const ItemPromotionProgram({
     Key? key,
     required this.onTap,
-    required this.onTapShare,
     required this.onTapHeart,
     required this.textTitle,
     required this.textDescribe,
@@ -61,7 +59,7 @@ class ItemPromotionProgram extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const SizedBox(height: k8Padding/2),
                     Row(
@@ -74,7 +72,8 @@ class ItemPromotionProgram extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(width: k8Padding),
                             GestureDetector(
@@ -99,12 +98,48 @@ class ItemPromotionProgram extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          textDate,
+                          "HSD: $textDate",
                           style: TextStyles.defaultStyle.colorDefaultText.sizeDefault.bold,
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed("/store_screen");
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Stack(
+                                  children: [
+                                    Opacity(
+                                      opacity: 0.7,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      title: Text(
+                                        'You have successfully used it!',
+                                        style: TextStyles.defaultStyle.sizeTitleAndButton.colorDefaultText.bold,
+                                      ),
+                                      content: Text(
+                                        'The discounted amount will be automatically deducted from your total payment invoice at the store! Thank you for using our shopping service at our store! Thank you! See you again!',
+                                        style: TextStyles.defaultStyle.sizeDefault.colorDefaultText.regular,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                             // Do something when button is pressed
                           },
                           style: ButtonStyle(

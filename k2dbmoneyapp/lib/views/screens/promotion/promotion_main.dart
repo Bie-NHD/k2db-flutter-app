@@ -170,7 +170,7 @@ class _PromotionScreenState extends State<PromotionScreen> {
                           child: ItemProductPromotion(
                             imgProduct: HelperAssets.bannerProductPromotion,
                             namePromotion: "Giảm đến 45% cho các thiết bị gia dụng",
-                            timePromotion: "Còn 13 ngày nữa hết hạn",
+                            timePromotion: "13",
                             onTap: () {
                               Navigator.of(context).pushNamed("/detail_gift_screen");
                               // Navigator.of(context).pushNamed("/my_gift_screen");
