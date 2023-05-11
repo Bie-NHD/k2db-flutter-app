@@ -23,22 +23,13 @@ class InfoTab extends StatefulWidget {
 
 class _InfoTabState extends State<InfoTab> {
   late User user = widget.user;
-
-  List<InfoItem> infoContent() => [
-        InfoItem(
-          icon: FontAwesomeIcons.user,
-          title: "Name",
-          content: user.userName,
-        ),
-        InfoItem(
-          title: "Gender",
-          content: user.gender,
-        ),
-        InfoItem(
-          title: "Phone",
-          content: user.security.phoneNum,
-        ),
-      ];
+  final List<IconData?> _icons = [FontAwesomeIcons.user, null, null];
+  final List<String?> _titles = ["Name", "Gender", "Phone"];
+  late final List<String?> _contents = [
+    user.userName,
+    user.gender,
+    user.security.phoneNum
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -82,32 +73,34 @@ class _InfoTabState extends State<InfoTab> {
           ),
         ),
         ListView.builder(
-          itemCount: infoContent().length,
+          itemCount: _contents.length,
           padding: EdgeInsets.zero,
           scrollDirection: Axis.vertical,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (context, index) => InfoTile(info: infoContent()[index]),
+          itemBuilder: (context, index) => UserListTile(
+            content: _contents[index]!,
+            icon: _icons[index],
+            title: _titles[index],
+          ),
         ),
       ],
     );
   }
 }
 
-class InfoItem {
+class UserListTile extends StatelessWidget {
   final IconData? icon;
-  final String title;
+  final String? title;
   final String content;
+  final Color? color;
 
-  InfoItem({this.icon, required this.title, required this.content});
-}
-
-class InfoTile extends StatelessWidget {
-  final InfoItem info;
-
-  const InfoTile({
+  const UserListTile({
     super.key,
-    required this.info,
+    this.icon,
+    this.title,
+    required this.content,
+    this.color,
   });
 
   @override
@@ -125,11 +118,11 @@ class InfoTile extends StatelessWidget {
         direction: Axis.horizontal,
         crossAxisAlignment: WrapCrossAlignment.end,
         children: [
-          (info.icon != null)
+          (icon != null)
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: k12Padding),
                   child: Icon(
-                    info.icon,
+                    icon,
                     size: kIconSize,
                     color: ColorsApp.defaultTextColor,
                   ),
@@ -140,7 +133,7 @@ class InfoTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: k12Padding),
             child: Text(
-              info.title,
+              title!,
               style:
                   TextStyles.defaultStyle.semiBold.colorDefaultText.sizeDefault,
             ),
@@ -148,7 +141,7 @@ class InfoTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: k12Padding),
             child: Text(
-              info.content,
+              content,
               style:
                   TextStyles.defaultStyle.regular.colorDefaultText.sizeDefault,
             ),

@@ -68,15 +68,14 @@ class HelperValidation {
     if (value == null || value == "") {
       return "Amount must be filled";
     }
-    if (userBalance != 0) {
-      if (double.parse(value) < 1000) {
-        return "Amount must at least ${1000.0.toFormatMoney()}";
-      }
-      if (double.parse(value) > userBalance) {
-        return "Amount exceeds current balance";
-      }
+
+    if (double.parse(value) > userBalance && userBalance != 0) {
+      return "Amount exceeds current balance";
     }
 
+    if (double.parse(value) < 1000) {
+      return "Amount must at least ${1000.0.toFormatMoney()}";
+    }
     return null;
   }
 

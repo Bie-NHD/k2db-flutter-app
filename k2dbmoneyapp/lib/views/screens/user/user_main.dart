@@ -32,182 +32,184 @@ class _UserScreenState extends State<UserScreen> {
     final Size size = MediaQuery.of(context).size;
     User user = widget.user;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          IntrinsicHeight(
-            child: Container(
-              width: double.infinity,
-              height: size.height * 0.32,
-              decoration: const BoxDecoration(color: ColorsApp.primaryColor),
-              child: Stack(
-                children: [
-                  // Balance Display
-                  Positioned(
-                    top: size.height * 0.1,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      width: double.maxFinite,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: k24Padding),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Current Balance".toUpperCase(),
-                            style: TextStyles.defaultStyle.semiBold.sizeDefault
-                                .colorAppBarText,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                widget.isShowingBalance
-                                    ? widget.balanceDisplay
-                                    : widget.balanceDisplay.replaceRange(
-                                        0,
-                                        widget.balanceDisplay.length,
-                                        "*" * widget.balanceDisplay.length),
-                                style: TextStyles
-                                    .defaultStyle.bold.colorAppBarText
-                                    .copyWith(fontSize: 30),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    widget.isShowingBalance =
-                                        !widget.isShowingBalance;
-                                  });
-                                },
-                                child: Icon(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            IntrinsicHeight(
+              child: Container(
+                width: double.infinity,
+                height: size.height * 0.32,
+                decoration: const BoxDecoration(color: ColorsApp.primaryColor),
+                child: Stack(
+                  children: [
+                    // Balance Display
+                    Positioned(
+                      top: size.height * 0.1,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        width: double.maxFinite,
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: k24Padding),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Current Balance".toUpperCase(),
+                              style: TextStyles.defaultStyle.semiBold
+                                  .sizeDefault.colorAppBarText,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
                                   widget.isShowingBalance
-                                      ? FontAwesomeIcons.solidEye
-                                      : FontAwesomeIcons.solidEyeSlash,
-                                  color: ColorsApp.appBarTextColor,
-                                  size: kIconSize,
+                                      ? widget.balanceDisplay
+                                      : widget.balanceDisplay.replaceRange(
+                                          0,
+                                          widget.balanceDisplay.length,
+                                          "*" * widget.balanceDisplay.length),
+                                  style: TextStyles
+                                      .defaultStyle.bold.colorAppBarText
+                                      .copyWith(fontSize: 30),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.isShowingBalance =
+                                          !widget.isShowingBalance;
+                                    });
+                                  },
+                                  child: Icon(
+                                    widget.isShowingBalance
+                                        ? FontAwesomeIcons.solidEye
+                                        : FontAwesomeIcons.solidEyeSlash,
+                                    color: ColorsApp.appBarTextColor,
+                                    size: kIconSize,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // Header Decoration
-                  Positioned(
-                    top: size.height * 0.24,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      padding: EdgeInsets.only(top: size.height * 0.25),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(kBorderRadiusMax),
-                              topRight: Radius.circular(kBorderRadiusMax))),
+                    // Header Decoration
+                    Positioned(
+                      top: size.height * 0.24,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        padding: EdgeInsets.only(top: size.height * 0.25),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(kBorderRadiusMax),
+                                topRight: Radius.circular(kBorderRadiusMax))),
+                      ),
                     ),
-                  ),
-                  // User Header
-                  Positioned(
-                    top: size.height * 0.2,
-                    left: 0,
-                    right: 0,
-                    child: UserHeader(user: user),
-                  ),
-                ],
+                    // User Header
+                    Positioned(
+                      top: size.height * 0.2,
+                      left: 0,
+                      right: 0,
+                      child: UserHeader(user: user),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          // Buttons
-          Container(
-            padding: const EdgeInsets.all(k12Padding),
-            decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const CardItemFunction(
-                    icon: FontAwesomeIcons.wallet,
-                    text: "Balance",
-                    color: ColorsApp.tertiaryColors,
-                  ),
-                  const VerticalDivider(
-                    color: ColorsApp.tertiaryColors,
-                    indent: 3,
-                    endIndent: 3,
-                    thickness: 1.5,
-                  ),
-                  CardItemFunction(
-                      icon: FontAwesomeIcons.qrcode,
-                      text: "QR Scan",
+            // Buttons
+            Container(
+              padding: const EdgeInsets.all(k12Padding),
+              decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CardItemFunction(
+                      icon: FontAwesomeIcons.wallet,
+                      text: "Balance",
                       color: ColorsApp.tertiaryColors,
-                      onTap: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(QRScreen.routeName);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => QRScreen(user: user),
-                            ));
-                      }),
-                  const VerticalDivider(
-                    color: ColorsApp.tertiaryColors,
-                    indent: 3,
-                    endIndent: 3,
-                    thickness: 1.5,
+                    ),
+                    const VerticalDivider(
+                      color: ColorsApp.tertiaryColors,
+                      indent: 3,
+                      endIndent: 3,
+                      thickness: 1.5,
+                    ),
+                    CardItemFunction(
+                        icon: FontAwesomeIcons.qrcode,
+                        text: "QR Scan",
+                        color: ColorsApp.tertiaryColors,
+                        onTap: () {
+                          // Navigator.of(context)
+                          //     .pushNamed(QRScreen.routeName);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QRScreen(user: user),
+                              ));
+                        }),
+                    const VerticalDivider(
+                      color: ColorsApp.tertiaryColors,
+                      indent: 3,
+                      endIndent: 3,
+                      thickness: 1.5,
+                    ),
+                    const CardItemFunction(
+                      icon: FontAwesomeIcons.wallet,
+                      text: "Balance",
+                      color: ColorsApp.tertiaryColors,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Main content
+            Container(
+              color: Colors.white,
+              width: double.maxFinite,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: k24Padding),
+                    child: UserTabBar(
+                      user: widget.user,
+                    ),
                   ),
-                  const CardItemFunction(
-                    icon: FontAwesomeIcons.wallet,
-                    text: "Balance",
+                  const Divider(
                     color: ColorsApp.tertiaryColors,
+                    thickness: 2,
                   ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      spacing: k8Padding,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.arrowRightFromBracket,
+                          size: kIconSize,
+                          color: ColorsApp.statusErrorColor,
+                        ),
+                        Text(
+                          "Log out",
+                          style: TextStyles.defaultStyle.semiBold.colorRedText,
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-          ),
-          // Main content
-          Container(
-            color: Colors.white,
-            width: double.maxFinite,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: k24Padding),
-                  child: UserTabBar(
-                    user: widget.user,
-                  ),
-                ),
-                const Divider(
-                  color: ColorsApp.tertiaryColors,
-                  thickness: 2,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    spacing: k8Padding,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.arrowRightFromBracket,
-                        size: kIconSize,
-                        color: ColorsApp.statusErrorColor,
-                      ),
-                      Text(
-                        "Log out",
-                        style: TextStyles.defaultStyle.semiBold.colorRedText,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
