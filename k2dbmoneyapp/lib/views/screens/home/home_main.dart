@@ -35,9 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
-        leadingWidth: k20Padding * 2.7,
+        elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: k12Padding),
+          padding: const EdgeInsets.all(k12Padding),
           child: GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, UserScreen.routeName);

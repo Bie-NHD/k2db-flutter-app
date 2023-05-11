@@ -4,8 +4,10 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/HelperData.dart';
+import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 
 import '../../../core/constant/text.dart';
+import '../../../core/helpers/helper_asset.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -23,8 +25,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double height = size.height;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
@@ -63,7 +64,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       children: tabs
                           .map((String name) => GestureDetector(
                                 onTap: () {
-                                  // pageController.jumpToPage(tabs.indexOf(name));
+                                  pageController.jumpToPage(tabs.indexOf(name));
                                   setState(() {
                                     _selectedIndex = tabs.indexOf(name);
                                   });
@@ -97,11 +98,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
             color: ColorsApp.primaryColor,
             child: PageView(
               controller: pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
               children: [
                 ListView.builder(
                     itemCount: 10,
-                    padding: EdgeInsets.all(k12Padding),
-                    itemBuilder: (context, index) => _NotficationTile())
+                    padding: const EdgeInsets.all(k12Padding),
+                    itemBuilder: (context, index) => const _NotificationTile()),
+                ListView.builder(
+                    itemCount: 10,
+                    padding: const EdgeInsets.all(k12Padding),
+                    itemBuilder: (context, index) => const _PromotionTile()),
               ],
             ),
           ),
@@ -114,57 +124,108 @@ class _NotificationScreenState extends State<NotificationScreen> {
     color: ColorsApp.primaryColor,
     borderRadius: BorderRadius.all(Radius.circular(kBorderRadiusMin)),
   );
-// const BorderRadius borderRadius = BorderRadius.circular(kBorderRadiusMin);
 }
 
 class _CustomTile extends StatelessWidget {
   final Icon? icon;
-  final String? title;
-  final String? text;
+  final String? _title;
+  final Widget? content;
+  final String? imageFilePath;
+  final String? logoFilePath;
 
-  const _CustomTile({Key? key, this.icon, this.title, this.text})
-      : super(key: key);
+  const _CustomTile(
+      {Key? key,
+      this.icon,
+      String? title,
+      this.content,
+      this.imageFilePath,
+      this.logoFilePath})
+      : _title = title,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(k12Padding),
+      margin: const EdgeInsets.symmetric(vertical: k8Margin),
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
           color: ColorsApp.backgroundLight,
           borderRadius: BorderRadius.circular(kBorderRadiusMax)),
-      child: Row(
+      child: Column(
         children: [
-          icon!,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(title!), Text(text!)],
-          )
+          (imageFilePath != null)
+              ? HelperImage.loadFromAsset(imageFilePath!)
+              : const SizedBox.shrink(),
+          Padding(
+            padding: const EdgeInsets.all(k12Padding),
+            child: Row(
+              children: [
+                (logoFilePath == null)
+                    ? icon!
+                    : HelperImage.loadFromAsset(logoFilePath!,
+                        height: kIconSize,
+                        radius: const BorderRadius.all(
+                            Radius.circular(kBorderRadiusIcon))),
+                const SizedBox(
+                  width: k8Padding,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _title!,
+                      style: TextStyles.defaultStyle.sizeTitleAndButton.bold
+                          .colorDeepBlueText,
+                    ),
+                    content ?? const SizedBox.shrink()
+                  ],
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class _NotficationTile extends _CustomTile {
-  final String title = "Cumulative points updated!";
-  final int amount = HelperDataGeneration.nextInt(1000);
-
-  _NotficationTile({
-    Key? key,
-  }) : super(
-          key: key,
-        );
+class _NotificationTile extends _CustomTile {
+  const _NotificationTile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return _CustomTile(
-      icon: const Icon(
-        FontAwesomeIcons.star,
-        color: ColorsApp.secondaryColor,
-      ),
-      title: title,
-      text:
-          "You received ${HelperDataGeneration.nextInt(1000)} pts from order ${HelperDataGeneration.getRandomString()}",
+        icon: const Icon(
+          FontAwesomeIcons.star,
+          color: ColorsApp.secondaryColor,
+        ),
+        title: "Cumulative points updated!",
+        content: RichText(
+          text: TextSpan(
+              text: "You received ",
+              style: DefaultTextStyle.of(context).style,
+              children: [
+                TextSpan(
+                    text: "${HelperDataGeneration.nextInt(1000)} pts ",
+                    style: TextStyles.defaultStyle.bold.colorDeepBlueText),
+                TextSpan(
+                    text:
+                        "from order ${HelperDataGeneration.getRandomString()}")
+              ]),
+        ));
+  }
+}
+
+class _PromotionTile extends _CustomTile {
+  const _PromotionTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _CustomTile(
+      title:
+          "Discount ${HelperDataGeneration.nextInt(100)}% for all housewares",
+      imageFilePath: HelperAssets.bannerProductPromotion,
+      logoFilePath: HelperAssets.logoBrandStore,
     );
   }
 }
