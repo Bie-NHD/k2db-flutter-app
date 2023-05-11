@@ -8,9 +8,12 @@ import 'package:k2dbmoneyapp/core/constant/text.dart';
 
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
+import 'package:k2dbmoneyapp/core/services/api_services.dart';
 
 import 'package:k2dbmoneyapp/views/widgets/widget_item_product_promotion.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_item_promotion.dart';
+
+import '../../../core/model/user_model.dart';
 
 class PromotionScreen extends StatefulWidget {
   const PromotionScreen({Key? key}) : super(key: key);
@@ -24,7 +27,9 @@ class _PromotionScreenState extends State<PromotionScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // TODO: implement build
+
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +53,9 @@ class _PromotionScreenState extends State<PromotionScreen> {
           )
         ],
       ),
-      body: SingleChildScrollView(
+      body:
+
+      SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Stack(
