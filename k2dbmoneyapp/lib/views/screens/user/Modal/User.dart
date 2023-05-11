@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:k2dbmoneyapp/core/helpers/HelperData.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 
 class User {
-  late final String userID = IDGenerator().userID();
+  late final String userID = HelperDataGeneration.userID();
   late String userName;
   String gender;
   double userBalance;
@@ -93,19 +94,4 @@ class Gender {
   static const String enby = "Non-binary";
   static const String male = "Male";
   static const String female = "Female";
-}
-
-class IDGenerator {
-  final _chars =
-      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-
-  String getRandomString({int length = 9}) =>
-      String.fromCharCodes(Iterable.generate(length,
-          (index) => _chars.codeUnitAt(Random().nextInt(_chars.length))));
-
-  String productID() => DateTime.now().millisecondsSinceEpoch.toString();
-  String userID({int length = 9}) =>
-      List<int>.generate(length, (index) => Random().nextInt(9) + 1)
-          .join()
-          .toString();
 }

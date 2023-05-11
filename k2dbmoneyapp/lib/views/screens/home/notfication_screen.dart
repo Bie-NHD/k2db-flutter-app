@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/core/helpers/HelperData.dart';
 
 import '../../../core/constant/text.dart';
 
@@ -27,14 +28,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
-          //   Container(
-          //     decoration: const BoxDecoration(color: ColorsApp.primaryColor),
-          //     child: PageView(
-          //       controller: pageController,
-          //       physics: const ClampingScrollPhysics(),
-          //     ),
-          //   )
-          // ],
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
@@ -100,7 +93,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
             ];
           },
-          body: Placeholder(),
+          body: Container(
+            color: ColorsApp.primaryColor,
+            child: PageView(
+              controller: pageController,
+              children: [
+                ListView.builder(
+                    itemCount: 10,
+                    padding: EdgeInsets.all(k12Padding),
+                    itemBuilder: (context, index) => _NotficationTile())
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -111,4 +115,56 @@ class _NotificationScreenState extends State<NotificationScreen> {
     borderRadius: BorderRadius.all(Radius.circular(kBorderRadiusMin)),
   );
 // const BorderRadius borderRadius = BorderRadius.circular(kBorderRadiusMin);
+}
+
+class _CustomTile extends StatelessWidget {
+  final Icon? icon;
+  final String? title;
+  final String? text;
+
+  const _CustomTile({Key? key, this.icon, this.title, this.text})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(k12Padding),
+      decoration: BoxDecoration(
+          color: ColorsApp.backgroundLight,
+          borderRadius: BorderRadius.circular(kBorderRadiusMax)),
+      child: Row(
+        children: [
+          icon!,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text(title!), Text(text!)],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _NotficationTile extends _CustomTile {
+  final String title = "Cumulative points updated!";
+  final int amount = HelperDataGeneration.nextInt(1000);
+
+  _NotficationTile({
+    Key? key,
+  }) : super(
+          key: key,
+        );
+
+  @override
+  Widget build(BuildContext context) {
+    return _CustomTile(
+      icon: const Icon(
+        FontAwesomeIcons.star,
+        color: ColorsApp.secondaryColor,
+      ),
+      title: title,
+      text:
+          "You received ${HelperDataGeneration.nextInt(1000)} pts from order ${HelperDataGeneration.getRandomString()}",
+    );
+  }
 }
