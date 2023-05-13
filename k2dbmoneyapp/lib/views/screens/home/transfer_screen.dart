@@ -23,8 +23,6 @@ class TransferScreen extends StatefulWidget {
 }
 
 class _TransferScreenState extends State<TransferScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   late final User user = widget.user;
 
   // If user phone num found in db -> auto fill name and disable text-field
@@ -161,13 +159,6 @@ class _TransferScreenState extends State<TransferScreen> {
         ],
       ),
     );
-  }
-
-  String? _validateName(String? value) {
-    if (value == null || value == "") {
-      return "Name must be filled";
-    }
-    return null;
   }
 
   Future _showConfirmDialog(BuildContext context) async {

@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
-import 'package:k2dbmoneyapp/core/helpers/HelperData.dart';
+import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 
 import '../../../core/constant/text.dart';
@@ -27,6 +27,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: ColorsApp.backgroundLight,
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -69,14 +70,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     _selectedIndex = tabs.indexOf(name);
                                   });
                                 },
-                                child: Container(
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 100),
+                                  curve: Curves.decelerate,
                                   padding: const EdgeInsets.all(k12Padding),
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: k8Margin),
                                   decoration:
                                       (tabs.indexOf(name) == _selectedIndex)
                                           ? selectedTabDecoration
-                                          : null,
+                                          : const BoxDecoration(),
                                   child: Text(name,
                                       style: TextStyles.defaultStyle
                                           .sizeTitleAndButton.semiBold
@@ -173,7 +176,7 @@ class _CustomTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _title!,
+                      _title ?? "",
                       style: TextStyles.defaultStyle.sizeTitleAndButton.bold
                           .colorDeepBlueText,
                     ),
@@ -206,11 +209,9 @@ class _NotificationTile extends _CustomTile {
               style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
-                    text: "${HelperDataGeneration.nextInt(1000)} pts ",
+                    text: "${HelperRNG.nextInt(1000)} pts ",
                     style: TextStyles.defaultStyle.bold.colorDeepBlueText),
-                TextSpan(
-                    text:
-                        "from order ${HelperDataGeneration.getRandomString()}")
+                TextSpan(text: "from order ${HelperRNG.getRandomString()}")
               ]),
         ));
   }
@@ -222,8 +223,7 @@ class _PromotionTile extends _CustomTile {
   @override
   Widget build(BuildContext context) {
     return _CustomTile(
-      title:
-          "Discount ${HelperDataGeneration.nextInt(100)}% for all housewares",
+      title: "Discount ${HelperRNG.nextInt(100)}% for all housewares",
       imageFilePath: HelperAssets.bannerProductPromotion,
       logoFilePath: HelperAssets.logoBrandStore,
     );

@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:k2dbmoneyapp/core/helpers/HelperData.dart';
+import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 
 class User {
-  late final String userID = HelperDataGeneration.userID();
+  late final String userID = HelperRNG.userID();
   late String userName;
   String gender;
   double userBalance;
@@ -35,6 +35,9 @@ class User {
   })  : userPoint = Points.base,
         security = Security.base {
     userName = "User$userID";
+  }
+  void setBalance(double amount) {
+    userBalance = amount;
   }
 }
 

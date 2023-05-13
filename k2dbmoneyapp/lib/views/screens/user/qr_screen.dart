@@ -13,16 +13,16 @@ import '../../widgets/widget_qr_view_tab.dart';
 
 class QRScreen extends StatefulWidget {
   static const String routeName = '/qr_screen';
-  User user;
+  final User user;
 
-  QRScreen({Key? key, required this.user}) : super(key: key);
+  const QRScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<QRScreen> createState() => _QRScreenState();
 }
 
 class _QRScreenState extends State<QRScreen> {
-  late final User user = widget.user;
+  late User user = widget.user;
   final PageController _pageController = PageController();
   final List<String> _titles = ["Payment QR", "Scan QR"];
   int _currentIndex = 0;

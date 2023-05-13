@@ -43,6 +43,6 @@ final Map<String, WidgetBuilder> routes = {
   SignInScreen.routeName: (context) => const SignInScreen(),
   ProductsScreen.routeName: (context) => const ProductsScreen(),
   HelpPromotionScreen.routeName: (context) => const HelpPromotionScreen(),
-  TopUpScreen.routeName: (context) => const TopUpScreen(),
-  NotificationScreen.routeName: (context) => NotificationScreen()
+  TopUpScreen.routeName: (context) => TopUpScreen(),
+  NotificationScreen.routeName: (context) => const NotificationScreen(),
 };

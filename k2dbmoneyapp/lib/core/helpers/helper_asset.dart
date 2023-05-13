@@ -26,5 +26,6 @@ class HelperAssets {
   static const String signIn = 'assets/images/signIn.png';
   static const String placeholderUserAvatar =
       'assets/images/placeholder_userAvatar.png';
-  static const String imgVietcombank = 'assets/images/vietcombank.jpg';
+  static const String imgVietcombank = 'assets/images/icon-vietcombank.jpg';
+  static const String imgAgribank = 'assets/images/icon-agribank.png';
 }

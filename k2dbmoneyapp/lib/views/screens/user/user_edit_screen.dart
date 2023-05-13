@@ -6,14 +6,13 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
-import 'package:k2dbmoneyapp/views/screens/home/transfer_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 import '../../../core/helpers/helper_validation.dart';
 import '../../widgets/widget_custom_textformfield.dart';
 
 class UserEditScreen extends StatefulWidget {
-  UserEditScreen({super.key, required this.user});
+  const UserEditScreen({super.key, required this.user});
 
   final User user;
   static const routeName = "/Edit_screen";
@@ -24,7 +23,7 @@ class UserEditScreen extends StatefulWidget {
 
 class _UserEditScreenState extends State<UserEditScreen> {
   bool isSaved = true;
-  FormState? formState;
+  FormState? _formState;
   late User user = widget.user;
   late final List<DropdownMenuItem> genderMenuItem = [
     const DropdownMenuItem(
@@ -76,7 +75,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                 ? Navigator.pop(context)
                 : showDialog(
                     context: context,
-                    builder: ((context) => showExitDialog(context)),
+                    builder: ((context) => _showExitDialog(context)),
                   );
           },
         ),
@@ -162,7 +161,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
               const SizedBox(
                 height: k12Margin,
               ),
-              Text("isSaved = ${isSaved}"),
+              Text("isSaved = $isSaved"),
               Form(
                 onChanged: () {
                   setState(() {
@@ -170,7 +169,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                   });
                 },
                 child: Builder(builder: (context) {
-                  formState = Form.maybeOf(context);
+                  _formState = Form.maybeOf(context);
                   return Column(
                     children: [
                       CustomTextFormField(
@@ -243,7 +242,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
     );
   }
 
-  showExitDialog(BuildContext context) {
+  _showExitDialog(BuildContext context) {
     return BackdropFilter(
       filter: ImageFilter.blur(
         sigmaX: 5,
@@ -318,16 +317,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
   }
 
   _onSave() {
-    if (formState!.validate()) {
-      print("Form validated!");
-      formState?.save();
-      print("\nForm saved successfully");
+    if (_formState!.validate()) {
+      _formState?.save();
     }
   }
 
   _onChanged() {
     // if (formKey.currentState!.validate()) {
-    if (formState!.validate()) {
+    if (_formState!.validate()) {
       setState(() {
         isSaved = true;
       });

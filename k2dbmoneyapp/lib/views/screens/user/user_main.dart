@@ -115,7 +115,7 @@ class _UserScreenState extends State<UserScreen> {
                       top: size.height * 0.2,
                       left: 0,
                       right: 0,
-                      child: UserHeader(user: user),
+                      child: _UserHeader(user: user),
                     ),
                   ],
                 ),
@@ -215,8 +215,8 @@ class _UserScreenState extends State<UserScreen> {
   }
 }
 
-class UserHeader extends StatelessWidget {
-  const UserHeader({
+class _UserHeader extends StatelessWidget {
+  const _UserHeader({
     super.key,
     required this.user,
   });
@@ -266,9 +266,13 @@ class UserHeader extends StatelessWidget {
                     onTap: () async {
                       await Clipboard.setData(ClipboardData(text: user.userID));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          duration: Duration(seconds: 2),
-                          content: Text("User ID Copied to Clipboard!"),
+                        SnackBar(
+                          duration: const Duration(seconds: 2),
+                          backgroundColor: ColorsApp.statusSuccessColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(kBorderRadiusMin)),
+                          content: const Text("User ID Copied to Clipboard!"),
                         ),
                       );
                     },

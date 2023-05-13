@@ -1,14 +1,21 @@
 import 'dart:math';
 
-class HelperDataGeneration {
-  static Random random = Random();
+class HelperRNG {
+  static final Random _random = Random();
 
   static const _chars =
       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
-  static int nextInt(int max) {
-    return random.nextInt(max);
-  }
+  static final List<String> _names = [
+    "Nguyen Huong",
+    "Hoang Gia Kiet",
+    "Pham Thanh Luan",
+    "Pham Quoc Khanh",
+    "Vo Che Bang",
+    "Tran Quoc Khanh"
+  ];
+
+  static int nextInt(int max) => _random.nextInt(max);
 
   static String getRandomString({int length = 9}) =>
       String.fromCharCodes(Iterable.generate(length,
@@ -20,4 +27,6 @@ class HelperDataGeneration {
       List<int>.generate(length, (index) => Random().nextInt(9) + 1)
           .join()
           .toString();
+
+  static String randName() => _names[nextInt(_names.length) - 1];
 }
