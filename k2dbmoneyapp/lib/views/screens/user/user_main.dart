@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/views/screens/user/user_edit_screen.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
@@ -185,6 +186,7 @@ class _HeaderButtons extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             const CardItemFunction(
@@ -218,8 +220,8 @@ class _HeaderButtons extends StatelessWidget {
               thickness: 1.5,
             ),
             const CardItemFunction(
-              icon: FontAwesomeIcons.wallet,
-              text: "Balance",
+              icon: FontAwesomeIcons.creditCard,
+              text: "Accounts",
               color: ColorsApp.primaryColor,
             ),
           ],
@@ -256,11 +258,10 @@ class _UserHeader extends StatelessWidget {
                   spreadRadius: 2)
             ],
           ),
-          child: Wrap(
-            direction: Axis.horizontal,
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: k8Padding,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
                 radius: kIconSize * 1.5,
@@ -309,7 +310,20 @@ class _UserHeader extends StatelessWidget {
                   )
                 ],
               ),
-            ],
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserEditScreen(user: user),
+                    )),
+                child: Icon(FontAwesomeIcons.penToSquare),
+              )
+            ]
+                .map((e) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: k8Padding),
+                      child: e,
+                    ))
+                .toList(),
           ),
         ),
       ),

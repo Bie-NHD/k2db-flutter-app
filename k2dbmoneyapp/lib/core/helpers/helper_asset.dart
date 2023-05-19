@@ -28,4 +28,5 @@ class HelperAssets {
       'assets/images/placeholder_userAvatar.png';
   static const String imgVietcombank = 'assets/images/icon-vietcombank.jpg';
   static const String imgAgribank = 'assets/images/icon-agribank.png';
+  static const String imgTechcombank = 'assets/images/icon-techcombank.png';
 }
