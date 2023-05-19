@@ -6,10 +6,12 @@ import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
+import 'package:k2dbmoneyapp/views/screens/statistic/detailed_invoice_screen.dart';
 
 import '../../../core/constant/text.dart';
 import '../../../core/helpers/helper_asset.dart';
 import '../../widgets/widget_item_history.dart';
+import '../statistic/Transaction_search.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -27,7 +29,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: ColorsApp.backgroundLight,
       body: SafeArea(
@@ -51,15 +52,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 actions: [
                   IconButton(
                       onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.arrowLeft,
+                      icon: const Icon(FontAwesomeIcons.filter,
                           color: Colors.black)),
                   IconButton(
                       onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.arrowLeft,
+                      icon: const Icon(FontAwesomeIcons.magnifyingGlass,
                           color: Colors.black)),
                 ],
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(height * 0.1),
+                  preferredSize:
+                      Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
                   child: Container(
                     color: ColorsApp.backgroundLight,
                     padding: const EdgeInsets.symmetric(vertical: k12Padding),
@@ -126,7 +128,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                               childCount: 20,
-                              (context, index) => const _HistoryTile())),
+                              (context, index) => HelperRNG.nextInt(10).isEven
+                                  ? const _HistoryTile()
+                                  : _TransactionTile())),
                     )
                   ],
                 )
@@ -145,7 +149,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 }
 
 class _CustomTile extends StatelessWidget {
-  final String? _title;
+  final Widget? title;
   final Widget? content;
   final String? imageFilePath;
   final Widget? trailing;
@@ -153,13 +157,12 @@ class _CustomTile extends StatelessWidget {
 
   const _CustomTile(
       {Key? key,
-      String? title,
+      this.title,
       this.content,
       this.imageFilePath,
       this.trailing,
       this.leading})
-      : _title = title,
-        super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -179,19 +182,14 @@ class _CustomTile extends StatelessWidget {
             child: Row(
               children: [
                 leading ?? const SizedBox.shrink(),
-                const SizedBox(
-                  width: k8Padding,
-                ),
+                leading != null
+                    ? const SizedBox(
+                        width: k12Padding,
+                      )
+                    : const SizedBox.shrink(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _title ?? "",
-                      style: TextStyles.defaultStyle.sizeTitleAndButton.bold
-                          .colorDeepBlueText,
-                    ),
-                    content ?? const SizedBox.shrink()
-                  ],
+                  children: [title!, content ?? const SizedBox.shrink()],
                 ),
                 (trailing != null) ? const Spacer() : const SizedBox.shrink(),
                 trailing ?? const SizedBox.shrink()
@@ -205,37 +203,46 @@ class _CustomTile extends StatelessWidget {
 }
 
 class _NotificationTile extends _CustomTile {
-  const _NotificationTile({Key? key}) : super(key: key);
+  const _NotificationTile({
+    Key? key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return _CustomTile(
-        leading: const Icon(
-          FontAwesomeIcons.star,
-          color: ColorsApp.secondaryColor,
-        ),
-        title: "Cumulative points updated!",
-        content: RichText(
-          text: TextSpan(
-              text: "You received ",
-              style: DefaultTextStyle.of(context).style,
-              children: [
-                TextSpan(
-                    text: "${HelperRNG.nextInt(1000)} pts ",
-                    style: TextStyles.defaultStyle.bold.colorDeepBlueText),
-                TextSpan(text: "from order ${HelperRNG.getRandomString()}")
-              ]),
-        ));
+      leading: const Icon(
+        FontAwesomeIcons.star,
+        color: ColorsApp.secondaryColor,
+      ),
+      title: RichText(
+        text: TextSpan(
+            text: "You received ",
+            style: DefaultTextStyle.of(context).style,
+            children: [
+              TextSpan(
+                  text: "${HelperRNG.nextInt(1000)} pts ",
+                  style: TextStyles.defaultStyle.bold.colorDeepBlueText),
+              TextSpan(text: "from order ${HelperRNG.getRandomString()}")
+            ]),
+      ),
+      content: const Text(
+        "Cumulative points updated!",
+      ),
+    );
   }
 }
 
 class _PromotionTile extends _CustomTile {
-  const _PromotionTile({Key? key}) : super(key: key);
+  const _PromotionTile({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return _CustomTile(
-      title: "Discount ${HelperRNG.nextInt(100)}% for all housewares",
+      title: Text(
+        "Discount ${HelperRNG.nextInt(100)}% for all housewares",
+        style:
+            TextStyles.defaultStyle.sizeTitleAndButton.bold.colorDeepBlueText,
+      ),
       leading: HelperImage.loadFromAsset(HelperAssets.logoBrandStore,
           height: kIconSize,
           radius: const BorderRadius.all(Radius.circular(kBorderRadiusIcon))),
@@ -245,26 +252,81 @@ class _PromotionTile extends _CustomTile {
 }
 
 class _HistoryTile extends _CustomTile {
-  const _HistoryTile({Key? key}) : super(key: key);
+  const _HistoryTile({
+    Key? key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    String amount = HelperRNG.nextInt(200000).toDouble().toFormatMoney();
     return _CustomTile(
-      title: HelperRNG.randDateTime(),
-      content: RichText(
+      leading: const Icon(
+        FontAwesomeIcons.moneyCheck,
+        color: ColorsApp.primaryColor,
+      ),
+      title: RichText(
         text: TextSpan(
             text: "${HelperRNG.randName()} sent you ",
-            style: DefaultTextStyle.of(context).style,
+            style:
+                DefaultTextStyle.of(context).style.sizeTitleAndButton.semiBold,
             children: [
               TextSpan(
-                  text: amount,
-                  style:
-                      DefaultTextStyle.of(context).style.semiBold.colorBlueText)
+                  text: HelperRNG.nextInt(200000).toDouble().toFormatMoney(),
+                  style: DefaultTextStyle.of(context)
+                      .style
+                      .bold
+                      .sizeTitleAndButton
+                      .colorDeepBlueText)
             ]),
       ),
+      content: Text(
+        HelperRNG.randDateTime(),
+      ),
+    );
+  }
+}
+
+class _TransactionTile extends _CustomTile {
+  const _TransactionTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _CustomTile(
+      leading: const Icon(
+        FontAwesomeIcons.store,
+        color: ColorsApp.primaryColor,
+      ),
+      title: RichText(
+        text: TextSpan(
+            text: "Order",
+            style: DefaultTextStyle.of(context).style.sizeTitleAndButton,
+            children: [
+              TextSpan(
+                  text: " ${HelperRNG.getRandomString()} ",
+                  style: DefaultTextStyle.of(context)
+                      .style
+                      .sizeTitleAndButton
+                      .bold
+                      .colorDeepBlueText),
+              const TextSpan(text: "\nfrom Bach Hoa Xanh"),
+              TextSpan(
+                  text:
+                      " ${HelperRNG.nextInt(200000).toDouble().toFormatMoney()} ",
+                  style: DefaultTextStyle.of(context)
+                      .style
+                      .bold
+                      .sizeTitleAndButton
+                      .colorDeepBlueText)
+            ]),
+      ),
+      content: Text(
+        HelperRNG.randDateTime(),
+      ),
       trailing: IconButton(
-          onPressed: () {}, icon: const Icon(FontAwesomeIcons.arrowRight)),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Detailed_Invoice()));
+          },
+          icon: const Icon(FontAwesomeIcons.angleRight)),
     );
   }
 }

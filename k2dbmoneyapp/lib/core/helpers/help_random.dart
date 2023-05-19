@@ -9,7 +9,7 @@ class HelperRNG {
   static final List<String> _names = [
     "Nguyen Huong",
     "Hoang Gia Kiet",
-    "Pham Thanh Luan",
+    "Nguyen Thanh Luan",
     "Pham Quoc Khanh",
     "Vo Che Bang",
     "Tran Quoc Khanh"

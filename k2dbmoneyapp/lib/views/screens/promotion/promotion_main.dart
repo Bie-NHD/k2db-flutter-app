@@ -28,13 +28,17 @@ class _PromotionScreenState extends State<PromotionScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.primaryColor,
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text('Promotion',
-            style: TextStyles.defaultStyle.colorAppBarText.sizeAppbar.bold),
+            style: TextStyles.defaultStyle.colorAppBarText.sizeAppbar.bold
+        ),
         actions: [
           IconButton(
             padding: const EdgeInsets.all(k12Padding),
@@ -49,68 +53,80 @@ class _PromotionScreenState extends State<PromotionScreen> {
           )
         ],
       ),
-      body: SingleChildScrollView(
+      body:
+
+      SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Stack(
               children: [
-                Container(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 24, 12, 12),
-                  decoration: BoxDecoration(
-                    color: ColorsApp.primaryColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: k8Padding),
-                            child: Text(
-                              'Accumulated points',
-                              style: TextStyles.defaultStyle.sizeAppbar
-                                  .colorAppBarText.semiBold,
-                            ),
-                          ),
-                          Container(
-                            width: size.width * 0.453,
-                            height: size.height * 0.06,
-                            decoration: const BoxDecoration(
-                              color: ColorsApp.statusNoteColor,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(70),
-                                bottomRight: Radius.circular(0),
-                                topLeft: Radius.circular(0),
-                                topRight: Radius.circular(12),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(12, 24, 12, 12),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorsApp.primaryColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: k8Padding),
+                                        child: Text(
+                                          'Accumulated points',
+                                          style: TextStyles.defaultStyle.sizeAppbar.colorAppBarText.semiBold,
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width * 0.453,
+                                        height: size.height * 0.06,
+                                        decoration: const BoxDecoration(
+                                          color: ColorsApp.statusNoteColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(70),
+                                            bottomRight: Radius.circular(0),
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(12),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(k8Padding),
+                                        child: Text(
+                                          "7.000.000.000 Point",
+                                          style: TextStyles.defaultStyle.sizeHeading.colorYellowText.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ],
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(k8Padding),
-                            child: Text(
-                              "7.000.000.000 Point",
-                              style: TextStyles.defaultStyle.sizeHeading
-                                  .colorYellowText.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Positioned(
                   top: k12Padding,
                   right: 0,
                   child: HelperImage.loadFromAsset(
                     HelperAssets.iconPromotion,
-                    height: size.height * 0.1,
-                    width: size.height * 0.1 + 1,
+                    height: size.height*0.1,
+                    width: size.height*0.1 + 1,
                   ),
                 ),
               ],
@@ -139,13 +155,14 @@ class _PromotionScreenState extends State<PromotionScreen> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(k12Padding),
-                  child: Row(children: <Widget>[
-                    Text(
-                      'Recommend for you',
-                      style: TextStyles
-                          .defaultStyle.sizeAppbar.colorDeepBlueText.semiBold,
-                    ),
-                  ]),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Recommend for you',
+                        style: TextStyles.defaultStyle.sizeAppbar.colorDeepBlueText.semiBold,
+                      ),
+                    ]
+                  ),
                 ),
                 // Products section
                 Column(
@@ -159,12 +176,10 @@ class _PromotionScreenState extends State<PromotionScreen> {
                           padding: const EdgeInsets.only(bottom: k12Padding),
                           child: ItemProductPromotion(
                             imgProduct: HelperAssets.bannerProductPromotion,
-                            namePromotion:
-                                "Giảm đến 45% cho các thiết bị gia dụng",
+                            namePromotion: "Giảm đến 45% cho các thiết bị gia dụng",
                             timePromotion: "13",
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed("/detail_gift_screen");
+                              Navigator.of(context).pushNamed("/detail_gift_screen");
                               // Navigator.of(context).pushNamed("/my_gift_screen");
                             },
                           ),

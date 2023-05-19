@@ -122,53 +122,7 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
             // Buttons
-            Container(
-              padding: const EdgeInsets.all(k12Padding),
-              decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
-              child: IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const CardItemFunction(
-                      icon: FontAwesomeIcons.wallet,
-                      text: "Balance",
-                      color: ColorsApp.primaryColor,
-                    ),
-                    const VerticalDivider(
-                      color: ColorsApp.primaryColor,
-                      indent: 3,
-                      endIndent: 3,
-                      thickness: 1.5,
-                    ),
-                    CardItemFunction(
-                        icon: FontAwesomeIcons.qrcode,
-                        text: "QR Scan",
-                        color: ColorsApp.primaryColor,
-                        onTap: () {
-                          // Navigator.of(context)
-                          //     .pushNamed(QRScreen.routeName);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => QRScreen(user: user),
-                              ));
-                        }),
-                    const VerticalDivider(
-                      color: ColorsApp.primaryColor,
-                      indent: 3,
-                      endIndent: 3,
-                      thickness: 1.5,
-                    ),
-                    const CardItemFunction(
-                      icon: FontAwesomeIcons.wallet,
-                      text: "Balance",
-                      color: ColorsApp.primaryColor,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _HeaderButtons(user: user),
             // Main content
             Container(
               color: Colors.white,
@@ -207,6 +161,66 @@ class _UserScreenState extends State<UserScreen> {
                   )
                 ],
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _HeaderButtons extends StatelessWidget {
+  const _HeaderButtons({
+    super.key,
+    required this.user,
+  });
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(k12Padding),
+      decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CardItemFunction(
+              icon: FontAwesomeIcons.wallet,
+              text: "Balance",
+              color: ColorsApp.primaryColor,
+            ),
+            const VerticalDivider(
+              color: ColorsApp.primaryColor,
+              indent: 3,
+              endIndent: 3,
+              thickness: 1.5,
+            ),
+            CardItemFunction(
+                icon: FontAwesomeIcons.qrcode,
+                text: "QR Scan",
+                color: ColorsApp.primaryColor,
+                onTap: () {
+                  // Navigator.of(context)
+                  //     .pushNamed(QRScreen.routeName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => QRScreen(user: user),
+                      ));
+                }),
+            const VerticalDivider(
+              color: ColorsApp.primaryColor,
+              indent: 3,
+              endIndent: 3,
+              thickness: 1.5,
+            ),
+            const CardItemFunction(
+              icon: FontAwesomeIcons.wallet,
+              text: "Balance",
+              color: ColorsApp.primaryColor,
             ),
           ],
         ),

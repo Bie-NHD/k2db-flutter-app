@@ -230,6 +230,7 @@ class UserPaymentQR extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: k12Margin),
                     padding: const EdgeInsets.all(k12Padding),
+                    width: MediaQuery.of(context).size.width*0.7,
                     decoration: BoxDecoration(
                       color: ColorsApp.backgroundLight,
                       border:
@@ -243,10 +244,10 @@ class UserPaymentQR extends StatelessWidget {
                         )
                       ],
                     ),
-                    child: QrImage(
+                    child: QrImageView(
                       data: user.security.phoneNum,
                       padding: const EdgeInsets.all(k24Padding),
-                      foregroundColor: ColorsApp.primaryColor,
+                      // foregroundColor: ColorsApp.primaryColor,
                     ),
                   ),
                 )
