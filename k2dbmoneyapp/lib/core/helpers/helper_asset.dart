@@ -9,7 +9,7 @@ class HelperAssets {
   static const String onBoard1 = 'assets/images/onboarding1.png';
   static const String onBoard2 = 'assets/images/onboarding2.png';
   static const String onBoard3 = 'assets/images/onboarding3.png';
-  static const String product = 'assets/images/le-han-quoc.jpg';
+  static const String imgLeHanQuoc = 'assets/images/le-han-quoc.jpg';
   static const String logoBrandStore = 'assets/images/logo-bach-hoa-xanh.png';
   static const String detailProduct = 'assets/images/kem_sua_dac.jpg';
   static const String topLeftSplash = 'assets/images/topleft_splash.png';

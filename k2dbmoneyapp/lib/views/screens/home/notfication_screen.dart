@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
+import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 
 import '../../../core/constant/text.dart';
 import '../../../core/helpers/helper_asset.dart';
+import '../../widgets/widget_item_history.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final List<String> tabs = ["Notifications", "Promotions"];
+  final List<String> tabs = ["Notifications", "Promotions", "History"];
   int _selectedIndex = 0;
   final PageController pageController = PageController();
 
@@ -58,7 +60,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ],
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(height * 0.1),
-                  child: Padding(
+                  child: Container(
+                    color: ColorsApp.backgroundLight,
                     padding: const EdgeInsets.symmetric(vertical: k12Padding),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -108,13 +111,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
               },
               children: [
                 ListView.builder(
-                    itemCount: 10,
+                    itemCount: 20,
                     padding: const EdgeInsets.all(k12Padding),
                     itemBuilder: (context, index) => const _NotificationTile()),
                 ListView.builder(
                     itemCount: 10,
                     padding: const EdgeInsets.all(k12Padding),
                     itemBuilder: (context, index) => const _PromotionTile()),
+                CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: k12Padding),
+                      sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                              childCount: 20,
+                              (context, index) => const _HistoryTile())),
+                    )
+                  ],
+                )
               ],
             ),
           ),
@@ -130,19 +145,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
 }
 
 class _CustomTile extends StatelessWidget {
-  final Icon? icon;
   final String? _title;
   final Widget? content;
   final String? imageFilePath;
-  final String? logoFilePath;
+  final Widget? trailing;
+  final Widget? leading;
 
   const _CustomTile(
       {Key? key,
-      this.icon,
       String? title,
       this.content,
       this.imageFilePath,
-      this.logoFilePath})
+      this.trailing,
+      this.leading})
       : _title = title,
         super(key: key);
 
@@ -163,12 +178,7 @@ class _CustomTile extends StatelessWidget {
             padding: const EdgeInsets.all(k12Padding),
             child: Row(
               children: [
-                (logoFilePath == null)
-                    ? icon!
-                    : HelperImage.loadFromAsset(logoFilePath!,
-                        height: kIconSize,
-                        radius: const BorderRadius.all(
-                            Radius.circular(kBorderRadiusIcon))),
+                leading ?? const SizedBox.shrink(),
                 const SizedBox(
                   width: k8Padding,
                 ),
@@ -182,7 +192,9 @@ class _CustomTile extends StatelessWidget {
                     ),
                     content ?? const SizedBox.shrink()
                   ],
-                )
+                ),
+                (trailing != null) ? const Spacer() : const SizedBox.shrink(),
+                trailing ?? const SizedBox.shrink()
               ],
             ),
           ),
@@ -198,7 +210,7 @@ class _NotificationTile extends _CustomTile {
   @override
   Widget build(BuildContext context) {
     return _CustomTile(
-        icon: const Icon(
+        leading: const Icon(
           FontAwesomeIcons.star,
           color: ColorsApp.secondaryColor,
         ),
@@ -224,8 +236,35 @@ class _PromotionTile extends _CustomTile {
   Widget build(BuildContext context) {
     return _CustomTile(
       title: "Discount ${HelperRNG.nextInt(100)}% for all housewares",
+      leading: HelperImage.loadFromAsset(HelperAssets.logoBrandStore,
+          height: kIconSize,
+          radius: const BorderRadius.all(Radius.circular(kBorderRadiusIcon))),
       imageFilePath: HelperAssets.bannerProductPromotion,
-      logoFilePath: HelperAssets.logoBrandStore,
+    );
+  }
+}
+
+class _HistoryTile extends _CustomTile {
+  const _HistoryTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String amount = HelperRNG.nextInt(200000).toDouble().toFormatMoney();
+    return _CustomTile(
+      title: HelperRNG.randDateTime(),
+      content: RichText(
+        text: TextSpan(
+            text: "${HelperRNG.randName()} sent you ",
+            style: DefaultTextStyle.of(context).style,
+            children: [
+              TextSpan(
+                  text: amount,
+                  style:
+                      DefaultTextStyle.of(context).style.semiBold.colorBlueText)
+            ]),
+      ),
+      trailing: IconButton(
+          onPressed: () {}, icon: const Icon(FontAwesomeIcons.arrowRight)),
     );
   }
 }

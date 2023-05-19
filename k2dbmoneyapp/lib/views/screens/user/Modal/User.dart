@@ -4,8 +4,8 @@ import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 
 class User {
-  late final String userID = HelperRNG.userID();
-  late String userName;
+  final String userID;
+  String userName;
   String gender;
   double userBalance;
   Points userPoint;
@@ -22,22 +22,27 @@ class User {
     String PIN = "",
     String citizenID = "",
     required String phoneNum,
-  })  : userPoint = Points(
+  })  : userID = HelperRNG.userID(),
+        userPoint = Points(
             currentPoints: userPoint,
             currentGoal: pointGoals[0],
             pointGoals: pointGoals),
         security = Security(phoneNum: phoneNum, citizenID: citizenID, PIN: PIN);
 
-  User.base({
-    this.userBalance = 75130,
-    this.gender = Gender.blank,
-    this.userAvatar = HelperAssets.placeholderUserAvatar,
-  })  : userPoint = Points.base,
-        security = Security.base {
-    userName = "User$userID";
-  }
+  static User base = User(
+      userName: "New User",
+      phoneNum: Security.base.phoneNum,
+      userBalance: 75130,
+      gender: Gender.blank,
+      userAvatar: HelperAssets.placeholderUserAvatar,
+      pointGoals: Points.base.pointGoals);
+
   void setBalance(double amount) {
     userBalance = amount;
+  }
+
+  void setUserName(String string) {
+    userName = string;
   }
 }
 

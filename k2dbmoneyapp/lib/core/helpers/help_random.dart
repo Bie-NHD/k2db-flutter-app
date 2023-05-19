@@ -28,5 +28,9 @@ class HelperRNG {
           .join()
           .toString();
 
-  static String randName() => _names[nextInt(_names.length) - 1];
+  static String randName() => _names[nextInt(_names.length)];
+  static String randDateTime() =>
+      DateTime.fromMillisecondsSinceEpoch(1577836800000 + nextInt(300000))
+          .toString();
+  // 1577836800000 = 01/01/2020
 }

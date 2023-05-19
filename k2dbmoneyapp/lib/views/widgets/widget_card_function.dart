@@ -33,7 +33,8 @@ class CardItemFunction extends StatelessWidget {
           const SizedBox(height: k8Padding),
           Text(
             text,
-            style: TextStyles.defaultStyle.semiBold,
+            style: TextStyles.defaultStyle.semiBold.copyWith(color: color),
+            textAlign: TextAlign.center,
           ),
         ],
       ),

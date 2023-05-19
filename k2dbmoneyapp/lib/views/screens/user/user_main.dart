@@ -18,7 +18,7 @@ class UserScreen extends StatefulWidget {
     Key? key,
   }) : super(key: key);
   static const routeName = "/user_screen";
-  User user = User.base();
+  User user = User.base;
   bool isShowingBalance = false;
   late String balanceDisplay = user.userBalance.toFormatMoney();
 
@@ -133,10 +133,10 @@ class _UserScreenState extends State<UserScreen> {
                     const CardItemFunction(
                       icon: FontAwesomeIcons.wallet,
                       text: "Balance",
-                      color: ColorsApp.tertiaryColors,
+                      color: ColorsApp.primaryColor,
                     ),
                     const VerticalDivider(
-                      color: ColorsApp.tertiaryColors,
+                      color: ColorsApp.primaryColor,
                       indent: 3,
                       endIndent: 3,
                       thickness: 1.5,
@@ -144,7 +144,7 @@ class _UserScreenState extends State<UserScreen> {
                     CardItemFunction(
                         icon: FontAwesomeIcons.qrcode,
                         text: "QR Scan",
-                        color: ColorsApp.tertiaryColors,
+                        color: ColorsApp.primaryColor,
                         onTap: () {
                           // Navigator.of(context)
                           //     .pushNamed(QRScreen.routeName);
@@ -155,7 +155,7 @@ class _UserScreenState extends State<UserScreen> {
                               ));
                         }),
                     const VerticalDivider(
-                      color: ColorsApp.tertiaryColors,
+                      color: ColorsApp.primaryColor,
                       indent: 3,
                       endIndent: 3,
                       thickness: 1.5,
@@ -163,7 +163,7 @@ class _UserScreenState extends State<UserScreen> {
                     const CardItemFunction(
                       icon: FontAwesomeIcons.wallet,
                       text: "Balance",
-                      color: ColorsApp.tertiaryColors,
+                      color: ColorsApp.primaryColor,
                     ),
                   ],
                 ),

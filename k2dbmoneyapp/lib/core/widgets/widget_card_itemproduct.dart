@@ -40,10 +40,16 @@ class CardItemProduct extends StatelessWidget {
           Container(
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: ColorsApp.backgroundLight,
-              borderRadius: BorderRadius.circular(kBorderRadiusMin),
-              border: Border.all(color: ColorsApp.hintTextColor, width: 0.2),
-            ),
+                color: ColorsApp.backgroundLight,
+                borderRadius: BorderRadius.circular(kBorderRadiusMin),
+                // border: Border.all(color: ColorsApp.hintTextColor, width: 0.2),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(1, 3),
+                    color: ColorsApp.tertiaryColors.withOpacity(0.5),
+                    blurRadius: 5,
+                  )
+                ]),
             child: Column(
               children: [
                 Image.asset(
@@ -54,7 +60,7 @@ class CardItemProduct extends StatelessWidget {
                   alignment: Alignment.center,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(k8Padding / 2),
+                  padding: const EdgeInsets.all(k8Padding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -78,12 +84,10 @@ class CardItemProduct extends StatelessWidget {
                           const SizedBox(
                             width: k8Padding / 2,
                           ),
-                          Expanded(
-                            child: Text(
-                              nameStore,
-                              style: TextStyles.defaultStyle.sizeMin.semiBold,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                          Text(
+                            nameStore,
+                            style: TextStyles.defaultStyle.sizeMin.semiBold,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -92,12 +96,13 @@ class CardItemProduct extends StatelessWidget {
                       ),
                       Text(
                         price.toFormatMoney(),
-                        style: TextStyles.defaultStyle.colorRedText,
+                        style: TextStyles.defaultStyle.colorRedText.semiBold
+                            .sizeTitleAndButton,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: k8Padding / 2),
                       Text(
-                        "Kho: $quantity",
+                        "Available: $quantity",
                         style: TextStyles.defaultStyle.sizeMin.colorHintText,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -122,9 +127,9 @@ class CardItemProduct extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            offset: Offset(0, 2),
-                            color: ColorsApp.backgroundLight,
-                            blurRadius: 4,
+                            offset: Offset(3, 5),
+                            color: ColorsApp.secondaryColor,
+                            blurRadius: 0,
                           )
                         ]),
                     child: Text(
@@ -133,7 +138,7 @@ class CardItemProduct extends StatelessWidget {
                     ),
                   ),
                 )
-              : Container(),
+              : const SizedBox.shrink(),
         ],
       ),
     );

@@ -54,7 +54,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     childAspectRatio: 4 / 5,
                   ),
                   itemBuilder: (context, index) => CardItemProduct(
-                    imgProduct: HelperAssets.product,
+                    imgProduct: HelperAssets.imgLeHanQuoc,
                     nameProduct: "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
                     imgStore: HelperAssets.logoBrandStore,
                     nameStore: "Bách Hóa Xanh",
