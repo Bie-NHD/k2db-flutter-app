@@ -8,6 +8,7 @@ import 'package:k2dbmoneyapp/views/screens/user/user_edit_screen.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
 import '../../../core/constant/text.dart';
+import '../../../core/helpers/helper_asset.dart';
 import '../../../core/helpers/helper_image.dart';
 import '../../widgets/widget_card_function.dart';
 import '../../widgets/widget_user_tabbar.dart';
@@ -105,7 +106,7 @@ class _UserScreenState extends State<UserScreen> {
                       child: Container(
                         padding: EdgeInsets.only(top: size.height * 0.25),
                         decoration: const BoxDecoration(
-                            color: Colors.white,
+                            color: ColorsApp.backgroundLight,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(kBorderRadiusMax),
                                 topRight: Radius.circular(kBorderRadiusMax))),
@@ -124,6 +125,7 @@ class _UserScreenState extends State<UserScreen> {
             ),
             // Buttons
             _HeaderButtons(user: user),
+            _UserPointBanner(size: size),
             // Main content
             Container(
               color: Colors.white,
@@ -138,26 +140,44 @@ class _UserScreenState extends State<UserScreen> {
                       user: widget.user,
                     ),
                   ),
-                  const Divider(
-                    color: ColorsApp.tertiaryColors,
-                    thickness: 2,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: k8Padding,
-                      children: [
-                        const Icon(
-                          FontAwesomeIcons.arrowRightFromBracket,
-                          size: kIconSize,
-                          color: ColorsApp.statusErrorColor,
-                        ),
-                        Text(
-                          "Log out",
-                          style: TextStyles.defaultStyle.semiBold.colorRedText,
-                        )
-                      ],
+                  // const Divider(
+                  //   color: ColorsApp.tertiaryColors,
+                  //   thickness: 2,
+                  // ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {},
+                            label: Text(
+                              "Switch Account",
+                              style: TextStyles.defaultStyle.colorDeepBlueText,
+                            ),
+                            icon: const Icon(
+                              FontAwesomeIcons.rotate,
+                              size: kIconSize,
+                              color: ColorsApp.primaryColor,
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {},
+                            label: Text(
+                              "Log out",
+                              style: TextStyles.defaultStyle.colorDeepBlueText,
+                            ),
+                            icon: const Icon(
+                              FontAwesomeIcons.arrowRightFromBracket,
+                              size: kIconSize,
+                              color: ColorsApp.primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -166,6 +186,84 @@ class _UserScreenState extends State<UserScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _UserPointBanner extends StatelessWidget {
+  const _UserPointBanner({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsetsDirectional.all(k12Padding),
+          child: Container(
+            decoration: BoxDecoration(
+              color: ColorsApp.primaryColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: k8Padding),
+                      child: Text(
+                        'Accumulated points',
+                        style: TextStyles
+                            .defaultStyle.sizeAppbar.colorAppBarText.semiBold,
+                      ),
+                    ),
+                    Container(
+                      width: size.width * 0.453,
+                      height: size.height * 0.06,
+                      decoration: const BoxDecoration(
+                        color: ColorsApp.statusNoteColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(70),
+                          bottomRight: Radius.circular(0),
+                          topLeft: Radius.circular(0),
+                          topRight: Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(k8Padding),
+                      child: Text(
+                        "7.000.000.000 Point",
+                        style: TextStyles
+                            .defaultStyle.sizeHeading.colorYellowText.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: k12Padding,
+          right: 0,
+          child: HelperImage.loadFromAsset(
+            HelperAssets.iconPromotion,
+            height: size.height * 0.1,
+            width: size.height * 0.1 + 1,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -182,7 +280,6 @@ class _HeaderButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(k12Padding),
-      decoration: const BoxDecoration(color: ColorsApp.backgroundLight),
       child: IntrinsicHeight(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -316,11 +413,12 @@ class _UserHeader extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => UserEditScreen(user: user),
                     )),
-                child: Icon(FontAwesomeIcons.penToSquare),
+                child: const Icon(FontAwesomeIcons.penToSquare),
               )
             ]
                 .map((e) => Padding(
-                      padding: EdgeInsets.symmetric(horizontal: k8Padding),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: k8Padding),
                       child: e,
                     ))
                 .toList(),

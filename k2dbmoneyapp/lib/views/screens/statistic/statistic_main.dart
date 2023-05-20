@@ -26,11 +26,17 @@ class Statistic extends StatefulWidget {
 
 class _StatisticState extends State<Statistic> {
   final User user = User.base;
-
-  Map <String,List<int>> data = {
-    'income': List.generate(12, (index) => HelperRNG.nextInt(1000000),),
-    'spent': List.generate(12, (index) => HelperRNG.nextInt(1000000),)
-  };
+  //
+  // Map<String, List<int>> data = {
+  //   'income': List.generate(
+  //     12,
+  //     (index) => HelperRNG.nextInt(1000000),
+  //   ),
+  //   'spent': List.generate(
+  //     12,
+  //     (index) => HelperRNG.nextInt(1000000),
+  //   )
+  // };
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +88,8 @@ class _StatisticState extends State<Statistic> {
                     top: MediaQuery.of(context).size.height * 0.02,
                     child: _UserCard(
                       user: user,
-                      sumIncome:  HelperRNG.nextInt(1000000),
-                      sumSpent: HelperRNG.nextInt(1000000),
+                      sumIncome: HelperRNG.nextInt(200),
+                      sumSpent: HelperRNG.nextInt(200),
                     ),
                   )
                 ],
@@ -91,9 +97,9 @@ class _StatisticState extends State<Statistic> {
             ),
             Container(
               padding: const EdgeInsets.all(k12Padding),
-              child: AspectRatio(
+              child: const AspectRatio(
                 aspectRatio: 1,
-                child: _ChartSection(income: data["income"]??[],spent: data["spent"]??[],),
+                child: _ChartSection(),
               ),
             ),
             Center(
@@ -156,7 +162,10 @@ class _UserCard extends StatelessWidget {
             // border: Border.all(color: Colors.red)
             borderRadius: BorderRadius.circular(kBorderRadiusMin),
             boxShadow: [
-              BoxShadow(color: ColorsApp.primaryColor.withOpacity(0.6), offset: Offset(5, 5),blurRadius: 10)
+              BoxShadow(
+                  color: ColorsApp.primaryColor.withOpacity(0.6),
+                  offset: const Offset(5, 5),
+                  blurRadius: 10)
             ]),
         child: Column(
           children: [
@@ -278,9 +287,12 @@ class _RoundedColoredLabel extends CustomPainter {
 }
 
 class _ChartSection extends StatefulWidget {
-  const _ChartSection({Key? key, required this.income, required this.spent}) : super(key: key);
+  const _ChartSection({
+    Key? key,
+    // required this.income, required this.spent
+  }) : super(key: key);
 
-  final  List<int> income, spent;
+  // final  List<int> income, spent;
 
   @override
   State<_ChartSection> createState() => _ChartSectionState();
@@ -318,8 +330,15 @@ class _ChartSectionState extends State<_ChartSection> {
             sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 28,
-              interval: 5,
-              // getTitlesWidget: leftTitles,
+              // interval: 10,
+              getTitlesWidget: (value, meta) => SideTitleWidget(
+                axisSide: meta.axisSide,
+                space: 2, //margin top
+                child: Text(
+                  value.toInt().toString(),
+                  style: TextStyles.defaultStyle,
+                ),
+              ),
             ),
           ),
         )));
@@ -329,13 +348,13 @@ class _ChartSectionState extends State<_ChartSection> {
       12,
       (index) => BarChartGroupData(x: index, barRods: [
             BarChartRodData(
-              toY: widget.spent[index].toDouble(),
+              toY: HelperRNG.nextInt(200).toDouble(),
               width: 12,
               color: ColorsApp.statusErrorColor,
               borderRadius: BorderRadius.circular(4),
             ),
             BarChartRodData(
-              toY: widget.income[index].toDouble(),
+              toY: HelperRNG.nextInt(200).toDouble(),
               width: 12,
               color: ColorsApp.statusSuccessColor,
               borderRadius: BorderRadius.circular(4),
