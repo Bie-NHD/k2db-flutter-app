@@ -19,7 +19,7 @@ class TopUpScreen extends StatefulWidget {
   TopUpScreen({Key? key}) : super(key: key);
 
   static const String routeName = '/top_up_screen';
-  final User user = User.base();
+  final User user = User.base;
 
   @override
   State<TopUpScreen> createState() => _TopUpScreenState();
@@ -58,7 +58,8 @@ class _TopUpScreenState extends State<TopUpScreen> {
             onPressed: () {
               if (_selectedIndex != 0) {
                 pageController.previousPage(
-                    duration: const Duration(seconds: 1), curve: Curves.easeIn);
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeIn);
                 setState(() {
                   _selectedIndex = _selectedIndex - 1;
                 });
@@ -68,7 +69,7 @@ class _TopUpScreenState extends State<TopUpScreen> {
             },
             icon: const Icon(
               FontAwesomeIcons.arrowLeft,
-              color: ColorsApp.primaryColor,
+              color: Colors.black,
             ),
           ),
         ),
@@ -99,7 +100,7 @@ class _TopUpScreenState extends State<TopUpScreen> {
 
   void nextPage() {
     pageController.nextPage(
-        duration: const Duration(seconds: 1), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
   void setAmount(double amount) {
@@ -137,8 +138,9 @@ class _AmountPageState extends State<_AmountPage> {
   final TextEditingController textEditingController = TextEditingController();
 
   Map<String, String> bankProfiles = {
-    'Techcombank': HelperAssets.imgVietcombank,
+    'Vietcombank': HelperAssets.imgVietcombank,
     'Agribank': HelperAssets.imgAgribank,
+    'Techcombank': HelperAssets.imgTechcombank
   };
 
   int selectedIndex = 0;
@@ -257,7 +259,8 @@ class _BankTileState extends State<_BankTile> {
                     : ColorsApp.tertiaryColors)),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           HelperImage.loadFromAsset(widget.imgBank,
-              height: k24Padding,
+              // height: k24Padding,
+              width: 24,
               radius: BorderRadius.circular(kBorderRadiusMax)),
           const SizedBox(width: k8Padding),
           Text(

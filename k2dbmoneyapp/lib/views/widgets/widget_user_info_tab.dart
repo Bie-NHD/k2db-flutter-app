@@ -33,58 +33,17 @@ class _InfoTabState extends State<InfoTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        //Edit Button
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: k8Margin),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () async {
-                // TODO Catch data
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserEditScreen(user: user),
-                    ));
-              },
-              child: Wrap(
-                direction: Axis.horizontal,
-                spacing: k8Padding,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Text(
-                    "Edit",
-                    style: TextStyles.defaultStyle.semiBold.colorDefaultText,
-                  ),
-                  const Icon(
-                    FontAwesomeIcons.pen,
-                    size: kIconSize,
-                  ),
-                  const Icon(
-                    FontAwesomeIcons.angleRight,
-                    size: kIconSize,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        ListView.builder(
-          itemCount: _contents.length,
-          padding: EdgeInsets.zero,
-          scrollDirection: Axis.vertical,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) => UserListTile(
-            content: _contents[index]!,
-            icon: _icons[index],
-            title: _titles[index],
-          ),
-        ),
-      ],
+    return ListView.builder(
+      itemCount: _contents.length,
+      padding: const EdgeInsets.only(top: k12Padding),
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (context, index) => UserListTile(
+        content: _contents[index]!,
+        icon: _icons[index],
+        title: _titles[index],
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/widgets/widget_itembutton.dart';
+import 'package:k2dbmoneyapp/views/screens/authen/main_page.dart';
 import 'package:k2dbmoneyapp/views/screens/home/home_main.dart';
 
 import '../../../core/constant/text.dart';
@@ -47,7 +48,7 @@ class SuccessPage extends StatelessWidget {
               ButtonFill(
                   text: "Return Home",
                   onTap: () {
-                    Navigator.popAndPushNamed(context, HomeScreen.routeName);
+                    Navigator.popAndPushNamed(context, MainPage.routeName);
                   })
             ],
           ),

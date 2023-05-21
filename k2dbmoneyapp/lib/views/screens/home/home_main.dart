@@ -6,7 +6,10 @@ import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/notfication_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/products_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/top-up/top_up_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/home/transfer_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/user/qr_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/user/user_main.dart';
+import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
@@ -80,11 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: k12Padding),
             const BannerHome(),
-            const SizedBox(height: k16Padding),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
+            Container(
+              color: ColorsApp.primaryColor,
+              padding: const EdgeInsets.all(k12Padding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -101,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ? FontAwesomeIcons.solidEye
                               : FontAwesomeIcons.solidEyeSlash,
                           size: kIconSize * 0.7,
+                          color: Colors.white,
                         ),
                       ),
                       const SizedBox(width: k8Padding),
@@ -108,62 +111,69 @@ class _HomeScreenState extends State<HomeScreen> {
                         isDisplayCurrentBalance
                             ? (21122022.0).toFormatMoney()
                             : "******",
-                        style: TextStyles.defaultStyle.bold,
+                        style: TextStyles.defaultStyle.bold.sizeTitleAndButton
+                            .copyWith(color: Colors.white),
                       ),
                       const Spacer(),
                       IconTextLink(
                         title: "Funds",
+                        color: Colors.white,
                         onTap: () {},
                       ),
                     ],
                   ),
                   const SizedBox(height: k20Padding),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       CardItemFunction(
-                        icon: FontAwesomeIcons.circlePlus,
-                        text: "Top up",
+                        icon: FontAwesomeIcons.arrowDownUpAcrossLine,
+                        text: "Top up /\nWithdraw",
+                        color: Colors.white,
                         onTap: () {
                           Navigator.of(context)
                               .pushNamed(TopUpScreen.routeName);
                         },
                       ),
                       CardItemFunction(
-                        icon: FontAwesomeIcons.arrowUpFromBracket,
-                        text: "Withdraw",
-                        onTap: () {},
+                        icon: FontAwesomeIcons.moneyBillTransfer,
+                        text: "Send Credits",
+                        color: Colors.white,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TransferScreen(user: User.base)));
+                        },
                       ),
-                      CardItemFunction(
-                        icon: FontAwesomeIcons.wallet,
-                        text: "Payment",
-                        onTap: () {},
-                      ),
+                      // CardItemFunction(
+                      //   icon: FontAwesomeIcons.paperPlane,
+                      //   text: "Send Credits",
+                      //   onTap: () {},
+                      // ),
                       CardItemFunction(
                         icon: FontAwesomeIcons.qrcode,
+                        color: Colors.white,
                         text: "Scan QR",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      QRScreen(user: User.base)));
+                        },
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            const Divider(height: k24Padding, thickness: k8Padding / 2),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: k12Padding),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Best Selling",
-                      style: TextStyles
-                          .defaultStyle.sizeAppbar.semiBold.colorDeepBlueText),
-                  const SizedBox(
-                    height: k8Padding,
-                  ),
-                ],
-              ),
+              padding: const EdgeInsets.all(k12Padding),
+              child: Text("Best Selling",
+                  style: TextStyles
+                      .defaultStyle.sizeAppbar.semiBold.colorDeepBlueText),
             ),
             // Best selling list
             Row(
@@ -175,14 +185,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 10,
                       itemBuilder: (context, index) {
+                        int i = index;
                         return Padding(
                           padding: EdgeInsets.only(
                               right: k8Padding,
                               left: index == 0 ? k8Padding : 0),
                           child: const CardItemTopProduct(
-                              imagePath: HelperAssets.imageAvt,
-                              nameProduct: "Le Han Quoc sieu",
-                              price: 0),
+                              imagePath: HelperAssets.imgLeHanQuoc,
+                              nameProduct: "Le Han Quoc sieu ngot",
+                              price: 50000),
                         );
                       }),
                 )),
@@ -227,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         childAspectRatio: 4 / 5,
                       ),
                       itemBuilder: (context, index) => CardItemProduct(
-                        imgProduct: HelperAssets.product,
+                        imgProduct: HelperAssets.imgLeHanQuoc,
                         nameProduct: "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
                         imgStore: HelperAssets.logoBrandStore,
                         nameStore: "Bách Hóa Xanh",

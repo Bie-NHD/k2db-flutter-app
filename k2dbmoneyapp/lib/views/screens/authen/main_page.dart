@@ -22,6 +22,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+  PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,10 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: ColorsApp.backgroundLight,
         bottomNavigationBar: SalomonBottomBar(
             currentIndex: _currentIndex,
-            onTap: (i) => setState(() => _currentIndex = i),
+            onTap: (i) {
+              setState(() => _currentIndex = i);
+              pageController.jumpToPage(_currentIndex);
+            },
             items: [
               // Home
               SalomonBottomBarItem(
@@ -43,16 +47,16 @@ class _MainPageState extends State<MainPage> {
                 unselectedColor: ColorsApp.tertiaryColors,
               ),
               // Promotion
-              SalomonBottomBarItem(
-                icon: const Icon(
-                  FontAwesomeIcons.gift,
-                  size: kIconSize,
-                ),
-                title: Text("Promotion",
-                    style: TextStyles.defaultStyle.colorDeepBlueText.semiBold),
-                selectedColor: ColorsApp.primaryColor,
-                unselectedColor: ColorsApp.tertiaryColors,
-              ),
+              // SalomonBottomBarItem(
+              //   icon: const Icon(
+              //     FontAwesomeIcons.gift,
+              //     size: kIconSize,
+              //   ),
+              //   title: Text("Promotion",
+              //       style: TextStyles.defaultStyle.colorDeepBlueText.semiBold),
+              //   selectedColor: ColorsApp.primaryColor,
+              //   unselectedColor: ColorsApp.tertiaryColors,
+              // ),
               // Store
               SalomonBottomBarItem(
                 icon: const Icon(
@@ -87,12 +91,15 @@ class _MainPageState extends State<MainPage> {
                 unselectedColor: ColorsApp.tertiaryColors,
               ),
             ]),
-        body: IndexedStack(index: _currentIndex, children: [
-          const HomeScreen(),
-          const PromotionScreen(),
-          const StoreScreen(),
-          const Statistic(),
-          UserScreen(),
-        ]));
+        body: PageView(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const HomeScreen(),
+              // const PromotionScreen(),
+              const StoreScreen(),
+              const Statistic(),
+              UserScreen(),
+            ]));
   }
 }

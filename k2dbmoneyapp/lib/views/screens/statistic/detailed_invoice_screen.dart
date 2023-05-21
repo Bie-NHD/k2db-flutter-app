@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
