@@ -28,7 +28,7 @@ class _InfoTabState extends State<InfoTab> {
   late final List<String?> _contents = [
     user.userName,
     user.gender,
-    user.security.phoneNum
+    user.phoneNum
   ];
 
   @override

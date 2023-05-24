@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
+import 'package:k2dbmoneyapp/views/screens/others/CCCDScanScreen.dart';
+import 'package:k2dbmoneyapp/views/screens/others/citizen_scan.dart';
 
 import '../../core/model/user.dart';
 
 class SecurityTab extends StatelessWidget {
-  SecurityTab({super.key, required User user}) : security = user.security;
+  SecurityTab({super.key, required this.user});
 
-  Security security;
+  final User user;
   late List<SecurityItem> list = [
     SecurityItem(
-        checker: security.hasValidatedCitizenID,
-        contentTrue: security.citizenID,
+        checker: user.citizenID != null,
+        contentTrue: user.citizenID,
         icon: FontAwesomeIcons.idCardClip,
         screen: Screens.CITIZENID),
     SecurityItem(
-        checker: security.hasPIN,
-        contentTrue: _pinCaster(security.PIN),
+        checker: user.userPIN != null,
+        contentTrue: _pinCaster(user.userPIN),
         icon: FontAwesomeIcons.lock,
         screen: Screens.PIN),
   ];
@@ -75,7 +77,8 @@ class SecurityTile extends StatelessWidget {
             case Screens.CITIZENID:
               {
                 // TODO Citizen ID Screen
-                Container();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CitizenIDScan()));
                 break;
               }
 

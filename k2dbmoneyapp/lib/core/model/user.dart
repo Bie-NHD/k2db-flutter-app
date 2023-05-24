@@ -4,92 +4,41 @@ import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 
 class User {
-  final String userID;
-  late final String? userName;
-  late final String gender;
+  late String userID;
+  late String? userName;
+  late String gender;
   double userBalance;
-  Points userPoint;
   String userAvatar;
-  late Security security;
+  final String? citizenID;
+  late String? userPIN;
+  int userPoint;
+  List<int> pointGoals;
+  late final String phoneNum;
 
   User({
-    required this.userName,
+    this.userName = "New User",
     this.userBalance = 0,
-    int userPoint = 0,
-    List<int> pointGoals = const [0],
+    this.userPoint = 0,
+    this.pointGoals = const [0],
     this.gender = "Gender.blank",
     this.userAvatar = HelperAssets.placeholderUserAvatar,
-    String PIN = "",
-    String citizenID = "",
-    required String phoneNum,
-  })  : userID = HelperRNG.userID(),
-        userPoint = Points(
-            currentPoints: userPoint,
-            currentGoal: pointGoals[0],
-            pointGoals: pointGoals),
-        security = Security(phoneNum: phoneNum, citizenID: citizenID, PIN: PIN);
+    this.userPIN,
+    this.citizenID,
+    required this.phoneNum,
+  }) {
+    userID = HelperRNG.userID();
+  }
 
   static User base = User(
       userName: "New User",
-      phoneNum: Security.base.phoneNum,
-      userBalance: 75130,
+      phoneNum: "0909123456",
       gender: Gender.blank,
       userAvatar: HelperAssets.placeholderUserAvatar,
-      pointGoals: Points.base.pointGoals);
+      userPoint: 200,
+      pointGoals: [50, 100, 200, 400]);
 
   void setBalance(double amount) {
     userBalance = amount;
-  }
-}
-
-class Security {
-  late String phoneNum;
-  late bool hasValidatedCitizenID;
-  late String? citizenID;
-  late bool hasPIN;
-  late String? PIN;
-
-  Security({
-    required this.phoneNum,
-    this.citizenID = "",
-    this.PIN = "",
-  })  : hasValidatedCitizenID =
-            (citizenID != null) && (citizenID != "") ? true : false,
-        hasPIN = (PIN != null) && (PIN != "") ? true : false;
-
-  static Security base =
-      Security(phoneNum: "0909123456", citizenID: "079123456789", PIN: "5527");
-}
-
-class Points {
-  late int currentPoints;
-  int currentGoal;
-  List<int> pointGoals;
-
-  Points(
-      {required this.currentPoints,
-      this.currentGoal = 0,
-      required this.pointGoals}) {
-    if (currentGoal == 0) {
-      updateCurrentPoints();
-    }
-  }
-
-  static Points base =
-      Points(currentPoints: 0, pointGoals: [5, 10, 15, 20], currentGoal: 5);
-
-  void updateCurrentPoints() {
-    int index = 0;
-    while (index < pointGoals.length) {
-      if (currentPoints >= pointGoals[index]) {
-        ++index;
-      }
-    }
-    currentGoal = pointGoals[index];
-  }
-
-  void increasePoints(int points) {
-    currentPoints += points;
   }
 }
 

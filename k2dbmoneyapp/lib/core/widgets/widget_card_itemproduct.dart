@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:k2dbmoneyapp/core/constant/DecorationStyles.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
@@ -43,14 +44,9 @@ class CardItemProduct extends StatelessWidget {
                 color: ColorsApp.backgroundLight,
                 borderRadius: BorderRadius.circular(kBorderRadiusMin),
                 // border: Border.all(color: ColorsApp.hintTextColor, width: 0.2),
-                boxShadow: [
-                  BoxShadow(
-                    offset: const Offset(1, 3),
-                    color: ColorsApp.tertiaryColors.withOpacity(0.5),
-                    blurRadius: 5,
-                  )
-                ]),
+                boxShadow: const [DecorationStyles.boxShadowGray]),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
                   imgProduct,
@@ -59,55 +55,48 @@ class CardItemProduct extends StatelessWidget {
                   fit: BoxFit.cover,
                   alignment: Alignment.center,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(k12Padding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        nameProduct,
-                        style: TextStyles.defaultStyle.semiBold,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(
-                        height: k8Padding / 2,
-                      ),
-                      Row(
-                        children: [
-                          HelperImage.loadFromAsset(
-                           imgStore,
-                            width: k24Padding,
-                            height: k24Padding,
-                            radius: BorderRadius.circular(kBorderRadiusMax),
-                          ),
-                          const SizedBox(
-                            width: k8Padding / 2,
-                          ),
-                          Text(
-                            nameStore,
-                            style: TextStyles.defaultStyle.sizeMin.semiBold,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: k8Padding / 2,
-                      ),
-                      Text(
-                        price.toFormatMoney(),
-                        style: TextStyles.defaultStyle.colorRedText.semiBold
-                            .sizeTitleAndButton,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: k8Padding / 2),
-                      Text(
-                        "Available: $quantity",
-                        style: TextStyles.defaultStyle.sizeMin.colorHintText,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
+                Text(
+                  nameProduct,
+                  style: TextStyles.defaultStyle.semiBold,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(
+                  height: k8Padding / 2,
+                ),
+                Row(
+                  children: [
+                    HelperImage.loadFromAsset(
+                      imgStore,
+                      width: k24Padding,
+                      height: k24Padding,
+                      radius: BorderRadius.circular(kBorderRadiusMax),
+                    ),
+                    const SizedBox(
+                      width: k8Padding / 2,
+                    ),
+                    Text(
+                      nameStore,
+                      style: TextStyles.defaultStyle.sizeMin.semiBold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+                // const SizedBox(
+                //   height: k8Padding / 2,
+                // ),
+                const Spacer(),
+                Text(
+                  price.toFormatMoney(),
+                  style: TextStyles
+                      .defaultStyle.colorRedText.semiBold.sizeTitleAndButton,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: k8Padding / 2),
+                Text(
+                  "Available: $quantity",
+                  style: TextStyles.defaultStyle.sizeMin.colorHintText,
+                  overflow: TextOverflow.ellipsis,
                 )
               ],
             ),

@@ -12,6 +12,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_image.dart';
 import 'package:k2dbmoneyapp/views/screens/statistic/Transaction_search.dart';
+import '../../../core/constant/DecorationStyles.dart';
 import '../../../core/helpers/help_random.dart';
 import '../../widgets/widget_item_history.dart';
 import 'statistical_chart_screen.dart';
@@ -79,7 +80,7 @@ class _StatisticState extends State<Statistic> {
               child: Stack(
                 children: [
                   CustomPaint(
-                    painter: _SemiCircle(),
+                    painter: const SemiCircle(ColorsApp.primaryColor),
                     size: Size(size.width, size.height * 0.3),
                   ),
                   Positioned(
@@ -107,7 +108,7 @@ class _StatisticState extends State<Statistic> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomPaint(
-                    painter: _RoundedColoredLabel(ColorsApp.statusSuccessColor),
+                    painter: RoundedRectangle(ColorsApp.statusSuccessColor),
                     size: Size(20, 15),
                   ),
                   const SizedBox(
@@ -121,7 +122,7 @@ class _StatisticState extends State<Statistic> {
                     width: k12Padding,
                   ),
                   const CustomPaint(
-                    painter: _RoundedColoredLabel(ColorsApp.statusErrorColor),
+                    painter: RoundedRectangle(ColorsApp.statusErrorColor),
                     size: Size(20, 15),
                   ),
                   const SizedBox(
@@ -161,12 +162,7 @@ class _UserCard extends StatelessWidget {
             color: ColorsApp.backgroundLight,
             // border: Border.all(color: Colors.red)
             borderRadius: BorderRadius.circular(kBorderRadiusMin),
-            boxShadow: [
-              BoxShadow(
-                  color: ColorsApp.primaryColor.withOpacity(0.6),
-                  offset: const Offset(5, 5),
-                  blurRadius: 10)
-            ]),
+            boxShadow: const [DecorationStyles.boxShadowBlue]),
         child: Column(
           children: [
             Row(
@@ -242,48 +238,6 @@ class _UserCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _SemiCircle extends CustomPainter {
-  _SemiCircle() : super();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = ColorsApp.primaryColor;
-    canvas.drawArc(
-        Rect.fromCenter(
-            center: Offset(size.width / 2, Size.zero.height),
-            width: size.width,
-            height: size.height),
-        math.pi,
-        -math.pi,
-        false,
-        paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
-
-class _RoundedColoredLabel extends CustomPainter {
-  final Color color;
-
-  const _RoundedColoredLabel(this.color);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = color;
-    canvas.drawRect(
-        Rect.fromCenter(
-          center: Offset(size.width / 2, size.height / 2),
-          width: size.width,
-          height: size.height,
-        ),
-        paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class _ChartSection extends StatefulWidget {

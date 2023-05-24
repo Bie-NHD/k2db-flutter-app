@@ -47,8 +47,8 @@ class _UserEditScreenState extends State<UserEditScreen> {
   late String dropdownGenderValue = user.gender;
 
   late Map<String, TextEditingController> controllers = {
-    'phone num': TextEditingController.fromValue(
-        TextEditingValue(text: user.security.phoneNum)),
+    'phone num':
+        TextEditingController.fromValue(TextEditingValue(text: user.phoneNum)),
     'name':
         TextEditingController.fromValue(TextEditingValue(text: user.userName!))
   };
@@ -228,7 +228,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                         validator: (value) =>
                             HelperValidation.validatePhoneNum(value),
                         onSaved: (value) {
-                          user.security.phoneNum = value!;
+                          user.phoneNum = value!;
                         },
                       ),
                     ],

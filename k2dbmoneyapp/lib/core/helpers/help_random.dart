@@ -16,8 +16,10 @@ class HelperRNG {
   ];
 
   static int randInt(int max) => _random.nextInt(max);
-  static int randIntBetween (int from,int max) => from+_random.nextInt(max-from);
-  static double randDouble(double max)=> _random.nextInt(max.toInt())-1 + double.parse(_random.nextDouble().toStringAsFixed(1));
+  static int randIntBetween(int from, int max) =>
+      from + _random.nextInt(max - from);
+  static double randDouble(double max) =>
+      _random.nextInt(max.toInt()) - 1 + _random.nextDouble();
   static String getRandomString({int length = 9}) =>
       String.fromCharCodes(Iterable.generate(length,
           (index) => _chars.codeUnitAt(Random().nextInt(_chars.length))));

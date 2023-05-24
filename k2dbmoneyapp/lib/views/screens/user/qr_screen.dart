@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/views/screens/home/transfer_screen.dart';
+import 'package:k2dbmoneyapp/views/screens/others/camera_screen.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -87,7 +88,7 @@ class _QRScreenState extends State<QRScreen> {
         controller: _pageController,
         children: [
           UserPaymentQR(user: user),
-          _QRScanView(),
+          CameraScreen(),
           // TransferScreen(
           //   user: user,
           // ),
@@ -100,97 +101,6 @@ class _QRScreenState extends State<QRScreen> {
     _pageController.jumpToPage(index);
     setState(() {
       _currentIndex = index;
-    });
-  }
-}
-
-class _QRScanView extends StatefulWidget {
-  _QRScanView({
-    super.key,
-  });
-
-  @override
-  State<_QRScanView> createState() => _QRScanViewState();
-}
-
-class _QRScanViewState extends State<_QRScanView>
-    with SingleTickerProviderStateMixin {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController? qrViewController;
-  bool _flash = false;
-  Barcode? result;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: k12Margin),
-          child: Text(
-            "Adjust camera position to scan QR code",
-            style: TextStyles.defaultStyle.bold.colorDeepBlueText,
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: QRView(
-            key: qrKey,
-            onQRViewCreated: _onQRViewCreated,
-            overlayMargin: const EdgeInsets.all(k12Margin),
-            overlay: QrScannerOverlayShape(borderRadius: kBorderRadiusMax),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: k12Margin),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                onPressed: () {
-                  //TODO Open Photo Gallery
-                },
-                icon: const Icon(FontAwesomeIcons.images),
-                color: ColorsApp.primaryColor,
-              ),
-              Column(
-                children: [
-                  const Text(
-                    "Scanning for QR code",
-                  ),
-                  Text(
-                    result?.code ?? "{result here}",
-                  ),
-                ],
-              ),
-              IconButton(
-                onPressed: _btnCameraFlash,
-                icon: Icon(_flash
-                    ? FontAwesomeIcons.solidLightbulb
-                    : FontAwesomeIcons.lightbulb),
-                color: ColorsApp.primaryColor,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _btnCameraFlash() {
-    // var flashStatus = qrViewController?.getFlashStatus();
-    qrViewController?.toggleFlash();
-    setState(() {
-      _flash = !_flash;
-    });
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    // TODO Pause QR View on created
-    qrViewController = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
     });
   }
 }
@@ -230,7 +140,7 @@ class UserPaymentQR extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: k12Margin),
                     padding: const EdgeInsets.all(k12Padding),
-                    width: MediaQuery.of(context).size.width*0.7,
+                    width: MediaQuery.of(context).size.width * 0.7,
                     decoration: BoxDecoration(
                       color: ColorsApp.backgroundLight,
                       border:
@@ -245,7 +155,7 @@ class UserPaymentQR extends StatelessWidget {
                       ],
                     ),
                     child: QrImageView(
-                      data: user.security.phoneNum,
+                      data: user.phoneNum,
                       padding: const EdgeInsets.all(k24Padding),
                       // foregroundColor: ColorsApp.primaryColor,
                     ),

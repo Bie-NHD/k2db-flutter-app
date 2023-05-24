@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:k2dbmoneyapp/core/constant/DecorationStyles.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/views/screens/user/user_edit_screen.dart';
 
 import '../../../core/constant/color.dart';
@@ -20,112 +24,111 @@ class UserScreen extends StatefulWidget {
     Key? key,
   }) : super(key: key);
   static const routeName = "/user_screen";
-  User user = User.base;
+  final user = User.base
+    ..userBalance = Random().nextInt(100) * 1000
+    ..userPoint = (HelperRNG.randDouble(5) * 100).round();
   bool isShowingBalance = false;
-  late String balanceDisplay = user.userBalance.toFormatMoney();
 
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
 
 class _UserScreenState extends State<UserScreen> {
+  late String balanceDisplay = widget.user.userBalance.toFormatMoney();
+  late String balanceUnDisplay = balanceDisplay.replaceRange(
+      0, balanceDisplay.length, "*" * balanceDisplay.length);
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    User user = widget.user;
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            IntrinsicHeight(
-              child: Container(
-                width: double.infinity,
-                height: size.height * 0.32,
-                decoration: const BoxDecoration(color: ColorsApp.primaryColor),
-                child: Stack(
-                  children: [
-                    // Balance Display
-                    Positioned(
-                      top: size.height * 0.1,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        width: double.maxFinite,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: k24Padding),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Current Balance".toUpperCase(),
-                              style: TextStyles.defaultStyle.semiBold
-                                  .sizeDefault.colorAppBarText,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
+            Container(
+              width: double.infinity,
+              height: size.height * 0.32,
+              decoration: const BoxDecoration(color: ColorsApp.primaryColor),
+              child: Stack(
+                children: [
+                  // Balance Display
+                  Positioned(
+                    top: size.height * 0.1,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      width: double.maxFinite,
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: k24Padding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Current Balance".toUpperCase(),
+                            style: TextStyles.defaultStyle.semiBold.sizeDefault
+                                .colorAppBarText,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.isShowingBalance
+                                    ? balanceDisplay
+                                    : balanceUnDisplay,
+                                style: TextStyles
+                                    .defaultStyle.bold.colorAppBarText
+                                    .copyWith(fontSize: 30),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    widget.isShowingBalance =
+                                        !widget.isShowingBalance;
+                                  });
+                                },
+                                child: Icon(
                                   widget.isShowingBalance
-                                      ? widget.balanceDisplay
-                                      : widget.balanceDisplay.replaceRange(
-                                          0,
-                                          widget.balanceDisplay.length,
-                                          "*" * widget.balanceDisplay.length),
-                                  style: TextStyles
-                                      .defaultStyle.bold.colorAppBarText
-                                      .copyWith(fontSize: 30),
+                                      ? FontAwesomeIcons.solidEye
+                                      : FontAwesomeIcons.solidEyeSlash,
+                                  color: ColorsApp.appBarTextColor,
+                                  size: kIconSize,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      widget.isShowingBalance =
-                                          !widget.isShowingBalance;
-                                    });
-                                  },
-                                  child: Icon(
-                                    widget.isShowingBalance
-                                        ? FontAwesomeIcons.solidEye
-                                        : FontAwesomeIcons.solidEyeSlash,
-                                    color: ColorsApp.appBarTextColor,
-                                    size: kIconSize,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    // Header Decoration
-                    Positioned(
-                      top: size.height * 0.24,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        padding: EdgeInsets.only(top: size.height * 0.25),
-                        decoration: const BoxDecoration(
-                            color: ColorsApp.backgroundLight,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(kBorderRadiusMax),
-                                topRight: Radius.circular(kBorderRadiusMax))),
-                      ),
+                  ),
+                  // Header Decoration
+                  Positioned(
+                    top: size.height * 0.24,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.only(top: size.height * 0.25),
+                      decoration: const BoxDecoration(
+                          color: ColorsApp.backgroundLight,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(kBorderRadiusMax),
+                              topRight: Radius.circular(kBorderRadiusMax))),
                     ),
-                    // User Header
-                    Positioned(
-                      top: size.height * 0.2,
-                      left: 0,
-                      right: 0,
-                      child: _UserHeader(user: user),
-                    ),
-                  ],
-                ),
+                  ),
+                  // User Header
+                  Positioned(
+                    top: size.height * 0.2,
+                    left: 0,
+                    right: 0,
+                    child: _UserHeader(user: widget.user),
+                  ),
+                ],
               ),
             ),
             // Buttons
-            _HeaderButtons(user: user),
-            _UserPointBanner(size: size),
+            _HeaderButtons(user: widget.user),
+            _UserPointBanner(size: size, points: widget.user.userPoint),
             // Main content
             Container(
               color: Colors.white,
@@ -191,9 +194,11 @@ class _UserScreenState extends State<UserScreen> {
 }
 
 class _UserPointBanner extends StatelessWidget {
+  final int points;
   const _UserPointBanner({
     super.key,
     required this.size,
+    required this.points,
   });
 
   final Size size;
@@ -226,14 +231,8 @@ class _UserPointBanner extends StatelessWidget {
                       width: size.width * 0.453,
                       height: size.height * 0.06,
                       decoration: const BoxDecoration(
-                        color: ColorsApp.statusNoteColor,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(70),
-                          bottomRight: Radius.circular(0),
-                          topLeft: Radius.circular(0),
-                          topRight: Radius.circular(12),
-                        ),
-                      ),
+                          color: ColorsApp.statusNoteColor,
+                          borderRadius: DecorationStyles.boxBorderRadiusMin),
                     ),
                   ],
                 ),
@@ -243,7 +242,7 @@ class _UserPointBanner extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(k8Padding),
                       child: Text(
-                        "7.000.000.000 Point",
+                        "$points Point",
                         style: TextStyles
                             .defaultStyle.sizeHeading.colorYellowText.bold,
                       ),
@@ -344,58 +343,60 @@ class _UserHeader extends StatelessWidget {
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(k12Padding),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: ColorsApp.backgroundLight,
-            borderRadius: BorderRadius.circular(kBorderRadiusMin),
-            boxShadow: [
-              BoxShadow(
-                  color: ColorsApp.primaryColor.withOpacity(0.5),
-                  offset: const Offset(3, 3),
-                  blurRadius: 10,
-                  spreadRadius: 2)
-            ],
+            borderRadius: DecorationStyles.boxBorderRadiusMin,
+            boxShadow: [DecorationStyles.boxShadowBlue],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
+              const SizedBox(
+                width: k8Padding,
+              ),
               CircleAvatar(
                 radius: kIconSize * 1.5,
                 child: HelperImage.loadFromAsset(user.userAvatar,
                     radius: BorderRadius.circular(kBorderRadiusIcon)),
               ),
-              Wrap(
-                direction: Axis.vertical,
-                alignment: WrapAlignment.spaceAround,
-                crossAxisAlignment: WrapCrossAlignment.start,
-                spacing: k8Padding,
+              const SizedBox(
+                width: k8Padding,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(user.userName!.toUpperCase(),
                       style: TextStyles
                           .defaultStyle.semiBold.sizeHeading.colorDefaultText),
+                  const SizedBox(
+                    width: k8Padding,
+                  ),
                   GestureDetector(
                     onTap: () async {
                       await Clipboard.setData(ClipboardData(text: user.userID));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: const Duration(seconds: 2),
+                        const SnackBar(
+                          duration: Duration(seconds: 2),
                           backgroundColor: ColorsApp.statusSuccessColor,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(kBorderRadiusMin)),
-                          content: const Text("User ID Copied to Clipboard!"),
+                                  DecorationStyles.boxBorderRadiusMin),
+                          content: Text("User ID Copied to Clipboard!"),
                         ),
                       );
                     },
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      alignment: WrapAlignment.spaceBetween,
-                      spacing: k8Padding / 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           user.userID,
                           style: TextStyles.defaultStyle.colorHintText,
+                        ),
+                        const SizedBox(
+                          width: k8Padding / 2,
                         ),
                         const Icon(
                           FontAwesomeIcons.copy,
@@ -407,6 +408,9 @@ class _UserHeader extends StatelessWidget {
                   )
                 ],
               ),
+              const SizedBox(
+                width: k8Padding,
+              ),
               GestureDetector(
                 onTap: () => Navigator.push(
                     context,
@@ -415,13 +419,7 @@ class _UserHeader extends StatelessWidget {
                     )),
                 child: const Icon(FontAwesomeIcons.penToSquare),
               )
-            ]
-                .map((e) => Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: k8Padding),
-                      child: e,
-                    ))
-                .toList(),
+            ],
           ),
         ),
       ),
