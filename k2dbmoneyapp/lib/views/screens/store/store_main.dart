@@ -81,7 +81,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     itemCount: 2,
                     itemBuilder:  (context,index)=>
                         CardItemStore(
-                          imageStore: HelperAssets.logoBrandStore,
+                          imageStore: HelperAssets.logoBachHoaXanh,
                           nameStore: "Bách Hóa Xanh",
                           addressStore: "451 Lê Văn Việt, Tăng Nhơn Phú A, Tp Thủ Đức, Tp Hồ Chí Minh",
                           distanceStore: 0.01,
@@ -107,7 +107,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     itemCount: 10,
                     itemBuilder:  (context,index)=>
                         CardItemStore(
-                          imageStore: HelperAssets.logoBrandStore,
+                          imageStore: HelperAssets.logoBachHoaXanh,
                           nameStore: "Bách Hóa Xanh",
                           addressStore: "451 Lê Văn Việt, Tăng Nhơn Phú A, Tp Thủ Đức, Tp Hồ Chí Minh",
                           distanceStore: 0.01,

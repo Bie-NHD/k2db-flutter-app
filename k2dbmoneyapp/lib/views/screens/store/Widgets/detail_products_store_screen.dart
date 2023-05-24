@@ -66,7 +66,7 @@ class _DetailProductsStoreScreenState extends State<DetailProductsStoreScreen> {
                             borderRadius:
                                 BorderRadius.circular(kBorderRadiusMax),
                             child: Image.asset(
-                              HelperAssets.logoBrandStore,
+                              HelperAssets.logoBachHoaXanh,
                               width: 170,
                               height: 150,
                               fit: BoxFit.cover,
@@ -184,7 +184,7 @@ class _DetailProductsStoreScreenState extends State<DetailProductsStoreScreen> {
                       child: CardItemProduct(
                         imgProduct: HelperAssets.imgLeHanQuoc,
                         nameProduct: "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
-                        imgStore: HelperAssets.logoBrandStore,
+                        imgStore: HelperAssets.logoBachHoaXanh,
                         nameStore: "Bách Hóa Xanh",
                         price: 100000,
                         quantity: 12500,

@@ -117,7 +117,7 @@ class _ExchangeGiftScreenState extends State<ExchangeGiftScreen> {
               children: List.generate(
                 15,
                 (index) => ItemExchangeGift(
-                  imgGift: HelperAssets.iconThitHeo,
+                  imgGift: HelperAssets.imgThitHeo,
                   nameGift: 'Thịt Heo siêu nạt',
                   priceGift: '10000',
                   onTap: () {

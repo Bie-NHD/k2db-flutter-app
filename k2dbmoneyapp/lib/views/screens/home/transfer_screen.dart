@@ -9,7 +9,7 @@ import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import '../../../core/constant/text.dart';
 import '../../../core/widgets/widget_itembutton.dart';
 import '../../widgets/widget_custom_textformfield.dart';
-import '../user/Modal/User.dart';
+import '../../../core/model/user.dart';
 import 'package:k2dbmoneyapp/core/helpers/helper_validation.dart';
 
 class TransferScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _TransferScreenState extends State<TransferScreen> {
     'name': TextEditingController(),
     'amount': TextEditingController(),
     'message': TextEditingController.fromValue(
-        TextEditingValue(text: "${user.userName.toUpperCase()} chuyen tien")),
+        TextEditingValue(text: "${user.userName?.toUpperCase()} chuyen tien")),
   };
 
   //Form state
@@ -106,7 +106,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             CustomTextFormField(
                                 controller: controllers['name'],
                                 labelText: "Name",
-                                hintText: user.userName.toUpperCase(),
+                                hintText: user.userName?.toUpperCase(),
                                 helperText: "The recipient's name",
                                 enabled: enableUserName,
                                 validator: (value) =>
@@ -124,7 +124,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             CustomTextFormField(
                               controller: controllers['message'],
                               labelText: "Message",
-                              hintText: user.userName.toUpperCase(),
+                              hintText: user.userName?.toUpperCase(),
                               helperText: "Message to the recipient",
                             ),
                           ],

@@ -5,8 +5,8 @@ import 'package:k2dbmoneyapp/core/helpers/helper_asset.dart';
 
 class User {
   final String userID;
-  String userName;
-  String gender;
+  late final String? userName;
+  late final String gender;
   double userBalance;
   Points userPoint;
   String userAvatar;
@@ -39,10 +39,6 @@ class User {
 
   void setBalance(double amount) {
     userBalance = amount;
-  }
-
-  void setUserName(String string) {
-    userName = string;
   }
 }
 

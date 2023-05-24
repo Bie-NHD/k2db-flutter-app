@@ -10,7 +10,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/text.dart';
 import '../../../core/helpers/helper_image.dart';
-import 'Modal/User.dart';
+import '../../../core/model/user.dart';
 
 class QRScreen extends StatefulWidget {
   static const String routeName = '/qr_screen';
@@ -70,16 +70,16 @@ class _QRScreenState extends State<QRScreen> {
               style: TextStyles.defaultStyle.bold.colorDeepBlueText,
             ),
           ),
-          SalomonBottomBarItem(
-            icon: const Icon(
-              FontAwesomeIcons.paperPlane,
-              size: kIconSize,
-            ),
-            title: Text(
-              "Transfer",
-              style: TextStyles.defaultStyle.bold.colorDeepBlueText,
-            ),
-          ),
+          // SalomonBottomBarItem(
+          //   icon: const Icon(
+          //     FontAwesomeIcons.paperPlane,
+          //     size: kIconSize,
+          //   ),
+          //   title: Text(
+          //     "Transfer",
+          //     style: TextStyles.defaultStyle.bold.colorDeepBlueText,
+          //   ),
+          // ),
         ],
       ),
       body: PageView(
@@ -88,9 +88,9 @@ class _QRScreenState extends State<QRScreen> {
         children: [
           UserPaymentQR(user: user),
           _QRScanView(),
-          TransferScreen(
-            user: user,
-          ),
+          // TransferScreen(
+          //   user: user,
+          // ),
         ],
       ),
     );
@@ -223,7 +223,7 @@ class UserPaymentQR extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.1),
                 ),
                 Text(
-                  user.userName.toUpperCase(),
+                  user.userName!.toUpperCase(),
                   style: TextStyles.defaultStyle.sizeHeading.semiBold,
                 ),
                 Center(

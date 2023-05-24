@@ -106,7 +106,7 @@ class _DetailStoreScreenState extends State<DetailStoreScreen> {
                       child:
                        // Container(child: Text("kkkkkkk"),)
                       TypicalProducts(
-                              imgProduct: HelperAssets.logoBrandStore,
+                              imgProduct: HelperAssets.logoBachHoaXanh,
                               nameProduct: "Sữa ông thọ",
                               discountPrice: 200000,
                               price: 100000,
@@ -185,7 +185,7 @@ class ItemDetailStore extends StatelessWidget {
                   width: 50,
                   child:Container(
                     child : HelperImage.loadFromAsset(
-                      HelperAssets.logoBrandStore,
+                      HelperAssets.logoBachHoaXanh,
                       fit: BoxFit.cover,
                     ),
                   )

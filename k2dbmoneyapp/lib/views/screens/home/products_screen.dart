@@ -6,7 +6,8 @@ import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
 import 'package:k2dbmoneyapp/core/widgets/widget-text-field-search.dart';
 import 'package:k2dbmoneyapp/core/widgets/widget_card_itemproduct.dart';
 
-import '../../../core/helpers/helper_asset.dart';
+import '../../../core/helpers/help_random.dart';
+import '../../../core/helpers/demo_data.dart';
 import 'detail_product_screeen.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -45,28 +46,36 @@ class _ProductsScreenState extends State<ProductsScreen> {
               const SizedBox(height: k24Padding),
               Expanded(
                 child: GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: 13,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: k8Padding,
-                    mainAxisSpacing: k16Padding,
-                    childAspectRatio: 4 / 5,
-                  ),
-                  itemBuilder: (context, index) => CardItemProduct(
-                    imgProduct: HelperAssets.imgLeHanQuoc,
-                    nameProduct: "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
-                    imgStore: HelperAssets.logoBrandStore,
-                    nameStore: "Bách Hóa Xanh",
-                    price: 100000,
-                    quantity: 12500,
-                    discountPercent: 20,
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(DetailProductScreen.routeName);
-                    },
-                  ),
-                ),
+                    shrinkWrap: true,
+                    itemCount: 13,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: k8Padding,
+                      mainAxisSpacing: k16Padding,
+                      childAspectRatio: 3.5 / 5,
+                    ),
+                    itemBuilder: (context, index) {
+                      final MapEntry store = DemoData.demoStore.entries
+                          .elementAt(
+                              HelperRNG.randInt(DemoData.demoStore.length));
+                      final MapEntry product = DemoData.demoProduct.entries
+                          .elementAt(
+                              HelperRNG.randInt(DemoData.demoProduct.length));
+                      return CardItemProduct(
+                        imgProduct: product.value,
+                        nameProduct: product.key,
+                        imgStore: store.value,
+                        nameStore: store.key,
+                        price: HelperRNG.randIntBetween(15, 200) * 1000,
+                        quantity: HelperRNG.randInt(50),
+                        discountPercent: 10 + HelperRNG.randDouble(40),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(DetailProductScreen.routeName);
+                        },
+                      );
+                    }),
               ),
             ],
           ),
