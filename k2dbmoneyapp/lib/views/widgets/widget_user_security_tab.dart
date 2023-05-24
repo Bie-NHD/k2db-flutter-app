@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 
-import '../screens/user/Modal/User.dart';
+import '../../core/model/user.dart';
 
 class SecurityTab extends StatelessWidget {
   SecurityTab({super.key, required User user}) : security = user.security;

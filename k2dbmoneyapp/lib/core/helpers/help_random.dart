@@ -15,8 +15,9 @@ class HelperRNG {
     "Tran Quoc Khanh"
   ];
 
-  static int nextInt(int max) => _random.nextInt(max);
-
+  static int randInt(int max) => _random.nextInt(max);
+  static int randIntBetween (int from,int max) => from+_random.nextInt(max-from);
+  static double randDouble(double max)=> _random.nextInt(max.toInt())-1 + double.parse(_random.nextDouble().toStringAsFixed(1));
   static String getRandomString({int length = 9}) =>
       String.fromCharCodes(Iterable.generate(length,
           (index) => _chars.codeUnitAt(Random().nextInt(_chars.length))));
@@ -28,9 +29,9 @@ class HelperRNG {
           .join()
           .toString();
 
-  static String randName() => _names[nextInt(_names.length)];
+  static String randName() => _names[randInt(_names.length)];
   static String randDateTime() =>
-      DateTime.fromMillisecondsSinceEpoch(1577836800000 + nextInt(300000))
+      DateTime.fromMillisecondsSinceEpoch(1577836800000 + randInt(300000))
           .toString();
   // 1577836800000 = 01/01/2020
 }

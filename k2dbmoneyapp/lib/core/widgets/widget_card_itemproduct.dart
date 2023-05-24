@@ -60,7 +60,7 @@ class CardItemProduct extends StatelessWidget {
                   alignment: Alignment.center,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(k8Padding),
+                  padding: const EdgeInsets.all(k12Padding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -76,7 +76,7 @@ class CardItemProduct extends StatelessWidget {
                       Row(
                         children: [
                           HelperImage.loadFromAsset(
-                            HelperAssets.logoBrandStore,
+                           imgStore,
                             width: k24Padding,
                             height: k24Padding,
                             radius: BorderRadius.circular(kBorderRadiusMax),

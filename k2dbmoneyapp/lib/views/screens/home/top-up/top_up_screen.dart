@@ -11,7 +11,7 @@ import 'package:k2dbmoneyapp/core/widgets/widget_itembutton.dart';
 import 'package:k2dbmoneyapp/views/screens/authen/success_page.dart';
 import 'package:k2dbmoneyapp/views/widgets/widget_custom_textformfield.dart';
 
-import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
+import 'package:k2dbmoneyapp/core/model/user.dart';
 
 import '../../../../core/helpers/helper_image.dart';
 

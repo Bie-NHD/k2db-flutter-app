@@ -10,7 +10,7 @@ class HelperAssets {
   static const String onBoard2 = 'assets/images/onboarding2.png';
   static const String onBoard3 = 'assets/images/onboarding3.png';
   static const String imgLeHanQuoc = 'assets/images/le-han-quoc.jpg';
-  static const String logoBrandStore = 'assets/images/logo-bach-hoa-xanh.png';
+  static const String logoBachHoaXanh = 'assets/images/logo-bach-hoa-xanh.png';
   static const String detailProduct = 'assets/images/kem_sua_dac.jpg';
   static const String topLeftSplash = 'assets/images/topleft_splash.png';
   static const String bottomRightSplash =
@@ -20,7 +20,9 @@ class HelperAssets {
   static const String iconBoxMyGift = 'assets/images/icon_box_mygift.png';
   static const String iconOff50MyGift = 'assets/images/icon_off50_mygift.jpg';
   static const String iconMedalExChangeGift = 'assets/images/medal-icon.png';
-  static const String iconThitHeo = 'assets/images/item_thit_heo.jpg';
+  static const String imgThitHeo = 'assets/images/item_thit_heo.jpg';
+  static const String imgSuaDac ='assets/images/kem_sua_dac.jpg';
+  static const String imgSuaChuaKhongDuong = 'assets/images/imgSuaChuaKhongDuong.jpg';
   static const String bannerProductPromotion =
       'assets/images/banner_product_promotion.jpg';
   static const String signIn = 'assets/images/signIn.png';
@@ -29,4 +31,6 @@ class HelperAssets {
   static const String imgVietcombank = 'assets/images/icon-vietcombank.jpg';
   static const String imgAgribank = 'assets/images/icon-agribank.png';
   static const String imgTechcombank = 'assets/images/icon-techcombank.png';
+static const String logoMinistop = 'assets/images/logo-ministop.jpg';
+static const String logoCircleK = 'assets/images/logo-circlek.png';
 }

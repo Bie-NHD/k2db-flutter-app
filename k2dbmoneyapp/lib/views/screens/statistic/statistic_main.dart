@@ -15,7 +15,7 @@ import 'package:k2dbmoneyapp/views/screens/statistic/Transaction_search.dart';
 import '../../../core/helpers/help_random.dart';
 import '../../widgets/widget_item_history.dart';
 import 'statistical_chart_screen.dart';
-import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
+import 'package:k2dbmoneyapp/core/model/user.dart';
 
 class Statistic extends StatefulWidget {
   const Statistic({Key? key}) : super(key: key);
@@ -88,8 +88,8 @@ class _StatisticState extends State<Statistic> {
                     top: MediaQuery.of(context).size.height * 0.02,
                     child: _UserCard(
                       user: user,
-                      sumIncome: HelperRNG.nextInt(200),
-                      sumSpent: HelperRNG.nextInt(200),
+                      sumIncome: HelperRNG.randInt(200),
+                      sumSpent: HelperRNG.randInt(200),
                     ),
                   )
                 ],
@@ -180,7 +180,7 @@ class _UserCard extends StatelessWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                Text(user.userName.toUpperCase(),
+                Text(user.userName!.toUpperCase(),
                     style: TextStyles
                         .defaultStyle.semiBold.sizeHeading.colorDefaultText),
               ],
@@ -348,13 +348,13 @@ class _ChartSectionState extends State<_ChartSection> {
       12,
       (index) => BarChartGroupData(x: index, barRods: [
             BarChartRodData(
-              toY: HelperRNG.nextInt(200).toDouble(),
+              toY: HelperRNG.randInt(200).toDouble(),
               width: 12,
               color: ColorsApp.statusErrorColor,
               borderRadius: BorderRadius.circular(4),
             ),
             BarChartRodData(
-              toY: HelperRNG.nextInt(200).toDouble(),
+              toY: HelperRNG.randInt(200).toDouble(),
               width: 12,
               color: ColorsApp.statusSuccessColor,
               borderRadius: BorderRadius.circular(4),

@@ -12,7 +12,7 @@ import '../../../core/helpers/helper_asset.dart';
 import '../../../core/helpers/helper_image.dart';
 import '../../widgets/widget_card_function.dart';
 import '../../widgets/widget_user_tabbar.dart';
-import 'Modal/User.dart';
+import '../../../core/model/user.dart';
 import 'qr_screen.dart';
 
 class UserScreen extends StatefulWidget {
@@ -371,7 +371,7 @@ class _UserHeader extends StatelessWidget {
                 crossAxisAlignment: WrapCrossAlignment.start,
                 spacing: k8Padding,
                 children: [
-                  Text(user.userName.toUpperCase(),
+                  Text(user.userName!.toUpperCase(),
                       style: TextStyles
                           .defaultStyle.semiBold.sizeHeading.colorDefaultText),
                   GestureDetector(

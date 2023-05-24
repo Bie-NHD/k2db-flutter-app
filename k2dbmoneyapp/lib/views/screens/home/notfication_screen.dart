@@ -128,7 +128,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                               childCount: 20,
-                              (context, index) => HelperRNG.nextInt(10).isEven
+                              (context, index) => HelperRNG.randInt(10).isEven
                                   ? const _HistoryTile()
                                   : _TransactionTile())),
                     )
@@ -220,7 +220,7 @@ class _NotificationTile extends _CustomTile {
             style: DefaultTextStyle.of(context).style,
             children: [
               TextSpan(
-                  text: "${HelperRNG.nextInt(1000)} pts ",
+                  text: "${HelperRNG.randInt(1000)} pts ",
                   style: TextStyles.defaultStyle.bold.colorDeepBlueText),
               TextSpan(text: "from order ${HelperRNG.getRandomString()}")
             ]),
@@ -239,11 +239,11 @@ class _PromotionTile extends _CustomTile {
   Widget build(BuildContext context) {
     return _CustomTile(
       title: Text(
-        "Discount ${HelperRNG.nextInt(100)}% for all housewares",
+        "Discount ${HelperRNG.randInt(100)}% for all housewares",
         style:
             TextStyles.defaultStyle.sizeTitleAndButton.bold.colorDeepBlueText,
       ),
-      leading: HelperImage.loadFromAsset(HelperAssets.logoBrandStore,
+      leading: HelperImage.loadFromAsset(HelperAssets.logoBachHoaXanh,
           height: kIconSize,
           radius: const BorderRadius.all(Radius.circular(kBorderRadiusIcon))),
       imageFilePath: HelperAssets.bannerProductPromotion,
@@ -270,7 +270,7 @@ class _HistoryTile extends _CustomTile {
                 DefaultTextStyle.of(context).style.sizeTitleAndButton.semiBold,
             children: [
               TextSpan(
-                  text: HelperRNG.nextInt(200000).toDouble().toFormatMoney(),
+                  text: HelperRNG.randInt(200000).toDouble().toFormatMoney(),
                   style: DefaultTextStyle.of(context)
                       .style
                       .bold
@@ -310,7 +310,7 @@ class _TransactionTile extends _CustomTile {
               const TextSpan(text: "\nfrom Bach Hoa Xanh"),
               TextSpan(
                   text:
-                      " ${HelperRNG.nextInt(200000).toDouble().toFormatMoney()} ",
+                      " ${HelperRNG.randInt(200000).toDouble().toFormatMoney()} ",
                   style: DefaultTextStyle.of(context)
                       .style
                       .bold

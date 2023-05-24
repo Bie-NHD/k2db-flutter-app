@@ -8,7 +8,7 @@ import '../../../../core/constant/color.dart';
 import '../../../../core/constant/dimension.dart';
 import '../../../../core/constant/text.dart';
 
-import '../screens/user/Modal/User.dart';
+import '../../core/model/user.dart';
 
 class UserTabBar extends StatefulWidget {
   const UserTabBar({Key? key, required this.user}) : super(key: key);

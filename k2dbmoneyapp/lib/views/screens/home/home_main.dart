@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_double.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
+import 'package:k2dbmoneyapp/core/helpers/help_random.dart';
 import 'package:k2dbmoneyapp/views/screens/home/detail_product_screeen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/notfication_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/products_screen.dart';
@@ -9,13 +10,14 @@ import 'package:k2dbmoneyapp/views/screens/home/top-up/top_up_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/home/transfer_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/user/qr_screen.dart';
 import 'package:k2dbmoneyapp/views/screens/user/user_main.dart';
-import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
+import 'package:k2dbmoneyapp/core/model/user.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/constant/dimension.dart';
 import '../../../core/constant/text.dart';
 import '../../../core/helpers/helper_asset.dart';
 import '../../../core/helpers/helper_image.dart';
+import '../../../core/helpers/demo_data.dart';
 import '../../../core/widgets/icon_textlink.dart';
 import '../../../core/widgets/widget_card_itemproduct.dart';
 import '../../widgets/widget_banner.dart';
@@ -229,27 +231,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 23,
+                      itemCount: HelperRNG.randIntBetween(10, 50),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: k8Padding,
                         mainAxisSpacing: k16Padding,
-                        childAspectRatio: 4 / 5,
+                        childAspectRatio: 3.5 / 5,
                       ),
-                      itemBuilder: (context, index) => CardItemProduct(
-                        imgProduct: HelperAssets.imgLeHanQuoc,
-                        nameProduct: "Lê Hàn Quốc siêu rẻ, siêu ngon bao ăn",
-                        imgStore: HelperAssets.logoBrandStore,
-                        nameStore: "Bách Hóa Xanh",
-                        price: 100000,
-                        quantity: 12500,
-                        discountPercent: 20,
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(DetailProductScreen.routeName);
-                        },
-                      ),
+                      itemBuilder: (context, index) {
+                        final MapEntry store = DemoData.demoStore.entries
+                            .elementAt(
+                                HelperRNG.randInt(DemoData.demoStore.length));
+                        final MapEntry product = DemoData.demoProduct.entries
+                            .elementAt(
+                            HelperRNG.randInt(DemoData.demoProduct.length));
+                        return CardItemProduct(
+                          imgProduct: product.value,
+                          nameProduct: product.key,
+                          imgStore: store.value,
+                          nameStore: store.key,
+                          price: HelperRNG.randIntBetween(15, 200) * 1000,
+                          quantity: HelperRNG.randInt(50),
+                          discountPercent: 10 + HelperRNG.randDouble(40),
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(DetailProductScreen.routeName);
+                          },
+                        );
+                      },
                     ),
                   )
                 ],

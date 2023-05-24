@@ -31,7 +31,7 @@ class _DetailExchangeGiftScreenState extends State<DetailExchangeGiftScreen> {
             backgroundColor: Colors.transparent, // Cho phép hiển thị ảnh nền
             elevation: 0, // Không có đường viền bóng ở phía dưới của AppBar
             flexibleSpace: Image.asset(
-              HelperAssets.iconThitHeo,
+              HelperAssets.imgThitHeo,
               fit: BoxFit.cover,
             ),
             leading: Padding(

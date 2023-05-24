@@ -6,7 +6,7 @@ import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
 import 'package:k2dbmoneyapp/core/constant/text.dart';
 import 'package:k2dbmoneyapp/core/extensions/extension_textstyle.dart';
-import 'package:k2dbmoneyapp/views/screens/user/Modal/User.dart';
+import 'package:k2dbmoneyapp/core/model/user.dart';
 
 import '../../../core/helpers/helper_validation.dart';
 import '../../widgets/widget_custom_textformfield.dart';
@@ -50,7 +50,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
     'phone num': TextEditingController.fromValue(
         TextEditingValue(text: user.security.phoneNum)),
     'name':
-        TextEditingController.fromValue(TextEditingValue(text: user.userName))
+        TextEditingController.fromValue(TextEditingValue(text: user.userName!))
   };
 
   //TODO: Data passing between screens behaviors
