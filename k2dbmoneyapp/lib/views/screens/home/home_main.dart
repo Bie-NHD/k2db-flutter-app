@@ -25,8 +25,10 @@ import '../../widgets/widget_card_function.dart';
 import '../../widgets/widget_card_itemtopproduct.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+   HomeScreen({Key? key}) : super(key: key);
   static const routeName = "/home_screen";
+
+  final User user = User.base;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: CircleAvatar(
               child: HelperImage.loadFromAsset(
-                HelperAssets.imageAvt,
+                user.userAvatar,
                 radius: BorderRadius.circular(kBorderRadiusMax * 2),
               ),
             ),
@@ -63,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyles.defaultStyle.colorAppBarText,
             ),
             Text(
-              "Hoang Gia Kiet",
+              "${user.userName}",
               style: TextStyles.defaultStyle.colorAppBarText.semiBold,
             ),
           ],
