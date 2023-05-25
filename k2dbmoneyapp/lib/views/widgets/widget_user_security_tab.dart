@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:k2dbmoneyapp/core/constant/color.dart';
 import 'package:k2dbmoneyapp/core/constant/dimension.dart';
-import 'package:k2dbmoneyapp/views/screens/others/CCCDScanScreen.dart';
 import 'package:k2dbmoneyapp/views/screens/others/citizen_scan.dart';
 
 import '../../core/model/user.dart';
